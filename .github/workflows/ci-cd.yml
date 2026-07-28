@@ -75,7 +75,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            cd ~/SotSambanGuestHouseMS || cd ~/app || cd /var/www/app
+            REPO_DIR=~/SotSambanGuestHouseMS
+            if [ ! -d "$REPO_DIR/.git" ]; then
+              echo "Repository not found on server, cloning fresh..."
+              git clone https://github.com/sophannDevs/SotSambanGuestHouseMS.git "$REPO_DIR"
+            fi
+            cd "$REPO_DIR"
             git pull origin main
             chmod +x scripts/deploy.sh
             ./scripts/deploy.sh
