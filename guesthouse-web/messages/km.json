@@ -1,0 +1,1250 @@
+{
+  "common": {
+    "actions": {
+      "save": "រក្សាទុក",
+      "saveAll": "រក្សាទុកការកំណត់ទាំងអស់",
+      "cancel": "បោះបង់",
+      "search": "ស្វែងរក",
+      "edit": "កែសម្រួល",
+      "delete": "លុប",
+      "add": "បន្ថែម",
+      "close": "បិទ",
+      "confirm": "បញ្ជាក់",
+      "back": "ថយក្រោយ",
+      "next": "បន្ទាប់",
+      "submit": "ដាក់ស្នើ",
+      "view": "មើល",
+      "logout": "ចាកចេញ",
+      "loggedOutSuccess": "បានចាកចេញដោយជោគជ័យ"
+    },
+    "status": {
+      "loading": "កំពុងផ្ទុក...",
+      "noResults": "រកមិនឃើញលទ្ធផលទេ"
+    },
+    "fallback": {
+      "guestUser": "ភ្ញៀវ"
+    }
+  },
+  "nav": {
+    "groups": {
+      "operations": "ប្រតិបត្តិការ",
+      "property": "អចលនទ្រព្យ",
+      "finance": "ហិរញ្ញវត្ថុ",
+      "management": "គ្រប់គ្រង",
+      "more": "ច្រើនទៀត"
+    },
+    "items": {
+      "dashboard": "ផ្ទាំងគ្រប់គ្រង",
+      "reservations": "ការកក់ទុក",
+      "calendar": "ប្រតិទិន",
+      "check-in": "ចូលស្នាក់នៅ",
+      "in-house": "ភ្ញៀវកំពុងស្នាក់នៅ",
+      "check-out": "ចេញពីស្នាក់នៅ",
+      "rooms": "បន្ទប់",
+      "housekeeping": "ផ្នែកសម្អាត",
+      "maintenance": "ជួសជុលថែទាំ",
+      "payments": "ការទូទាត់",
+      "expenses": "ចំណាយ",
+      "reports": "របាយការណ៍",
+      "guests": "ភ្ញៀវ",
+      "staff": "បុគ្គលិក",
+      "notifications": "ការជូនដំណឹង",
+      "settings": "ការកំណត់",
+      "minibar": "បារមីនី / ហាង"
+    },
+    "roomsChildren": {
+      "all": "បន្ទប់ទាំងអស់",
+      "board": "ក្តារស្ថានភាពបន្ទប់"
+    },
+    "brand": {
+      "name": "ផ្ទះសំណាក់",
+      "tagline": "កម្មវិធីគ្រប់គ្រង"
+    },
+    "footer": {
+      "version": "Local v0.1.0",
+      "online": "អនឡាញ"
+    },
+    "morePage": {
+      "title": "ច្រើនទៀត",
+      "description": "ខ្លឹមសារទាំងអស់ដែលអាចចូលបានពីរបារចំហៀង ត្រូវបានដាក់ជាក្រុមដូចគ្នា ងាយស្រួលប្រើប្រសិនបើអ្នកចូលមកទីនេះពីចំណាំ ឬតំណដែលបានចែករំលែក។"
+    }
+  },
+  "layout": {
+    "search": {
+      "placeholder": "ស្វែងរកភ្ញៀវ បន្ទប់ ការកក់ និងវិក្កយបត្រ..."
+    },
+    "tooltip": {
+      "toggleSidebar": "បិទ/បើករបារចំហៀង (Ctrl+B)",
+      "language": "ភាសា",
+      "switchLanguage": "ប្តូរភាសា",
+      "lightMode": "របៀបភ្លឺ",
+      "darkMode": "របៀបងងឹត",
+      "switchToLight": "ប្តូរទៅរបៀបភ្លឺ",
+      "switchToDark": "ប្តូរទៅរបៀបងងឹត",
+      "notifications": "ការជូនដំណឹង"
+    },
+    "menu": {
+      "profileSettings": "ប្រវត្តិរូប និងការកំណត់",
+      "logOut": "ចាកចេញ"
+    },
+    "mobileHeader": {
+      "goBack": "ថយក្រោយ",
+      "openMenu": "បើកម៉ឺនុយ",
+      "notifications": "ការជូនដំណឹង"
+    }
+  },
+  "auth": {
+    "brandTitle": "កម្មវិធីគ្រប់គ្រងផ្ទះសំណាក់",
+    "brandSubtitle": "ប្រព័ន្ធគ្រប់គ្រងអចលនទ្រព្យក្នុងតំបន់ • ផ្ទះសំណាក់សុទ្ធសំបាន",
+    "emailLabel": "អាសយដ្ឋានអ៊ីមែល",
+    "passwordLabel": "ពាក្យសម្ងាត់",
+    "rememberMe": "ចងចាំសម័យនេះ",
+    "signIn": "ចូលប្រើប្រាស់",
+    "signingIn": "កំពុងចូល...",
+    "quickDemoAccounts": "គណនីសាកល្បងរហ័ស",
+    "demoPassword": "ពាក្យសម្ងាត់៖ password123",
+    "demoRoles": {
+      "owner": "ម្ចាស់",
+      "manager": "អ្នកគ្រប់គ្រង",
+      "receptionist": "បុគ្គលិកទទួលភ្ញៀវ"
+    },
+    "demoDescriptions": {
+      "owner": "សិទ្ធិពេញលេញ",
+      "manager": "គ្រប់គ្រងប្រតិបត្តិការ",
+      "receptionist": "ការទទួលភ្ញៀវ និងកក់ទុក"
+    },
+    "invalidCredentials": "អ៊ីមែល ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ។",
+    "welcomeBack": "សូមស្វាគមន៍មកវិញ {name}!",
+    "offlineSignIn": "បានចូលប្រើប្រាស់ដោយសម័យក្នុងតំបន់ (ក្រៅបណ្តាញ)"
+  },
+  "settings": {
+    "pageTitle": "ការកំណត់",
+    "pageDescription": "ព័ត៌មានអចលនទ្រព្យ រូបិយប័ណ្ណ តំបន់ពេលវេលា អត្រាពន្ធ ច្បាប់ប្រាក់កក់ និងការកំណត់ប្រព័ន្ធ។",
+    "saveButton": "រក្សាទុកការកំណត់",
+    "savedSuccess": "បានរក្សាទុកការកំណត់ដោយជោគជ័យ!",
+    "profile": {
+      "roleCountry": "{role} · កម្ពុជា",
+      "ownerFallback": "ម្ចាស់ផ្ទះសំណាក់",
+      "roleFallback": "ម្ចាស់"
+    },
+    "rows": {
+      "businessProfile": "ព័ត៌មានអាជីវកម្ម",
+      "currency": "រូបិយប័ណ្ណ",
+      "exchangeRate": "អត្រាប្តូរប្រាក់",
+      "users": "អ្នកប្រើប្រាស់",
+      "notification": "ការជូនដំណឹង",
+      "backupRestore": "បម្រុងទុក និងស្ដារ",
+      "language": "ភាសា",
+      "aboutApp": "អំពីកម្មវិធី"
+    },
+    "tabs": {
+      "property": "ព័ត៌មានអចលនទ្រព្យ",
+      "taxes": "ពន្ធ និងតម្លៃ",
+      "policies": "ច្បាប់ និង Wi-Fi",
+      "language": "ភាសា",
+      "dev": "អភិវឌ្ឍន៍ក្នុងតំបន់"
+    },
+    "property": {
+      "generalInfo": "ព័ត៌មានទូទៅ",
+      "nameLabel": "ឈ្មោះផ្ទះសំណាក់",
+      "codeLabel": "លេខកូដអចលនទ្រព្យ (មិនអាចផ្លាស់ប្តូរ)",
+      "descriptionLabel": "ការពិពណ៌នា",
+      "timezoneLabel": "តំបន់ពេលវេលាប្រតិបត្តិការ",
+      "timezonePhnomPenh": "អាស៊ី/ភ្នំពេញ (UTC+7)",
+      "timezoneBangkok": "អាស៊ី/បាងកក (UTC+7)",
+      "timezoneUtc": "UTC",
+      "currencyLabel": "រូបិយប័ណ្ណ",
+      "addressContact": "អាសយដ្ឋាន និងទំនាក់ទំនង",
+      "addressLineLabel": "អាសយដ្ឋាន",
+      "cityLabel": "ក្រុង",
+      "provinceLabel": "ខេត្ត",
+      "checkTimes": "ម៉ោងចូល និងចេញស្នាក់នៅ",
+      "checkInLabel": "ម៉ោងចូលស្នាក់នៅស្តង់ដារ",
+      "checkOutLabel": "ម៉ោងចេញស្នាក់នៅស្តង់ដារ"
+    },
+    "taxes": {
+      "heading": "អត្រាពន្ធ និងវិក្កយបត្រ",
+      "vatLabel": "ភាគរយពន្ធអតិផរណា/ពន្ធលក់ (%)",
+      "tinLabel": "លេខអត្តសញ្ញាណកម្មពន្ធ (TIN)"
+    },
+    "policies": {
+      "wifiHeading": "ព័ត៌មានសម្ងាត់ Wi-Fi សម្រាប់ភ្ញៀវ",
+      "wifiNameLabel": "ឈ្មោះបណ្តាញ Wi-Fi (SSID)",
+      "wifiPasswordLabel": "ពាក្យសម្ងាត់ Wi-Fi",
+      "rulesHeading": "ច្បាប់ផ្ទះ និងគោលការណ៍លុបចោល",
+      "houseRulesLabel": "ច្បាប់ផ្ទះ",
+      "cancellationPolicyLabel": "គោលការណ៍លុបចោល"
+    },
+    "dev": {
+      "heading": "ប្រអប់សំបុត្រអភិវឌ្ឍន៍ក្នុងតំបន់",
+      "description": "នៅក្រោមទម្រង់ `local` តំណភ្ជាប់កំណត់ពាក្យសម្ងាត់ឡើងវិញ និងការជូនដំណឹងប្រព័ន្ធទាំងអស់ ត្រូវបានកត់ត្រានៅទីនេះ សម្រាប់មើលភ្លាមៗដោយមិនចាំបាច់ផ្ញើអ៊ីមែលពិតប្រាកដ។",
+      "simulatorTitle": "[កម្មវិធីក្លែងធ្វើអ៊ីមែលកុងសូល]",
+      "simulatedMailCount": "អ៊ីមែលក្លែងធ្វើចំនួន ១",
+      "toLabel": "ទៅកាន់",
+      "subjectLabel": "ប្រធានបទ",
+      "subjectValue": "សំណើកំណត់ពាក្យសម្ងាត់ឡើងវិញ",
+      "linkLabel": "តំណភ្ជាប់"
+    },
+    "language": {
+      "preferenceHeading": "ភាសាចំណុចប្រទាក់",
+      "preferenceDescription": "ប្តូរភ្លាមៗសម្រាប់អ្នកគ្រប់គ្នាដែលប្រើឧបករណ៍នេះ — មិនចាំបាច់ផ្ទុកទំព័រឡើងវិញទេ។",
+      "editorHeading": "កម្មវិធីកែសម្រួលការបកប្រែ",
+      "editorDescription": "ស្វែងរកស្លាកសញ្ញាណាមួយដែលប្រើនៅទូទាំងកម្មវិធី ហើយកែសម្រួលអត្ថបទភាសាអង់គ្លេស ឬខ្មែរ។ ការផ្លាស់ប្តូរអនុវត្តភ្លាមៗនៅទូទាំងកម្មវិធី។",
+      "searchPlaceholder": "ស្វែងរកតាមគន្លឹះ ឬអត្ថបទ...",
+      "columnKey": "គន្លឹះ",
+      "columnEnglish": "អង់គ្លេស",
+      "columnKhmer": "ខ្មែរ",
+      "noMatches": "រកមិនឃើញការបកប្រែដែលត្រូវនឹងការស្វែងរករបស់អ្នកទេ។",
+      "unsavedChangesLabel": "ការផ្លាស់ប្តូរមិនទាន់រក្សាទុក៖ {count}",
+      "discard": "បោះបង់ការផ្លាស់ប្តូរ",
+      "saveChanges": "រក្សាទុកការផ្លាស់ប្តូរ",
+      "savedSuccess": "បានធ្វើបច្ចុប្បន្នភាពការបកប្រែ",
+      "saveError": "មិនអាចរក្សាទុកការបកប្រែបានទេ",
+      "loadError": "មិនអាចផ្ទុកការបកប្រែបានទេ"
+    }
+  },
+  "enum": {
+    "status": {
+      "AVAILABLE": "ទំនេរ",
+      "OCCUPIED": "កំពុងប្រើប្រាស់",
+      "OCCUPIED_DIRTY": "កំពុងប្រើប្រាស់ (កខ្វក់)",
+      "RESERVED": "បានកក់",
+      "BLOCKED": "បិទ",
+      "OUT_OF_SERVICE": "មិនប្រើប្រាស់បាន",
+      "UNDER_MAINTENANCE": "កំពុងជួសជុល",
+      "MAINTENANCE": "ជួសជុល",
+      "CLEAN": "ស្អាត",
+      "DIRTY": "កខ្វក់",
+      "CLEANING": "កំពុងសម្អាត",
+      "IN_PROGRESS": "កំពុងដំណើរការ",
+      "INSPECTED": "បានត្រួតពិនិត្យ",
+      "DO_NOT_DISTURB": "សូមកុំរំខាន",
+      "CLEANING_REQUESTED": "បានស្នើសុំសម្អាត",
+      "COMPLETED": "បានបញ្ចប់",
+      "PENDING": "កំពុងរង់ចាំ",
+      "DRAFT": "សេចក្តីព្រាង",
+      "CONFIRMED": "បានបញ្ជាក់",
+      "CHECKED_IN": "បានចូលស្នាក់នៅ",
+      "CHECKED_OUT": "បានចេញស្នាក់នៅ",
+      "CANCELLED": "បានលុបចោល",
+      "NO_SHOW": "មិនបានមកដល់",
+      "WAITING_LIST": "បញ្ជីរង់ចាំ",
+      "UNPAID": "មិនទាន់បង់ប្រាក់",
+      "PARTIALLY_PAID": "បង់ខ្លះ",
+      "PAID": "បានបង់ប្រាក់",
+      "OVERPAID": "បង់លើស",
+      "FAILED": "បរាជ័យ",
+      "REFUNDED": "បានសងប្រាក់វិញ",
+      "PARTIALLY_REFUNDED": "សងប្រាក់វិញខ្លះ",
+      "VOIDED": "មិនមានសុពលភាព",
+      "ISSUED": "បានចេញ",
+      "SUBMITTED": "បានដាក់ស្នើ",
+      "APPROVED": "បានអនុម័ត",
+      "REJECTED": "បានបដិសេធ",
+      "REPORTED": "បានរាយការណ៍",
+      "RESOLVED": "បានដោះស្រាយ",
+      "ASSIGNED": "បានចាត់តាំង",
+      "WAITING_FOR_PARTS": "រង់ចាំគ្រឿងបន្លាស់",
+      "LOW": "ទាប",
+      "MEDIUM": "មធ្យម",
+      "HIGH": "ខ្ពស់",
+      "URGENT": "បន្ទាន់",
+      "LOCKED": "បានចាក់សោ",
+      "PENDING_ACTIVATION": "រង់ចាំដំណើរការ",
+      "ON_LEAVE": "កំពុងឈប់សម្រាក",
+      "SUSPENDED": "បានផ្អាក",
+      "TERMINATED": "បានបញ្ចប់កិច្ចសន្យា",
+      "VIP_GOLD": "ភ្ញៀវពិសេស (មាស)",
+      "STANDARD": "ស្តង់ដារ",
+      "ACTIVE": "សកម្ម",
+      "INACTIVE": "អសកម្ម"
+    }
+  },
+  "dashboard": {
+    "title": "ផ្ទាំងគ្រប់គ្រង",
+    "description": "ទិដ្ឋភាពទូទៅនៃប្រតិបត្តិការ អត្រាកាន់កាប់ និងសកម្មភាពប្រចាំថ្ងៃរបស់ផ្ទះសំណាក់។",
+    "newReservation": "ការកក់ថ្មី",
+    "todayOverview": "ទិដ្ឋភាពថ្ងៃនេះ",
+    "totalRevenue": "ចំណូលសរុប",
+    "quickStats": {
+      "checkIns": "ចូលស្នាក់នៅ",
+      "checkOuts": "ចេញស្នាក់នៅ",
+      "bookings": "ការកក់ទុក",
+      "inHouse": "កំពុងស្នាក់នៅ"
+    },
+    "roomStatusHeading": "ស្ថានភាពបន្ទប់",
+    "viewAll": "មើលទាំងអស់",
+    "stats": {
+      "occupancy": "អត្រាកាន់កាប់",
+      "occupancyDescription": "{occupied} នៃ {total} បន្ទប់ត្រូវបានកាន់កាប់ថ្ងៃនេះ",
+      "expectedArrival": "ការមកដល់ដែលរំពឹងទុក",
+      "expectedArrivalValue": "{count} ការស្នាក់នៅ",
+      "expectedArrivalDescription": "បានចូល {checkedIn}, រង់ចាំចូល {pending}",
+      "todayRevenue": "ចំណូលថ្ងៃនេះ",
+      "todayRevenueDescription": "≈ {khr} · កំណត់ត្រាប្រតិបត្តិការចំនួន {count}",
+      "housekeeping": "ផ្នែកសម្អាត",
+      "housekeepingValue": "កខ្វក់ {count}",
+      "housekeepingDescription": "ស្អាត {clean}, កំពុងសម្អាត {cleaning}"
+    },
+    "noAccess": "អ្នកមិនមានសិទ្ធិមើលទិន្នន័យនេះទេ",
+    "loadError": "មិនអាចផ្ទុកទិន្នន័យផ្ទាំងគ្រប់គ្រងផ្ទាល់បានទេ"
+  },
+  "reservations": {
+    "title": "ការកក់ទុក",
+    "description": "មើល ត្រង និងគ្រប់គ្រងការកក់ទុក ការស្នាក់នៅ និងគណនីភ្ញៀវរបស់ផ្ទះសំណាក់។",
+    "newBooking": "ការកក់ថ្មី",
+    "newReservationAria": "ការកក់ថ្មី",
+    "searchPlaceholder": "ស្វែងរកតាមលេខកក់ ឬឈ្មោះភ្ញៀវ...",
+    "tabs": {
+      "all": "ទាំងអស់",
+      "today": "ថ្ងៃនេះ",
+      "upcoming": "នាពេលខាងមុខ",
+      "history": "ប្រវត្តិ"
+    },
+    "emptyView": "មិនមានការកក់ទុកក្នុងទិដ្ឋភាពនេះទេ។",
+    "unassigned": "មិនទាន់កំណត់",
+    "loadError": "មិនអាចផ្ទុកការកក់ទុកបានទេ",
+    "table": {
+      "reservationNumber": "លេខកក់",
+      "guest": "ភ្ញៀវ",
+      "roomAndType": "បន្ទប់ និងប្រភេទ",
+      "stayDates": "កាលបរិច្ឆេទស្នាក់នៅ",
+      "folioTotal": "សរុបគណនី",
+      "balance": "សមតុល្យ",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព",
+      "details": "លម្អិត"
+    }
+  },
+  "calendar": {
+    "title": "ប្រតិទិនការកក់ទុក",
+    "description": "ទិដ្ឋភាពពេលវេលារបស់បន្ទប់ជាច្រើន សម្រាប់ការកាន់កាប់បន្ទប់ ការកក់ទុក និងការទប់ស្កាត់សម្រាប់ជួសជុល។",
+    "newBooking": "ការកក់ថ្មី",
+    "toastNewBooking": "បង្អួចកក់ថ្មីត្រូវបានបើក",
+    "today": "ថ្ងៃនេះ",
+    "roomColumn": "បន្ទប់"
+  },
+  "checkIn": {
+    "title": "ការិយាល័យចូលស្នាក់នៅ",
+    "description": "ភ្ញៀវរំពឹងមកដល់ ការប្រគល់សោ និងការទទួលយកច្បាប់ផ្ទះ។",
+    "actionLabel": "កក់ទុកសម្រាប់ភ្ញៀវអញ្ជើញផ្ទាល់",
+    "arrivalsHeading": "ភ្ញៀវរំពឹងមកដល់ ({count})",
+    "emptyArrivals": "មិនមានការកក់ទុកដែលបានបញ្ជាក់ ឬកំពុងរង់ចាំទេ។ គ្មានអ្វីត្រូវធ្វើទៀត!",
+    "loadError": "មិនអាចផ្ទុកភ្ញៀវរំពឹងមកដល់បានទេ។",
+    "unassigned": "មិនទាន់កំណត់",
+    "table": {
+      "reservationNumber": "លេខកក់ទុក",
+      "guestName": "ឈ្មោះភ្ញៀវ",
+      "roomAndType": "បន្ទប់ និងប្រភេទ",
+      "arrivalDate": "ថ្ងៃមកដល់",
+      "balanceDue": "សមតុល្យត្រូវបង់",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព"
+    },
+    "startCheckIn": "ចាប់ផ្តើមចូលស្នាក់នៅ",
+    "wizard": {
+      "title": "អ្នកជំនួយការចូលស្នាក់នៅ",
+      "steps": {
+        "guest": "ភ្ញៀវ",
+        "room": "បន្ទប់",
+        "confirm": "បញ្ជាក់"
+      },
+      "idNumber": "អត្តសញ្ញាណប័ណ្ណ / លិខិតឆ្លងដែន៖ {number}",
+      "assignedRoom": "បន្ទប់ដែលបានចាត់តាំង៖",
+      "roomWithType": "បន្ទប់ #{room} ({type})",
+      "assignRoomHeading": "ការកក់ទុកនេះមិនទាន់មានបន្ទប់កំណត់ទេ — សូមជ្រើសរើសខាងក្រោម។",
+      "noRoomsAvailable": "មិនមានបន្ទប់ទំនេរនៃប្រភេទនេះឥឡូវនេះទេ។",
+      "keyNumberLabel": "កាតសោ / លេខសោ",
+      "folioTotal": "សរុបគណនីភ្ញៀវ",
+      "balanceDue": "សមតុល្យត្រូវបង់",
+      "vehiclePlateLabel": "ស្លាកលេខរថយន្ត (ស្រេចចិត្ត)",
+      "notesLabel": "កំណត់ចំណាំចូលស្នាក់នៅ (សម្រាប់បុគ្គលិកមើលឃើញតែប៉ុណ្ណោះ)",
+      "houseRulesLabel": "ភ្ញៀវបានយល់ព្រមទទួលយកច្បាប់ផ្ទះ និងគោលការណ៍ម៉ោងស្ងាត់របស់អចលនទ្រព្យ",
+      "complete": "បញ្ចប់ការចូលស្នាក់នៅ",
+      "notAvailable": {
+        "guestsTitle": "ភ្ញៀវអមដំណើរ និងការផ្ទៀងផ្ទាត់អត្តសញ្ញាណ",
+        "guestsDescription": "ការបន្ថែមភ្ញៀវទៅក្នុងការស្នាក់នៅ និងការផ្ទុកឡើង/ផ្ទៀងផ្ទាត់អត្តសញ្ញាណមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។",
+        "depositTitle": "ការទទួលប្រាក់កក់",
+        "depositDescription": "ការកត់ត្រាប្រាក់កក់ ឬការទូទាត់ពីអ្នកជំនួយការនេះមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ — សូមកត់ត្រាតាមរយៈគណនីភ្ញៀវនៃការកក់ទុកជំនួសវិញ។",
+        "signatureTitle": "ការចាប់យកហត្ថលេខា",
+        "signatureDescription": "ការចាប់យកហត្ថលេខាភ្ញៀវនៅពេលចូលស្នាក់នៅមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។"
+      }
+    },
+    "toast": {
+      "checkInCompleted": "ការចូលស្នាក់នៅបានបញ្ចប់សម្រាប់ {name}! បន្ទប់ #{room} ឥឡូវនេះកំពុងប្រើប្រាស់។"
+    }
+  },
+  "checkOut": {
+    "title": "ការិយាល័យចេញស្នាក់នៅ",
+    "description": "ភ្ញៀវដែលកំពុងស្នាក់នៅឥឡូវនេះ ត្រៀមចេញស្នាក់នៅ ការប្រគល់សោត្រឡប់ និងការប្រគល់ជូនផ្នែកសម្អាត។",
+    "departuresHeading": "ការចេញស្នាក់នៅ ({count})",
+    "emptyDepartures": "មិនមានភ្ញៀវកំពុងស្នាក់នៅសម្រាប់ចេញស្នាក់ឥឡូវនេះទេ។",
+    "loadError": "មិនអាចផ្ទុកភ្ញៀវរំពឹងចេញបានទេ។",
+    "unassigned": "មិនទាន់កំណត់",
+    "table": {
+      "reservationNumber": "លេខកក់ទុក",
+      "guestName": "ឈ្មោះភ្ញៀវ",
+      "roomNumber": "លេខបន្ទប់",
+      "roomPrefix": "បន្ទប់ #{room}",
+      "departureDate": "ថ្ងៃចេញ",
+      "folioBalance": "សមតុល្យគណនីភ្ញៀវ",
+      "actions": "សកម្មភាព"
+    },
+    "processCheckOut": "ដំណើរការចេញស្នាក់នៅ",
+    "wizard": {
+      "title": "អ្នកជំនួយការចេញស្នាក់នៅ",
+      "steps": {
+        "review": "ពិនិត្យ",
+        "key": "សោ និងកំណត់ចំណាំ"
+      },
+      "roomGuest": "បន្ទប់ #{room} • {guestName}",
+      "stayLabel": "រយៈពេលស្នាក់នៅ",
+      "folioTotal": "សរុបគណនីភ្ញៀវ",
+      "paidAmount": "បានទូទាត់",
+      "balanceDue": "សមតុល្យត្រូវបង់",
+      "outstandingBalanceWarning": "គណនីភ្ញៀវនេះនៅមានសមតុល្យត្រូវបង់។ សូមកត់ត្រាការទូទាត់ដែលនៅសល់មុននឹងចេញស្នាក់នៅ ឬបន្តប្រសិនបើកំពុងទូទាត់ដោយវិធីផ្សេង។",
+      "keyReturnedLabel": "កាតសោត្រូវបានប្រគល់មកកន្លែងទទួលភ្ញៀវវិញ",
+      "notesLabel": "កំណត់ចំណាំចេញស្នាក់នៅ (សម្រាប់បុគ្គលិកមើលឃើញតែប៉ុណ្ណោះ)",
+      "reviewAndComplete": "ពិនិត្យ និងបញ្ចប់",
+      "notAvailable": {
+        "conditionTitle": "ស្ថានភាពបន្ទប់ និងការគិតថ្លៃខូចខាត",
+        "conditionDescription": "ការកត់ត្រាស្ថានភាពបន្ទប់ ភ្ជាប់រូបថត និងបន្ថែមការគិតថ្លៃខូចខាតមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។",
+        "invoiceTitle": "ការបង្កើតវិក្កយបត្រ និងបង្កាន់ដៃ",
+        "invoiceDescription": "ការបង្កើតវិក្កយបត្រ ឬបង្កាន់ដៃទូទាត់ពីការចេញស្នាក់នៅមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។"
+      }
+    },
+    "confirmDialog": {
+      "title": "បញ្ចប់ការចេញស្នាក់នៅនេះ?",
+      "description": "សកម្មភាពនេះនឹងបញ្ចប់ការស្នាក់នៅរបស់ {guestName} ចាក់សោគណនីភ្ញៀវ និងសម្គាល់បន្ទប់ #{room} ថាកខ្វក់សម្រាប់ផ្នែកសម្អាត។ សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។",
+      "confirmLabel": "បញ្ចប់ការចេញស្នាក់នៅ"
+    },
+    "toast": {
+      "completed": "ការចេញស្នាក់នៅបានបញ្ចប់សម្រាប់ {name}! បន្ទប់ #{room} ឥឡូវនេះទំនេរ និងបានសម្គាល់ថាកខ្វក់។"
+    }
+  },
+  "inHouse": {
+    "title": "ភ្ញៀវកំពុងស្នាក់នៅ",
+    "description": "ភ្ញៀវដែលកំពុងចូលស្នាក់នៅបច្ចុប្បន្ន ចំនួនយប់នៅសល់ ស្ថានភាពបន្ទប់ និងសមតុល្យគណនីភ្ញៀវ។",
+    "staysHeading": "ការស្នាក់នៅបច្ចុប្បន្ន ({count})",
+    "emptyList": "មិនមានភ្ញៀវកំពុងចូលស្នាក់នៅឥឡូវនេះទេ។",
+    "loadError": "មិនអាចផ្ទុកភ្ញៀវកំពុងស្នាក់នៅបានទេ។",
+    "unassigned": "មិនទាន់កំណត់",
+    "table": {
+      "roomNumber": "លេខបន្ទប់",
+      "roomPrefix": "បន្ទប់ #{room}",
+      "guestName": "ឈ្មោះភ្ញៀវ",
+      "reservationNumber": "លេខកក់ទុក",
+      "checkInOut": "មកដល់ / ចេញ",
+      "remaining": "នៅសល់",
+      "housekeeping": "ផ្នែកសម្អាត",
+      "folioBalance": "សមតុល្យគណនីភ្ញៀវ",
+      "actions": "សកម្មភាព",
+      "nightsLeft": "នៅសល់ {count} យប់",
+      "folio": "គណនីភ្ញៀវ",
+      "checkOut": "ចេញស្នាក់នៅ"
+    }
+  },
+  "rooms": {
+    "mobileTitle": "បន្ទប់",
+    "filterRoomsAriaLabel": "ត្រងបន្ទប់",
+    "searchPlaceholder": "ស្វែងរកលេខបន្ទប់ ឬប្រភេទ...",
+    "title": "បន្ទប់ និងប្រភេទបន្ទប់",
+    "description": "គ្រប់គ្រងបន្ទប់ភ្ញៀវដំណាក់ ការបង្កើតច្រើនក្នុងពេលតែមួយ តម្លៃ អត្រាកាន់កាប់ និងប្រភេទបន្ទប់។",
+    "loadError": "មិនអាចផ្ទុកបន្ទប់បានទេ។",
+    "perNight": "/ យប់",
+    "actions": {
+      "bulkCreateRooms": "បង្កើតបន្ទប់ច្រើន",
+      "addRooms": "បន្ថែមបន្ទប់",
+      "addRoomType": "បន្ថែមប្រភេទបន្ទប់"
+    },
+    "tabs": {
+      "inventory": "សារពើភ័ណ្ឌបន្ទប់ ({count})",
+      "types": "ប្រភេទបន្ទប់ ({count})"
+    },
+    "sections": {
+      "allRooms": "បន្ទប់ទាំងអស់"
+    },
+    "table": {
+      "roomNumber": "លេខបន្ទប់",
+      "roomType": "ប្រភេទបន្ទប់",
+      "floor": "ជាន់",
+      "maxOccupancy": "ចំនួនអតិថិជនអតិបរមា",
+      "priceNight": "តម្លៃ / យប់",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព",
+      "adultsCount": "{count} មនុស្សពេញវ័យ"
+    },
+    "card": {
+      "capacity": "សមត្ថភាព៖ {adults} មនុស្សពេញវ័យ, {children} កុមារ • {beds} គ្រែប្រភេទ {bedType}",
+      "size": "ទំហំ៖ {size} ម²",
+      "amenities": "ភាពងាយស្រួល៖ {list}"
+    },
+    "toast": {
+      "bulkCreateSuccess": "បានបង្កើតបន្ទប់ {count}!",
+      "typeCreated": "បានបង្កើតប្រភេទបន្ទប់!",
+      "typeUpdated": "បានធ្វើបច្ចុប្បន្នភាពប្រភេទបន្ទប់!",
+      "typeDeleted": "បានលុបប្រភេទបន្ទប់!"
+    },
+    "deleteDialog": {
+      "title": "លុបប្រភេទបន្ទប់នេះ?",
+      "description": "សកម្មភាពនេះនឹងលុប \"{name}\" ចេញពីបញ្ជីប្រភេទបន្ទប់។ ប្រភេទបន្ទប់ដែលនៅមានបន្ទប់ពិតប្រាកដយោងទៅមិនអាចលុបបានទេ។"
+    },
+    "bulkDialog": {
+      "title": "បង្កើតបន្ទប់ច្រើន",
+      "description": "បង្កើតបន្ទប់ជាបណ្តុំតាមលេខ ជាន់ និងបុព្វបទស្រេចចិត្ត។",
+      "roomTypeLabel": "ប្រភេទបន្ទប់",
+      "roomTypePlaceholder": "ជ្រើសរើសប្រភេទបន្ទប់",
+      "startNumberLabel": "លេខចាប់ផ្តើម",
+      "endNumberLabel": "លេខបញ្ចប់",
+      "floorLabel": "ជាន់",
+      "buildingLabel": "អាគារ",
+      "prefixLabel": "បុព្វបទ (ស្រេចចិត្ត)",
+      "prefixDescription": "ឧទាហរណ៍ \"A-\" នឹងបង្កើត A-101, A-102, ...",
+      "prefixPlaceholder": "ឧទាហរណ៍ A-",
+      "preview": "មើលជាមុន៖ បន្ទប់ {count} នឹងត្រូវបានបង្កើត ({from} ដល់ {to}) នៅជាន់ទី {floor}។",
+      "submit": "បង្កើតបន្ទប់ {count}"
+    },
+    "typeDialog": {
+      "createTitle": "បន្ថែមប្រភេទបន្ទប់",
+      "editTitle": "កែសម្រួលប្រភេទបន្ទប់",
+      "description": "តម្លៃ សមត្ថភាព និងភាពងាយស្រួលសម្រាប់ប្រភេទបន្ទប់នេះ។",
+      "sections": {
+        "basics": "ព័ត៌មានមូលដ្ឋាន",
+        "capacity": "សមត្ថភាព",
+        "pricing": "តម្លៃ",
+        "amenities": "ភាពងាយស្រួល"
+      },
+      "nameLabel": "ឈ្មោះ",
+      "codeLabel": "កូដ",
+      "descriptionLabel": "ការពិពណ៌នា",
+      "maxAdultsLabel": "មនុស្សពេញវ័យអតិបរមា",
+      "maxChildrenLabel": "កុមារអតិបរមា",
+      "bedCountLabel": "ចំនួនគ្រែ",
+      "bedTypeLabel": "ប្រភេទគ្រែ",
+      "bedTypes": {
+        "SINGLE": "គ្រែតែមួយ",
+        "DOUBLE": "គ្រែពីរនាក់",
+        "QUEEN": "គ្រែគួន",
+        "KING": "គ្រែគីង",
+        "TWIN": "គ្រែភ្លោះ",
+        "BUNK": "គ្រែជាន់"
+      },
+      "roomSizeLabel": "ទំហំបន្ទប់ (ម²)",
+      "basePriceLabel": "តម្លៃមូលដ្ឋាន / យប់",
+      "extraBedPriceLabel": "តម្លៃគ្រែបន្ថែម",
+      "extraPersonPriceLabel": "តម្លៃមនុស្សបន្ថែម",
+      "cleaningFeeLabel": "ថ្លៃសម្អាត",
+      "defaultDepositLabel": "ប្រាក់កក់លំនាំដើម",
+      "activeLabel": "សកម្ម (អាចកក់បាន)",
+      "createSubmit": "បង្កើតប្រភេទបន្ទប់"
+    }
+  },
+  "roomsBoard": {
+    "title": "ក្តារស្ថានភាពបន្ទប់",
+    "description": "ក្រឡាចត្រង្គស្ថានភាពប្រតិបត្តិការ និងសម្អាតបន្ទប់ ដាក់ជាក្រុមតាមជាន់។ ធ្វើបច្ចុប្បន្នភាពដោយស្វ័យប្រវត្តិរៀងរាល់ ១៥ វិនាទី។",
+    "loadError": "មិនអាចផ្ទុកក្តារស្ថានភាពបន្ទប់បានទេ។",
+    "actions": {
+      "blockRoom": "បិទបន្ទប់"
+    },
+    "summary": {
+      "totalRooms": "បន្ទប់សរុប"
+    },
+    "filters": {
+      "floorLabel": "ត្រងតាមជាន់៖",
+      "allFloors": "គ្រប់ជាន់",
+      "floorNumber": "ជាន់ទី {floor}"
+    },
+    "boardStatus": {
+      "occupiedDirty": "កំពុងប្រើប្រាស់ - កខ្វក់"
+    },
+    "tile": {
+      "guestLabel": "ភ្ញៀវ៖",
+      "housekeepingLabel": "ផ្នែកសម្អាត",
+      "blockAction": "បិទបន្ទប់នេះ"
+    },
+    "toast": {
+      "housekeepingUpdated": "បានធ្វើបច្ចុប្បន្នភាពស្ថានភាពសម្អាត!",
+      "roomBlocked": "បានបិទបន្ទប់ដោយជោគជ័យ!"
+    },
+    "blockDialog": {
+      "title": "បិទបន្ទប់មួយ",
+      "titleWithRoom": "បិទបន្ទប់ #{room}",
+      "description": "ដកបន្ទប់នេះចេញពីភាពអាចកក់បានសម្រាប់ចន្លោះកាលបរិច្ឆេទ និងកត់ត្រាមូលហេតុ។",
+      "roomLabel": "បន្ទប់",
+      "roomPlaceholder": "ជ្រើសរើសបន្ទប់",
+      "startDateLabel": "ថ្ងៃចាប់ផ្តើម",
+      "endDateLabel": "ថ្ងៃបញ្ចប់",
+      "reasonLabel": "មូលហេតុនៃការបិទ",
+      "reasons": {
+        "MAINTENANCE": "ការជួសជុលថែទាំ",
+        "RENOVATION": "ការកែលម្អ",
+        "OWNER_USE": "ម្ចាស់ប្រើប្រាស់",
+        "DEEP_CLEANING": "ការសម្អាតស៊ីជម្រៅ",
+        "INSPECTION": "ការត្រួតពិនិត្យ",
+        "OTHER": "ផ្សេងទៀត"
+      },
+      "noteLabel": "កំណត់ចំណាំ (ស្រេចចិត្ត)",
+      "notePlaceholder": "សេចក្តីលម្អិតមូលហេតុ...",
+      "confirm": "បញ្ជាក់ការបិទបន្ទប់"
+    }
+  },
+  "roomDetail": {
+    "mobileTitle": "លម្អិតបន្ទប់",
+    "loadError": "មិនអាចផ្ទុកបន្ទប់នេះបានទេ។",
+    "notFound": {
+      "message": "រកមិនឃើញបន្ទប់ទេ។",
+      "backLink": "ត្រឡប់ទៅបន្ទប់វិញ"
+    },
+    "roomNumberLabel": "បន្ទប់ {number}",
+    "maxOccupancyGuests": "{count} ភ្ញៀវ",
+    "labels": {
+      "maxCapacity": "សមត្ថភាពអតិបរមា",
+      "floor": "ជាន់ទី {floor}"
+    },
+    "sections": {
+      "amenities": "ភាពងាយស្រួល",
+      "pricingCapacity": "តម្លៃ និងសមត្ថភាព"
+    },
+    "actions": {
+      "editRoom": "កែសម្រួលបន្ទប់"
+    },
+    "toast": {
+      "notAvailable": "ការកែសម្រួលបន្ទប់នីមួយៗមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។"
+    },
+    "title": "បន្ទប់ {number} — {type}",
+    "description": "លម្អិតបន្ទប់ តម្លៃ សមត្ថភាព និងភាពងាយស្រួល។",
+    "perNight": "/ យប់",
+    "maxOccupancyMaximum": "{count} ភ្ញៀវអតិបរមា"
+  },
+  "guests": {
+    "mobileTitle": "ភ្ញៀវ",
+    "addGuestAriaLabel": "បន្ថែមភ្ញៀវ",
+    "searchPlaceholder": "ស្វែងរកភ្ញៀវតាមឈ្មោះ អ៊ីមែល លេខទូរស័ព្ទ ឬលេខសម្គាល់...",
+    "title": "បញ្ជីភ្ញៀវ",
+    "description": "គ្រប់គ្រងព័ត៌មានលម្អិតភ្ញៀវ ព័ត៌មានទំនាក់ទំនង ព័ត៌មានលិខិតឆ្លងដែន និងស្ថានភាពភ្ញៀវពិសេស។",
+    "loadError": "មិនអាចផ្ទុកភ្ញៀវបានទេ។",
+    "actions": {
+      "newGuest": "ភ្ញៀវថ្មី",
+      "viewProfile": "មើលប្រវត្តិរូប"
+    },
+    "table": {
+      "guestName": "ឈ្មោះភ្ញៀវ",
+      "contact": "ទំនាក់ទំនង",
+      "passportId": "លិខិតឆ្លងដែន / អត្តសញ្ញាណប័ណ្ណ",
+      "nationality": "សញ្ជាតិ",
+      "vipLevel": "កម្រិតភ្ញៀវពិសេស",
+      "stays": "ចំនួនដងស្នាក់នៅ",
+      "actions": "សកម្មភាព"
+    },
+    "staysCount": "{count} ដងស្នាក់នៅ",
+    "toast": {
+      "guestCreated": "{name} ត្រូវបានបន្ថែមទៅក្នុងបញ្ជីភ្ញៀវ!"
+    },
+    "newDialog": {
+      "title": "ភ្ញៀវថ្មី",
+      "description": "បន្ថែមភ្ញៀវទៅក្នុងបញ្ជី។",
+      "firstNameLabel": "ឈ្មោះខ្លួន",
+      "lastNameLabel": "នាមត្រកូល",
+      "phoneLabel": "លេខទូរស័ព្ទ",
+      "emailLabel": "អ៊ីមែល",
+      "idPassportLabel": "លេខអត្តសញ្ញាណប័ណ្ណ / លិខិតឆ្លងដែន",
+      "nationalityLabel": "សញ្ជាតិ",
+      "nationalities": {
+        "cambodian": "កម្ពុជា",
+        "american": "អាមេរិកាំង",
+        "british": "អង់គ្លេស",
+        "other": "ផ្សេងទៀត"
+      },
+      "notesLabel": "កំណត់ចំណាំ",
+      "submit": "បន្ថែមភ្ញៀវ"
+    }
+  },
+  "guestDetail": {
+    "mobileTitle": "លម្អិតភ្ញៀវ",
+    "loadError": "មិនអាចផ្ទុកភ្ញៀវនេះបានទេ។",
+    "notFound": {
+      "message": "រកមិនឃើញភ្ញៀវទេ។",
+      "backLink": "ត្រឡប់ទៅភ្ញៀវវិញ"
+    },
+    "labels": {
+      "totalBookings": "ការកក់សរុប",
+      "totalSpending": "ការចំណាយសរុប",
+      "latestCheckIn": "ការស្នាក់នៅចុងក្រោយ",
+      "room": "បន្ទប់",
+      "bookingHistory": "ប្រវត្តិការកក់"
+    },
+    "noBookings": "មិនទាន់មានការកក់ទេ។"
+  },
+  "housekeeping": {
+    "mobileTitle": "ផ្នែកសម្អាត",
+    "title": "គ្រប់គ្រងផ្នែកសម្អាត",
+    "description": "កាលវិភាគសម្អាតបន្ទប់ប្រចាំថ្ងៃ ភារកិច្ចសម្អាតកំឡុងពេលស្នាក់នៅ ការសម្អាតស៊ីជម្រៅ និងការតាមដានត្រួតពិនិត្យ។",
+    "loadError": "មិនអាចផ្ទុកភារកិច្ចសម្អាតបានទេ។",
+    "tabs": {
+      "toClean": "ត្រូវសម្អាត",
+      "inProgress": "កំពុងដំណើរការ",
+      "completed": "បានបញ្ចប់"
+    },
+    "summary": {
+      "pendingCleaning": "រង់ចាំសម្អាត",
+      "inProgress": "កំពុងដំណើរការ",
+      "completedToday": "បានបញ្ចប់ថ្ងៃនេះ"
+    },
+    "table": {
+      "roomNumber": "លេខបន្ទប់",
+      "taskType": "ប្រភេទភារកិច្ច",
+      "priority": "អាទិភាព",
+      "scheduled": "កាលវិភាគ",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព"
+    },
+    "roomLabel": "បន្ទប់ {number}",
+    "roomNumberHash": "បន្ទប់ #{number}",
+    "actions": {
+      "startCleaning": "ចាប់ផ្តើមសម្អាត",
+      "markComplete": "សម្គាល់ថាបានបញ្ចប់",
+      "markClean": "សម្គាល់ថាស្អាត"
+    },
+    "emptyState": {
+      "message": "មិនមានអ្វីនៅទីនេះទេពេលនេះ។"
+    },
+    "toast": {
+      "statusUpdated": "បានធ្វើបច្ចុប្បន្នភាពស្ថានភាពភារកិច្ចទៅជា {status}!"
+    }
+  },
+  "housekeepingDetail": {
+    "title": "លំហូរការងារសម្អាត",
+    "description": "បន្ទប់ {room} — ដំណើរការតាមជំហាននៃការសម្អាតបន្ទប់។",
+    "loadError": "មិនអាចផ្ទុកភារកិច្ចនេះបានទេ។",
+    "notFound": {
+      "title": "រកមិនឃើញភារកិច្ចទេ",
+      "description": "ភារកិច្ចសម្អាតនេះមិនមានទេ ឬប្រហែលជាបានបញ្ចប់រួចហើយ។",
+      "backAction": "ត្រឡប់ទៅផ្នែកសម្អាតវិញ"
+    },
+    "steps": {
+      "start": {
+        "title": "ចាប់ផ្តើមសម្អាត",
+        "description": "បន្ទប់រួចរាល់សម្រាប់សម្អាត"
+      },
+      "inProgress": {
+        "title": "កំពុងដំណើរការ",
+        "description": "កំពុងសម្អាត"
+      },
+      "complete": {
+        "title": "បញ្ចប់",
+        "description": "បន្ទប់ស្អាតរួចរាល់"
+      }
+    },
+    "actions": {
+      "advanceTo": "បន្តទៅ {title}",
+      "markAsComplete": "សម្គាល់ថាបានបញ្ចប់"
+    },
+    "toast": {
+      "roomMarked": "បន្ទប់ {room} បានសម្គាល់ថា {status}!"
+    }
+  },
+  "maintenance": {
+    "title": "គ្រប់គ្រងការជួសជុលថែទាំ",
+    "description": "រាយការណ៍ការជួសជុលឧបករណ៍ តាមដានបញ្ហាថែទាំបន្ទប់ និងគ្រប់គ្រងការបិទបន្ទប់។",
+    "loadError": "មិនអាចផ្ទុកបញ្ហាថែទាំបានទេ។",
+    "emptyState": "មិនមានបញ្ហាថែទាំបានរាយការណ៍ទេ។",
+    "actions": {
+      "reportIssue": "រាយការណ៍បញ្ហា",
+      "resolveIssue": "ដោះស្រាយបញ្ហា"
+    },
+    "toast": {
+      "issueReported": "បានរាយការណ៍បញ្ហាថែទាំសម្រាប់បន្ទប់ #{roomNumber}!",
+      "issueResolved": "បញ្ហាថែទាំសម្រាប់បន្ទប់ #{roomNumber} ត្រូវបានដោះស្រាយ! ស្ថានភាពបន្ទប់ត្រូវបានស្តារទៅជា {status}។"
+    },
+    "sections": {
+      "reportedIssues": "បញ្ហាថែទាំដែលបានរាយការណ៍ ({count})"
+    },
+    "table": {
+      "roomNumber": "លេខបន្ទប់",
+      "titleDescription": "ចំណងជើង និងការពិពណ៌នា",
+      "severity": "កម្រិតធ្ងន់ធ្ងរ",
+      "roomBlock": "ការបិទបន្ទប់",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព"
+    },
+    "roomNumberHash": "បន្ទប់ #{number}",
+    "labels": {
+      "nonBlocking": "មិនរារាំង"
+    },
+    "reportDialog": {
+      "title": "រាយការណ៍បញ្ហាថែទាំ",
+      "description": "កត់ត្រាបញ្ហាជួសជុល ឬថែទាំសម្រាប់បន្ទប់មួយ។",
+      "roomLabel": "បន្ទប់",
+      "roomPlaceholder": "ជ្រើសរើសបន្ទប់",
+      "titleLabel": "ចំណងជើងបញ្ហា",
+      "titlePlaceholder": "ឧទាហរណ៍ ម៉ាស៊ីនត្រជាក់ជ្រាបទឹក",
+      "descriptionLabel": "ការពិពណ៌នា",
+      "severityLabel": "កម្រិតធ្ងន់ធ្ងរ",
+      "blockingLabel": "បញ្ហានេះរារាំងបន្ទប់មិនឱ្យលក់បាន (កំណត់ជាកំពុងជួសជុលថែទាំ)",
+      "submit": "រាយការណ៍បញ្ហា"
+    }
+  },
+  "payments": {
+    "title": "ការទូទាត់ និងបង្កាន់ដៃ",
+    "description": "កត់ត្រាការទូទាត់របស់ភ្ញៀវ និងមើលប្រវត្តិប្រតិបត្តិការ។",
+    "loadError": "មិនអាចផ្ទុកការទូទាត់បានទេ។",
+    "actions": {
+      "recordPayment": "កត់ត្រាការទូទាត់"
+    },
+    "toasts": {
+      "recorded": "ការទូទាត់ {paymentNumber} ត្រូវបានកត់ត្រា!",
+      "receiptNotAvailable": "ការទាញយកបង្កាន់ដៃមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។"
+    },
+    "search": {
+      "placeholder": "ស្វែងរកតាមលេខការទូទាត់ លេខកក់ទុក ឬឈ្មោះភ្ញៀវ..."
+    },
+    "table": {
+      "paymentNumber": "លេខការទូទាត់",
+      "reservationNumber": "លេខកក់ទុក",
+      "guest": "ភ្ញៀវ",
+      "amount": "ចំនួនទឹកប្រាក់",
+      "method": "វិធីសាស្ត្រ",
+      "kind": "ប្រភេទ",
+      "status": "ស្ថានភាព",
+      "timestamp": "ពេលវេលា",
+      "receipt": "បង្កាន់ដៃ"
+    },
+    "methods": {
+      "CASH": "សាច់ប្រាក់",
+      "CREDIT_CARD": "កាត",
+      "KHQR": "KHQR",
+      "BANK_TRANSFER": "ផ្ទេរប្រាក់តាមធនាគារ"
+    },
+    "kinds": {
+      "PAYMENT": "ការទូទាត់",
+      "DEPOSIT": "ប្រាក់កក់",
+      "REFUND": "ការសងប្រាក់វិញ"
+    },
+    "recordDialog": {
+      "title": "កត់ត្រាការទូទាត់",
+      "description": "អនុវត្តការទូទាត់ទៅគណនីភ្ញៀវនៃការកក់ទុកមួយ។",
+      "reservationLabel": "ការកក់ទុក",
+      "reservationSearchPlaceholder": "ស្វែងរកលេខកក់ទុក ឬឈ្មោះភ្ញៀវ...",
+      "noMatches": "រកមិនឃើញការកក់ទុកដែលត្រូវគ្នាទេ។",
+      "amountLabel": "ចំនួនទឹកប្រាក់",
+      "methodLabel": "វិធីសាស្ត្រ",
+      "kindLabel": "ប្រភេទ",
+      "transactionReferenceLabel": "លេខយោងប្រតិបត្តិការ (ស្រេចចិត្ត)",
+      "submit": "កត់ត្រាការទូទាត់"
+    }
+  },
+  "expenses": {
+    "title": "ការគ្រប់គ្រងចំណាយ",
+    "description": "កត់ត្រាចំណាយប្រតិបត្តិការ និងតាមដានចំណាយអចលនទ្រព្យ។",
+    "loadError": "មិនអាចផ្ទុកចំណាយបានទេ។",
+    "actions": {
+      "recordExpense": "កត់ត្រាចំណាយ",
+      "approve": "អនុម័ត"
+    },
+    "toasts": {
+      "recorded": "ចំណាយ {expenseNumber} ត្រូវបានកត់ត្រា!",
+      "approved": "ចំណាយត្រូវបានអនុម័ត!"
+    },
+    "search": {
+      "placeholder": "ស្វែងរកចំណាយតាមលេខ ការពិពណ៌នា ឬអ្នកផ្គត់ផ្គង់..."
+    },
+    "table": {
+      "expenseNumber": "លេខចំណាយ",
+      "category": "ប្រភេទ",
+      "description": "ការពិពណ៌នា",
+      "vendor": "អ្នកផ្គត់ផ្គង់",
+      "amount": "ចំនួនទឹកប្រាក់",
+      "date": "កាលបរិច្ឆេទ",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព"
+    },
+    "categories": {
+      "ELECTRICITY": "អគ្គិសនី",
+      "WATER": "ទឹក",
+      "INTERNET": "អ៊ីនធឺណិត",
+      "SUPPLIES": "សម្ភារៈប្រើប្រាស់",
+      "MAINTENANCE": "ការជួសជុលថែទាំ",
+      "STAFF": "បុគ្គលិក",
+      "OTHER": "ផ្សេងទៀត"
+    },
+    "newDialog": {
+      "title": "កត់ត្រាចំណាយ",
+      "description": "កត់ត្រាចំណាយប្រតិបត្តិការមួយ។",
+      "categoryLabel": "ប្រភេទ",
+      "descriptionLabel": "ការពិពណ៌នា",
+      "amountLabel": "ចំនួនទឹកប្រាក់",
+      "dateLabel": "កាលបរិច្ឆេទ",
+      "vendorLabel": "អ្នកផ្គត់ផ្គង់ (ស្រេចចិត្ត)",
+      "paymentMethodLabel": "វិធីទូទាត់",
+      "methods": {
+        "CASH": "សាច់ប្រាក់",
+        "BANK_TRANSFER": "ផ្ទេរប្រាក់តាមធនាគារ",
+        "CREDIT_CARD": "កាត"
+      },
+      "notesLabel": "កំណត់ចំណាំ",
+      "submit": "កត់ត្រាចំណាយ"
+    }
+  },
+  "invoices": {
+    "title": "វិក្កយបត្រ និងគិតប្រាក់",
+    "mobileTitle": "វិក្កយបត្រ",
+    "description": "មើលវិក្កយបត្រធម្មតារបស់ភ្ញៀវ វិក្កយបត្រពន្ធ និងកំណត់ត្រាគិតប្រាក់។",
+    "loadError": "មិនអាចផ្ទុកវិក្កយបត្របានទេ។",
+    "actions": {
+      "newInvoice": "វិក្កយបត្រថ្មី",
+      "preview": "មើលជាមុន"
+    },
+    "toasts": {
+      "issuanceNotAvailable": "ការចេញវិក្កយបត្រថ្មីមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។",
+      "pdfNotAvailable": "ការមើលឯកសារ PDF វិក្កយបត្រជាមុនមិនទាន់អាចប្រើបានក្នុងកំណែនេះទេ។"
+    },
+    "search": {
+      "placeholder": "ស្វែងរកវិក្កយបត្រតាមលេខ ឬភ្ញៀវ...",
+      "placeholderShort": "ស្វែងរកវិក្កយបត្រ..."
+    },
+    "table": {
+      "invoiceNumber": "លេខវិក្កយបត្រ",
+      "reservationNumber": "លេខកក់ទុក",
+      "guestName": "ឈ្មោះភ្ញៀវ",
+      "type": "ប្រភេទ",
+      "subtotal": "សរុបរង",
+      "vat": "អាករ (10%)",
+      "grandTotal": "សរុបទាំងអស់",
+      "status": "ស្ថានភាព",
+      "actions": "សកម្មភាព"
+    },
+    "type": {
+      "STANDARD": "ស្តង់ដារ",
+      "TAX_INVOICE": "វិក្កយបត្រពន្ធ"
+    }
+  },
+  "reports": {
+    "title": "របាយការណ៍ និងការវិភាគ",
+    "description": "របាយការណ៍ហិរញ្ញវត្ថុពេញលេញ ទិដ្ឋភាពទូទៅផលចំណេញ និងខាតបង់ អត្រាកម្រិតកន្លែងស្នាក់នៅ និងសូចនាករ ADR, RevPAR។",
+    "actions": {
+      "exportReport": "នាំចេញរបាយការណ៍",
+      "exportCsv": "នាំចេញរបាយការណ៍ជា CSV"
+    },
+    "toasts": {
+      "reportExported": "របាយការណ៍បាននាំចេញ",
+      "csvExported": "របាយការណ៍ហិរញ្ញវត្ថុបាននាំចេញជា CSV"
+    },
+    "stats": {
+      "revenue": "ចំណូល",
+      "bookings": "ការកក់ទុក",
+      "checkIns": "ចូលស្នាក់នៅ",
+      "checkOuts": "ចេញពីស្នាក់នៅ",
+      "grossRevenue": "ចំណូលសរុប",
+      "vsLastMonth": "{percent} បើធៀបនឹងខែមុន",
+      "approvedExpenses": "ចំណាយដែលបានអនុម័ត",
+      "approvedExpensesDescription": "សេវាកម្មសាធារណៈ អ៊ីនធឺណិត សម្ភារៈប្រើប្រាស់",
+      "netProfit": "ប្រាក់ចំណេញសុទ្ធ",
+      "profitMargin": "{percent}% អត្រាចំណេញ",
+      "occupancyRate": "អត្រាកន្លែងស្នាក់នៅ",
+      "adrRevPar": "ADR: {adr} • RevPAR: {revpar}"
+    },
+    "charts": {
+      "revenueChart": "តារាងចំណូល",
+      "revenueTrendToday": "និន្នាការចំណូល (ថ្ងៃនេះ)",
+      "plSummary": "សេចក្តីសង្ខេបផលចំណេញ-ខាតបង់ ({month})"
+    },
+    "table": {
+      "roomRevenue": "ចំណូលពីបន្ទប់",
+      "utilitiesSupplies": "សេវាកម្មសាធារណៈ និងសម្ភារៈប្រើប្រាស់",
+      "netOperatingProfit": "ប្រាក់ចំណេញប្រតិបត្តិការសុទ្ធ"
+    }
+  },
+  "minibar": {
+    "title": "បារមីនី / ហាង",
+    "mobileTitle": "បារមីនី",
+    "description": "លក់ទំនិញបារមីនី និងចំណាយបន្ថែម ដោយគិតប្រាក់ដោយផ្ទាល់ទៅគណនីបន្ទប់របស់ភ្ញៀវ។",
+    "categories": {
+      "all": "ទាំងអស់",
+      "drinks": "ភេសជ្ជៈ",
+      "snacks": "អាហារសម្រន់",
+      "other": "ផ្សេងទៀត"
+    },
+    "toasts": {
+      "addItemFirst": "សូមបន្ថែមទំនិញយ៉ាងហោចណាស់មួយមុនសិន។",
+      "chargedToFolio": "{amount} ត្រូវបានគិតទៅគណនីបន្ទប់។"
+    },
+    "summary": {
+      "totalItems": "សរុប ({count} ធាតុ)",
+      "orderSummary": "សេចក្តីសង្ខេបការបញ្ជាទិញ",
+      "items": "ធាតុ",
+      "total": "សរុប"
+    },
+    "actions": {
+      "chargeToRoom": "គិតទៅបន្ទប់"
+    }
+  },
+  "staff": {
+    "title": "បញ្ជីបុគ្គលិក និងតួនាទី",
+    "description": "គ្រប់គ្រងគណនីបុគ្គលិក ការផ្តល់តួនាទី និងទម្រង់សិទ្ធិ។",
+    "addMember": "បន្ថែមបុគ្គលិក",
+    "toast": {
+      "addMemberOpened": "បានបើកផ្ទាំងបន្ថែមបុគ្គលិក"
+    },
+    "table": {
+      "name": "ឈ្មោះបុគ្គលិក",
+      "email": "អ៊ីមែល",
+      "role": "តួនាទីដែលបានផ្តល់",
+      "status": "ស្ថានភាព"
+    },
+    "roles": {
+      "OWNER": "ម្ចាស់",
+      "MANAGER": "អ្នកគ្រប់គ្រង",
+      "RECEPTIONIST": "បុគ្គលិកទទួលភ្ញៀវ"
+    }
+  },
+  "notifications": {
+    "title": "ការជូនដំណឹង",
+    "description": "ការជូនដំណឹងប្រព័ន្ធ សេចក្តីជូនដំណឹងអំពីការមកដល់ ការរំលឹកបង់ប្រាក់ និងព័ត៌មានប្រតិបត្តិការផ្សេងៗ។",
+    "markAllAsRead": "សម្គាល់ទាំងអស់ថាបានអាន",
+    "empty": {
+      "title": "មិនទាន់មានការជូនដំណឹងទេ",
+      "description": "មតិព័ត៌មាននៃការជូនដំណឹងក្នុងកម្មវិធី និងការជូនដំណឹងតាមកម្មវិធីរុករក នឹងបង្ហាញនៅទីនេះ នៅពេលប្រព័ន្ធជូនដំណឹងត្រូវបានភ្ជាប់។"
+    }
+  },
+  "profile": {
+    "mobileTitle": "ប្រវត្តិរូបរបស់ខ្ញុំ",
+    "title": "ប្រវត្តិរូប និងការកំណត់",
+    "description": "គ្រប់គ្រងគណនី សុវត្ថិភាព និងចំណូលចិត្តកម្មវិធីរបស់អ្នក។",
+    "fallbackName": "ម្ចាស់ផ្ទះសំណាក់",
+    "fallbackRole": "ម្ចាស់",
+    "menu": {
+      "editProfile": "កែសម្រួលប្រវត្តិរូប",
+      "changePassword": "ប្តូរពាក្យសម្ងាត់",
+      "appTheme": "រូបរាងកម្មវិធី",
+      "language": "ភាសា"
+    },
+    "theme": {
+      "light": "ភ្លឺ",
+      "dark": "ងងឹត",
+      "system": "តាមប្រព័ន្ធ"
+    },
+    "languageValue": "អង់គ្លេស",
+    "toast": {
+      "editProfileOpened": "កំពុងបើកកម្មវិធីកែសម្រួលប្រវត្តិរូប",
+      "changePasswordOpened": "កំពុងបើកទម្រង់ប្តូរពាក្យសម្ងាត់",
+      "languageComingSoon": "ការប្តូរភាសានឹងមកដល់ឆាប់ៗនេះ"
+    }
+  },
+  "onboarding": {
+    "wizard": {
+      "headerTitle": "អ្នកជំនួយរៀបចំផ្ទះសំណាក់",
+      "footer": "កម្មវិធីគ្រប់គ្រងផ្ទះសំណាក់ • អ្នកជំនួយរៀបចំក្នុងតំបន់"
+    },
+    "progress": {
+      "stepOf": "ជំហានទី {step} នៃ {total}",
+      "percentCompleted": "បានបញ្ចប់ {percent}%"
+    },
+    "nav": {
+      "previous": "ថយក្រោយ",
+      "continue": "បន្ត",
+      "finishSetup": "បញ្ចប់ការរៀបចំ"
+    },
+    "toast": {
+      "complete": "ការរៀបចំផ្ទះសំណាក់បានបញ្ចប់ដោយជោគជ័យ!"
+    },
+    "steps": {
+      "ownerAccount": {
+        "title": "គណនីម្ចាស់",
+        "desc": "ផ្ទៀងផ្ទាត់ព័ត៌មានគណនី និងលិខិតសម្គាល់របស់ម្ចាស់ទ្រព្យសម្បត្តិ"
+      },
+      "propertyInfo": {
+        "title": "ព័ត៌មានទ្រព្យសម្បត្តិ",
+        "desc": "ឈ្មោះ លេខកូដ ការពិពណ៌នា និងទំនាក់ទំនងផ្ទះសំណាក់"
+      },
+      "addressLocation": {
+        "title": "អាសយដ្ឋាន និងទីតាំង",
+        "desc": "អាសយដ្ឋានពិត ក្រុង ប្រទេស និងកូអរដោនេ"
+      },
+      "timezone": {
+        "title": "តំបន់ពេលវេលា",
+        "desc": "កំណត់តំបន់ពេលវេលាប្រតិបត្តិការ (លំនាំដើម Asia/Phnom_Penh)"
+      },
+      "currency": {
+        "title": "រូបិយប័ណ្ណ",
+        "desc": "ជ្រើសរើសរូបិយប័ណ្ណគណនេយ្យរបស់ទ្រព្យសម្បត្តិ (USD)"
+      },
+      "checkInTime": {
+        "title": "ម៉ោងចូលស្នាក់នៅ",
+        "desc": "ម៉ោងចូលស្នាក់នៅស្តង់ដារប្រចាំថ្ងៃ (14:00)"
+      },
+      "checkOutTime": {
+        "title": "ម៉ោងចេញពីស្នាក់នៅ",
+        "desc": "ម៉ោងចេញពីស្នាក់នៅស្តង់ដារប្រចាំថ្ងៃ (12:00)"
+      },
+      "roomTypes": {
+        "title": "ប្រភេទបន្ទប់",
+        "desc": "ជ្រើសរើសគំរូប្រភេទបន្ទប់ (ទោល ទ្វេ គ្រួសារ)"
+      },
+      "roomInventory": {
+        "title": "សារពើភ័ណ្ឌបន្ទប់",
+        "desc": "បង្កើតបន្ទប់ជាច្រើនតាមជាន់ និងចន្លោះលេខ"
+      },
+      "taxesFees": {
+        "title": "ពន្ធ និងកម្រៃ",
+        "desc": "កំណត់អត្រាពន្ធ (VAT 10%)"
+      },
+      "paymentMethods": {
+        "title": "វិធីបង់ប្រាក់",
+        "desc": "បើកដំណើរការសាច់ប្រាក់ កាតឥណទាន ការផ្ទេរប្រាក់តាមធនាគារ និង QR"
+      },
+      "staffSetup": {
+        "title": "រៀបចំបុគ្គលិក",
+        "desc": "បន្ថែមគណនីបុគ្គលិកដំបូង និងការផ្តល់តួនាទី"
+      },
+      "reviewSetup": {
+        "title": "ពិនិត្យការរៀបចំ",
+        "desc": "បញ្ជីត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ការកំណត់រចនាសម្ព័ន្ធ"
+      },
+      "finishSetup": {
+        "title": "បញ្ចប់ការរៀបចំ",
+        "desc": "បញ្ចប់ការណែនាំ និងបើកផ្ទាំងគ្រប់គ្រង"
+      }
+    },
+    "step1": {
+      "authenticatedOwnerLabel": "ម្ចាស់ដែលបានផ្ទៀងផ្ទាត់៖",
+      "accountStatus": "ស្ថានភាពគណនី៖ សកម្ម • តួនាទី៖ ម្ចាស់"
+    },
+    "step2": {
+      "guestHouseName": "ឈ្មោះផ្ទះសំណាក់",
+      "propertyCode": "លេខកូដទ្រព្យសម្បត្តិ"
+    },
+    "genericStep": {
+      "configured": "ប៉ារ៉ាម៉ែត្រដែលបានកំណត់រចនាសម្ព័ន្ធសម្រាប់ជំហានទី {step}៖ {title}",
+      "defaults": "លំនាំដើមទាំងអស់ត្រូវបានកំណត់តាមលក្ខណៈបច្ចេកទេសដែលបានណែនាំសម្រាប់អ្នកគ្រប់គ្រងផ្ទះសំណាក់។"
+    },
+    "step14": {
+      "title": "ទ្រព្យសម្បត្តិរួចរាល់ហើយ!",
+      "description": "ជំហានទាំង ១៤ នៃការណែនាំត្រូវបានផ្ទៀងផ្ទាត់រួចរាល់។ ចុចប៊ូតុងបញ្ចប់ខាងក្រោមដើម្បីបើកផ្ទាំងគ្រប់គ្រងប្រតិបត្តិការរបស់អ្នក។"
+    }
+  },
+  "reservationNew": {
+    "mobileTitle": "ការកក់ថ្មី",
+    "title": "ការកក់ថ្មី",
+    "description": "បង្កើតការកក់ក្នុងជំហានងាយៗមួយចំនួន។",
+    "steps": {
+      "guest": "ភ្ញៀវ",
+      "room": "បន្ទប់",
+      "stay": "រយៈពេលស្នាក់នៅ",
+      "confirm": "បញ្ជាក់"
+    },
+    "guestInfo": {
+      "heading": "ស្វែងរកភ្ញៀវ",
+      "newHeading": "ព័ត៌មានលម្អិតភ្ញៀវថ្មី",
+      "searchTab": "ភ្ញៀវដែលមានស្រាប់",
+      "newTab": "ភ្ញៀវថ្មី",
+      "searchDescription": "ស្វែងរកតាមឈ្មោះ ឬលេខទូរស័ព្ទ។",
+      "searchPlaceholder": "ស្វែងរកភ្ញៀវ...",
+      "noMatches": "រកមិនឃើញភ្ញៀវត្រូវនឹងការស្វែងរកនេះទេ។",
+      "showingRecent": "កំពុងបង្ហាញភ្ញៀវថ្មីៗ — ស្វែងរកដើម្បីរកបន្ថែម។",
+      "firstNameLabel": "នាមខ្លួន",
+      "lastNameLabel": "នាមត្រកូល",
+      "phoneLabel": "លេខទូរស័ព្ទ",
+      "phonePlaceholder": "+855 ...",
+      "emailLabel": "អ៊ីមែល",
+      "idPassportLabel": "លេខអត្តសញ្ញាណ / លិខិតឆ្លងដែន",
+      "nationalityLabel": "សញ្ជាតិ",
+      "nationalityPlaceholder": "ជ្រើសរើសសញ្ជាតិ",
+      "nationalities": {
+        "cambodian": "កម្ពុជា",
+        "american": "អាមេរិកាំង",
+        "british": "អង់គ្លេស",
+        "other": "ផ្សេងទៀត"
+      }
+    },
+    "room": {
+      "typeHeading": "ជ្រើសរើសប្រភេទបន្ទប់",
+      "noRoomTypes": "មិនទាន់មានប្រភេទបន្ទប់ត្រូវបានកំណត់ទេ។",
+      "maxGuests": "ស្នាក់នៅបានរហូតដល់ {count} នាក់",
+      "assignHeading": "ចាត់តាំងបន្ទប់ជាក់លាក់ (ស្រេចចិត្ត)",
+      "availabilityDisclaimer": "បង្ហាញតែបន្ទប់ដែលបច្ចុប្បន្នមានស្ថានភាពទំនេរ — កាលបរិច្ឆេទមិនទាន់ត្រូវបានផ្ទៀងផ្ទាត់ជាមួយការកក់ផ្សេងទៀតទេ។",
+      "assignLater": "ឱ្យបុគ្គលិកចាត់តាំងបន្ទប់នៅពេលក្រោយ",
+      "noRoomsAvailable": "មិនមានបន្ទប់ប្រភេទនេះទំនេរនាពេលបច្ចុប្បន្នទេ។"
+    },
+    "stay": {
+      "datesHeading": "កាលបរិច្ឆេទស្នាក់នៅ និងចំនួនអ្នកស្នាក់នៅ",
+      "arrivalLabel": "កាលបរិច្ឆេទមកដល់",
+      "departureLabel": "កាលបរិច្ឆេទចាកចេញ",
+      "adultsLabel": "មនុស្សពេញវ័យ",
+      "childrenLabel": "កុមារ",
+      "pricePreview": "តម្លៃប៉ាន់ស្មាន",
+      "nightsSummary": "{count} យប់",
+      "selectRoomFirst": "ជ្រើសរើសប្រភេទបន្ទប់ដើម្បីមើលតម្លៃប៉ាន់ស្មាន។",
+      "estimateDisclaimer": "ប៉ាន់ស្មានពីចំនួនយប់ × តម្លៃបន្ទប់ + ពន្ធ VAT ១០% — ប្រព័ន្ធនឹងបញ្ជាក់ចំនួនសរុបចុងក្រោយនៅពេលអ្នកដាក់ស្នើ។"
+    },
+    "confirm": {
+      "heading": "បញ្ជាក់ការកក់",
+      "guestLabel": "ភ្ញៀវ",
+      "roomTypeLabel": "ប្រភេទបន្ទប់",
+      "roomLabel": "បន្ទប់",
+      "datesLabel": "កាលបរិច្ឆេទ",
+      "occupancyLabel": "ចំនួនអ្នកស្នាក់នៅ",
+      "occupancyValue": "មនុស្សពេញវ័យ {adults} នាក់ កុមារ {children} នាក់",
+      "totalLabel": "សរុបប៉ាន់ស្មាន"
+    },
+    "nextLabel": "បន្ទាប់៖ {step}",
+    "confirmBooking": "បញ្ជាក់ការកក់",
+    "toast": {
+      "confirmed": "ការកក់សម្រាប់ {guestName} ត្រូវបានបញ្ជាក់!",
+      "missingRequired": "សូមជ្រើសរើសភ្ញៀវ និងប្រភេទបន្ទប់មុននឹងបញ្ជាក់។"
+    },
+    "noPermission": {
+      "title": "អ្នកមិនអាចបង្កើតការកក់បានទេ",
+      "description": "តួនាទីរបស់អ្នកមិនមានសិទ្ធិបង្កើតការកក់ថ្មីទេ។",
+      "backAction": "ត្រឡប់ទៅការកក់"
+    }
+  },
+  "reservationDetail": {
+    "title": "ការកក់ {id}",
+    "backToReservations": "ត្រឡប់ទៅការកក់",
+    "guestStayHeading": "ភ្ញៀវ និងការស្នាក់នៅ",
+    "description": "ព័ត៌មានលម្អិតការកក់ ការចាត់តាំងបន្ទប់ សេចក្តីសង្ខេបគណនី និងប្រវត្តិស្នាក់នៅ។",
+    "printVoucher": "បោះពុម្ពប័ណ្ណ",
+    "toast": {
+      "printDialogOpened": "កំពុងបើកប្រអប់បោះពុម្ព",
+      "checkedOut": "ភ្ញៀវបានចេញពីស្នាក់នៅដោយជោគជ័យ!",
+      "cancelled": "ការកក់ត្រូវបានលុបចោល។"
+    },
+    "guestNameLabel": "ឈ្មោះភ្ញៀវ",
+    "assignedRoomLabel": "បន្ទប់ដែលបានចាត់តាំង",
+    "unassigned": "មិនទាន់កំណត់",
+    "stayDatesLabel": "កាលបរិច្ឆេទស្នាក់នៅ",
+    "occupancyLabel": "ចំនួនអ្នកស្នាក់នៅ",
+    "nights": "{count} យប់",
+    "adults": "{count} មនុស្សពេញវ័យ",
+    "checkOutGuest": "ចេញពីស្នាក់នៅ",
+    "cancelBooking": "លុបចោលការកក់",
+    "editBooking": "កែសម្រួល",
+    "extendStay": "បន្ថែមរយៈពេលស្នាក់នៅ",
+    "notYetAvailable": {
+      "edit": "ការកែសម្រួលការកក់ដែលបានបញ្ជាក់មិនទាន់អាចប្រើប្រាស់បានទេ — វាត្រូវការចំណុចប្រទាក់ខាងក្រោយដែលមិនទាន់មាន។",
+      "extend": "ការបន្ថែមរយៈពេលស្នាក់នៅមិនទាន់អាចប្រើប្រាស់បានទេ — វាត្រូវការចំណុចប្រទាក់ខាងក្រោយដែលមិនទាន់មាន។"
+    },
+    "notesHeading": "កំណត់ចំណាំ",
+    "specialRequestsLabel": "សំណើពិសេស",
+    "internalNotesLabel": "កំណត់ចំណាំផ្ទៃក្នុង",
+    "notFound": {
+      "title": "មិនអាចផ្ទុកការកក់នេះបានទេ",
+      "description": "វាប្រហែលជាមិនមានទៀតហើយ ឬតំណភ្ជាប់មិនត្រឹមត្រូវ។ សូមព្យាយាមម្តងទៀត ឬត្រឡប់ទៅបញ្ជី។",
+      "backAction": "ត្រឡប់ទៅការកក់"
+    },
+    "cancelDialog": {
+      "title": "លុបចោលការកក់នេះ?",
+      "description": "សកម្មភាពនេះនឹងលុបចោល {number} ភ្លាមៗ ហើយមិនអាចត្រឡប់វិញបានទេ។",
+      "confirm": "លុបចោលការកក់",
+      "dismiss": "រក្សាការកក់"
+    },
+    "folio": {
+      "heading": "សេចក្តីសង្ខេបគណនី",
+      "roomRate": "តម្លៃបន្ទប់ ({nights} យប់ @ {rate})",
+      "vatTax": "ពន្ធ VAT ({percent}%)",
+      "grandTotal": "សរុបទាំងអស់",
+      "paidAmount": "ចំនួនប្រាក់បានបង់",
+      "balanceDue": "សមតុល្យនៅសល់"
+    }
+  }
+}

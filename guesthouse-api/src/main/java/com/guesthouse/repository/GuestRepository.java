@@ -1,0 +1,14 @@
+package com.guesthouse.repository;
+
+import com.guesthouse.entity.Guest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface GuestRepository extends JpaRepository<Guest, UUID> {
+    List<Guest> findByPropertyIdAndDeletedAtIsNullOrderByLastNameAscFirstNameAsc(UUID propertyId);
+    List<Guest> findByPropertyIdAndLastNameContainingIgnoreCaseOrFirstNameContainingIgnoreCase(UUID propertyId, String lastName, String firstName);
+}

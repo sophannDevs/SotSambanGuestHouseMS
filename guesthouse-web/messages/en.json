@@ -1,0 +1,1250 @@
+{
+  "common": {
+    "actions": {
+      "save": "Save",
+      "saveAll": "Save All Settings",
+      "cancel": "Cancel",
+      "search": "Search",
+      "edit": "Edit",
+      "delete": "Delete",
+      "add": "Add",
+      "close": "Close",
+      "confirm": "Confirm",
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit",
+      "view": "View",
+      "logout": "Log Out",
+      "loggedOutSuccess": "Logged out successfully"
+    },
+    "status": {
+      "loading": "Loading...",
+      "noResults": "No results found"
+    },
+    "fallback": {
+      "guestUser": "Guest User"
+    }
+  },
+  "nav": {
+    "groups": {
+      "operations": "Operations",
+      "property": "Property",
+      "finance": "Finance",
+      "management": "Management",
+      "more": "More"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "reservations": "Reservations",
+      "calendar": "Calendar",
+      "check-in": "Check-In",
+      "in-house": "In-House Guests",
+      "check-out": "Check-Out",
+      "rooms": "Rooms",
+      "housekeeping": "Housekeeping",
+      "maintenance": "Maintenance",
+      "payments": "Payments",
+      "expenses": "Expenses",
+      "reports": "Reports",
+      "guests": "Guests",
+      "staff": "Staff",
+      "notifications": "Notifications",
+      "settings": "Settings",
+      "minibar": "Mini Bar / Store"
+    },
+    "roomsChildren": {
+      "all": "All Rooms",
+      "board": "Room Status Board"
+    },
+    "brand": {
+      "name": "Guest House",
+      "tagline": "Manager"
+    },
+    "footer": {
+      "version": "Local v0.1.0",
+      "online": "Online"
+    },
+    "morePage": {
+      "title": "More",
+      "description": "Everything reachable from the sidebar, grouped the same way — handy if you got here from a bookmark or shared link."
+    }
+  },
+  "layout": {
+    "search": {
+      "placeholder": "Search guests, rooms, reservations, invoices..."
+    },
+    "tooltip": {
+      "toggleSidebar": "Toggle sidebar (Ctrl+B)",
+      "language": "Language",
+      "switchLanguage": "Switch language",
+      "lightMode": "Light mode",
+      "darkMode": "Dark mode",
+      "switchToLight": "Switch to light mode",
+      "switchToDark": "Switch to dark mode",
+      "notifications": "Notifications"
+    },
+    "menu": {
+      "profileSettings": "Profile & Settings",
+      "logOut": "Log Out"
+    },
+    "mobileHeader": {
+      "goBack": "Go back",
+      "openMenu": "Open menu",
+      "notifications": "Notifications"
+    }
+  },
+  "auth": {
+    "brandTitle": "Guest House Manager",
+    "brandSubtitle": "Local Property Management System • Sot Samban Guest House",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "rememberMe": "Remember this session",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "quickDemoAccounts": "Quick Demo Accounts",
+    "demoPassword": "Password: password123",
+    "demoRoles": {
+      "owner": "Owner",
+      "manager": "Manager",
+      "receptionist": "Receptionist"
+    },
+    "demoDescriptions": {
+      "owner": "Full permissions",
+      "manager": "Operational management",
+      "receptionist": "Front desk & bookings"
+    },
+    "invalidCredentials": "Invalid email or password.",
+    "welcomeBack": "Welcome back, {name}!",
+    "offlineSignIn": "Signed in with local offline session"
+  },
+  "settings": {
+    "pageTitle": "Settings",
+    "pageDescription": "Property information, currency, timezone, tax rates, deposit rules, and system configuration.",
+    "saveButton": "Save Settings",
+    "savedSuccess": "Settings saved successfully!",
+    "profile": {
+      "roleCountry": "{role} · Cambodia",
+      "ownerFallback": "Guest House Owner",
+      "roleFallback": "Owner"
+    },
+    "rows": {
+      "businessProfile": "Business Profile",
+      "currency": "Currency",
+      "exchangeRate": "Exchange Rate",
+      "users": "Users",
+      "notification": "Notification",
+      "backupRestore": "Backup & Restore",
+      "language": "Language",
+      "aboutApp": "About App"
+    },
+    "tabs": {
+      "property": "Property Details",
+      "taxes": "Taxes & Pricing",
+      "policies": "Policies & Wi-Fi",
+      "language": "Language",
+      "dev": "Local Development"
+    },
+    "property": {
+      "generalInfo": "General Information",
+      "nameLabel": "Guest House Name",
+      "codeLabel": "Property Code (Immutable)",
+      "descriptionLabel": "Description",
+      "timezoneLabel": "Operational Timezone",
+      "timezonePhnomPenh": "Asia/Phnom_Penh (UTC+7)",
+      "timezoneBangkok": "Asia/Bangkok (UTC+7)",
+      "timezoneUtc": "UTC",
+      "currencyLabel": "Currency",
+      "addressContact": "Address & Contact",
+      "addressLineLabel": "Address Line",
+      "cityLabel": "City",
+      "provinceLabel": "Province",
+      "checkTimes": "Check-In & Check-Out Times",
+      "checkInLabel": "Standard Check-In Time",
+      "checkOutLabel": "Standard Check-Out Time"
+    },
+    "taxes": {
+      "heading": "Tax Rates & Invoicing",
+      "vatLabel": "VAT / Sales Tax Percentage (%)",
+      "tinLabel": "Tax Identification Number (TIN)"
+    },
+    "policies": {
+      "wifiHeading": "Wi-Fi & Guest Credentials",
+      "wifiNameLabel": "Wi-Fi Network Name (SSID)",
+      "wifiPasswordLabel": "Wi-Fi Password",
+      "rulesHeading": "House Rules & Cancellation Policy",
+      "houseRulesLabel": "House Rules",
+      "cancellationPolicyLabel": "Cancellation Policy"
+    },
+    "dev": {
+      "heading": "Local Development Outbox",
+      "description": "Under the `local` profile, all password reset links and system notifications are logged here for instant preview without sending real emails.",
+      "simulatorTitle": "[Console Mail Simulator]",
+      "simulatedMailCount": "1 Simulated Mail",
+      "toLabel": "To",
+      "subjectLabel": "Subject",
+      "subjectValue": "Password Reset Request",
+      "linkLabel": "Link"
+    },
+    "language": {
+      "preferenceHeading": "Interface Language",
+      "preferenceDescription": "Switches instantly for everyone using this device — no reload needed.",
+      "editorHeading": "Translation Editor",
+      "editorDescription": "Search any label used across the app and correct the English or Khmer text. Changes apply immediately app-wide.",
+      "searchPlaceholder": "Search by key or text...",
+      "columnKey": "Key",
+      "columnEnglish": "English",
+      "columnKhmer": "Khmer",
+      "noMatches": "No translations match your search.",
+      "unsavedChangesLabel": "Unsaved changes: {count}",
+      "discard": "Discard",
+      "saveChanges": "Save Changes",
+      "savedSuccess": "Translations updated",
+      "saveError": "Could not save translations",
+      "loadError": "Could not load translations"
+    }
+  },
+  "enum": {
+    "status": {
+      "AVAILABLE": "AVAILABLE",
+      "OCCUPIED": "OCCUPIED",
+      "OCCUPIED_DIRTY": "OCCUPIED (DIRTY)",
+      "RESERVED": "RESERVED",
+      "BLOCKED": "BLOCKED",
+      "OUT_OF_SERVICE": "OUT OF SERVICE",
+      "UNDER_MAINTENANCE": "UNDER MAINTENANCE",
+      "MAINTENANCE": "MAINTENANCE",
+      "CLEAN": "CLEAN",
+      "DIRTY": "DIRTY",
+      "CLEANING": "CLEANING",
+      "IN_PROGRESS": "IN PROGRESS",
+      "INSPECTED": "INSPECTED",
+      "DO_NOT_DISTURB": "DO NOT DISTURB",
+      "CLEANING_REQUESTED": "CLEANING REQUESTED",
+      "COMPLETED": "COMPLETED",
+      "PENDING": "PENDING",
+      "DRAFT": "DRAFT",
+      "CONFIRMED": "CONFIRMED",
+      "CHECKED_IN": "CHECKED IN",
+      "CHECKED_OUT": "CHECKED OUT",
+      "CANCELLED": "CANCELLED",
+      "NO_SHOW": "NO SHOW",
+      "WAITING_LIST": "WAITING LIST",
+      "UNPAID": "UNPAID",
+      "PARTIALLY_PAID": "PARTIALLY PAID",
+      "PAID": "PAID",
+      "OVERPAID": "OVERPAID",
+      "FAILED": "FAILED",
+      "REFUNDED": "REFUNDED",
+      "PARTIALLY_REFUNDED": "PARTIALLY REFUNDED",
+      "VOIDED": "VOIDED",
+      "ISSUED": "ISSUED",
+      "SUBMITTED": "SUBMITTED",
+      "APPROVED": "APPROVED",
+      "REJECTED": "REJECTED",
+      "REPORTED": "REPORTED",
+      "RESOLVED": "RESOLVED",
+      "ASSIGNED": "ASSIGNED",
+      "WAITING_FOR_PARTS": "WAITING FOR PARTS",
+      "LOW": "LOW",
+      "MEDIUM": "MEDIUM",
+      "HIGH": "HIGH",
+      "URGENT": "URGENT",
+      "LOCKED": "LOCKED",
+      "PENDING_ACTIVATION": "PENDING ACTIVATION",
+      "ON_LEAVE": "ON LEAVE",
+      "SUSPENDED": "SUSPENDED",
+      "TERMINATED": "TERMINATED",
+      "VIP_GOLD": "VIP GOLD",
+      "STANDARD": "STANDARD",
+      "ACTIVE": "ACTIVE",
+      "INACTIVE": "INACTIVE"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Overview of today's guest house operations, occupancy, and activities.",
+    "newReservation": "New Reservation",
+    "todayOverview": "Today Overview",
+    "totalRevenue": "Total Revenue",
+    "quickStats": {
+      "checkIns": "Check-ins",
+      "checkOuts": "Check-outs",
+      "bookings": "Bookings",
+      "inHouse": "In House"
+    },
+    "roomStatusHeading": "Room Status",
+    "viewAll": "View all",
+    "stats": {
+      "occupancy": "Occupancy",
+      "occupancyDescription": "{occupied} of {total} rooms occupied today",
+      "expectedArrival": "Expected Arrival",
+      "expectedArrivalValue": "{count} Stays",
+      "expectedArrivalDescription": "{checkedIn} checked in, {pending} pending check-in",
+      "todayRevenue": "Today Revenue",
+      "todayRevenueDescription": "≈ {khr} · {count} transactions recorded",
+      "housekeeping": "Housekeeping",
+      "housekeepingValue": "{count} Dirty",
+      "housekeepingDescription": "{clean} Clean, {cleaning} Cleaning in progress"
+    },
+    "noAccess": "You don't have permission to view this",
+    "loadError": "Couldn't load live dashboard data"
+  },
+  "reservations": {
+    "title": "Reservations",
+    "description": "View, filter, and manage guest house bookings, stays, and folios.",
+    "newBooking": "New Booking",
+    "newReservationAria": "New reservation",
+    "searchPlaceholder": "Search by reservation # or guest name...",
+    "tabs": {
+      "all": "All",
+      "today": "Today",
+      "upcoming": "Upcoming",
+      "history": "History"
+    },
+    "emptyView": "No bookings in this view.",
+    "unassigned": "Unassigned",
+    "loadError": "Couldn't load reservations",
+    "table": {
+      "reservationNumber": "Reservation #",
+      "guest": "Guest",
+      "roomAndType": "Room & Type",
+      "stayDates": "Stay Dates",
+      "folioTotal": "Folio Total",
+      "balance": "Balance",
+      "status": "Status",
+      "actions": "Actions",
+      "details": "Details"
+    }
+  },
+  "calendar": {
+    "title": "Reservation Calendar",
+    "description": "Multi-room timeline view of room occupancy, reservations, and maintenance blocks.",
+    "newBooking": "New Booking",
+    "toastNewBooking": "New booking modal opened",
+    "today": "Today",
+    "roomColumn": "Room"
+  },
+  "checkIn": {
+    "title": "Check-In Desk",
+    "description": "Expected arrivals, key assignment, and house rules acceptance.",
+    "actionLabel": "New Walk-In Booking",
+    "arrivalsHeading": "Expected Arrivals ({count})",
+    "emptyArrivals": "No confirmed or pending arrivals. All caught up!",
+    "loadError": "Couldn't load arrivals.",
+    "unassigned": "Unassigned",
+    "table": {
+      "reservationNumber": "Reservation #",
+      "guestName": "Guest Name",
+      "roomAndType": "Room & Type",
+      "arrivalDate": "Arrival Date",
+      "balanceDue": "Balance Due",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "startCheckIn": "Start Check-In",
+    "wizard": {
+      "title": "Check-In Wizard",
+      "steps": {
+        "guest": "Guest",
+        "room": "Room",
+        "confirm": "Confirm"
+      },
+      "idNumber": "ID / Passport: {number}",
+      "assignedRoom": "Assigned Room:",
+      "roomWithType": "Room #{room} ({type})",
+      "assignRoomHeading": "This reservation has no room assigned yet — choose one below.",
+      "noRoomsAvailable": "No available rooms of this type right now.",
+      "keyNumberLabel": "Keycard / Key Number",
+      "folioTotal": "Folio Total",
+      "balanceDue": "Balance Due",
+      "vehiclePlateLabel": "Vehicle Plate (optional)",
+      "notesLabel": "Check-In Notes (staff-visible only)",
+      "houseRulesLabel": "Guest has agreed to property house rules & quiet hours policy",
+      "complete": "Complete Check-In",
+      "notAvailable": {
+        "guestsTitle": "Accompanying guests & ID verification",
+        "guestsDescription": "Adding extra guests to the stay and uploading/verifying identification aren't wired up in this build yet.",
+        "depositTitle": "Deposit collection",
+        "depositDescription": "Recording a deposit or payment from this wizard isn't available in this build yet — record it from the reservation folio instead.",
+        "signatureTitle": "Signature capture",
+        "signatureDescription": "Capturing a guest signature at check-in isn't available in this build yet."
+      }
+    },
+    "toast": {
+      "checkInCompleted": "Check-in completed for {name}! Room #{room} is now occupied."
+    }
+  },
+  "checkOut": {
+    "title": "Check-Out Desk",
+    "description": "Currently checked-in guests ready for departure, keycard returns, and housekeeping handoff.",
+    "departuresHeading": "Departures ({count})",
+    "emptyDepartures": "No checked-in guests to check out right now.",
+    "loadError": "Couldn't load departures.",
+    "unassigned": "Unassigned",
+    "table": {
+      "reservationNumber": "Reservation #",
+      "guestName": "Guest Name",
+      "roomNumber": "Room #",
+      "roomPrefix": "Room #{room}",
+      "departureDate": "Departure Date",
+      "folioBalance": "Folio Balance",
+      "actions": "Actions"
+    },
+    "processCheckOut": "Process Check-Out",
+    "wizard": {
+      "title": "Check-Out Wizard",
+      "steps": {
+        "review": "Review",
+        "key": "Key & Notes"
+      },
+      "roomGuest": "Room #{room} • {guestName}",
+      "stayLabel": "Stay",
+      "folioTotal": "Folio Total",
+      "paidAmount": "Paid",
+      "balanceDue": "Balance Due",
+      "outstandingBalanceWarning": "This folio still has an outstanding balance. Record the remaining payment before checking out, or continue if it's being settled another way.",
+      "keyReturnedLabel": "Keycard returned to front desk",
+      "notesLabel": "Check-Out Notes (staff-visible only)",
+      "reviewAndComplete": "Review & Complete",
+      "notAvailable": {
+        "conditionTitle": "Room condition & damage charges",
+        "conditionDescription": "Recording room condition, attaching photos, and adding a damage charge aren't available in this build yet.",
+        "invoiceTitle": "Invoice & receipt generation",
+        "invoiceDescription": "Generating an invoice or payment receipt from checkout isn't available in this build yet."
+      }
+    },
+    "confirmDialog": {
+      "title": "Complete this check-out?",
+      "description": "This finalizes the stay for {guestName}, locks the folio, and marks Room #{room} dirty for housekeeping. This cannot be undone.",
+      "confirmLabel": "Complete Check-Out"
+    },
+    "toast": {
+      "completed": "Check-out completed for {name}! Room #{room} is now available and marked dirty."
+    }
+  },
+  "inHouse": {
+    "title": "In-House Guests",
+    "description": "Currently checked-in guests, remaining nights, room status, and folio balance.",
+    "staysHeading": "In-House Stays ({count})",
+    "emptyList": "No guests are currently checked in.",
+    "loadError": "Couldn't load in-house guests.",
+    "unassigned": "Unassigned",
+    "table": {
+      "roomNumber": "Room #",
+      "roomPrefix": "Room #{room}",
+      "guestName": "Guest Name",
+      "reservationNumber": "Reservation #",
+      "checkInOut": "Arrival / Departure",
+      "remaining": "Remaining",
+      "housekeeping": "Housekeeping",
+      "folioBalance": "Folio Balance",
+      "actions": "Actions",
+      "nightsLeft": "{count} nights left",
+      "folio": "Folio",
+      "checkOut": "Check Out"
+    }
+  },
+  "rooms": {
+    "mobileTitle": "Rooms",
+    "filterRoomsAriaLabel": "Filter rooms",
+    "searchPlaceholder": "Search room number or type...",
+    "title": "Rooms & Room Types",
+    "description": "Manage guest house rooms, bulk creation, pricing, occupancy, and room types.",
+    "loadError": "Couldn't load rooms.",
+    "perNight": "/ night",
+    "actions": {
+      "bulkCreateRooms": "Bulk Create Rooms",
+      "addRooms": "Add Rooms",
+      "addRoomType": "Add Room Type"
+    },
+    "tabs": {
+      "inventory": "Room Inventory ({count})",
+      "types": "Room Types ({count})"
+    },
+    "sections": {
+      "allRooms": "All Rooms"
+    },
+    "table": {
+      "roomNumber": "Room #",
+      "roomType": "Room Type",
+      "floor": "Floor",
+      "maxOccupancy": "Max Occupancy",
+      "priceNight": "Price / Night",
+      "status": "Status",
+      "actions": "Actions",
+      "adultsCount": "{count} Adults"
+    },
+    "card": {
+      "capacity": "Capacity: {adults} Adults, {children} Children • {beds} {bedType} Bed(s)",
+      "size": "Size: {size} m²",
+      "amenities": "Amenities: {list}"
+    },
+    "toast": {
+      "bulkCreateSuccess": "{count} room(s) created!",
+      "typeCreated": "Room type created!",
+      "typeUpdated": "Room type updated!",
+      "typeDeleted": "Room type deleted!"
+    },
+    "deleteDialog": {
+      "title": "Delete this room type?",
+      "description": "This removes \"{name}\" from the catalogue. Room types still referenced by live rooms cannot be deleted."
+    },
+    "bulkDialog": {
+      "title": "Bulk Create Rooms",
+      "description": "Generate a range of rooms at once by number, floor, and an optional prefix.",
+      "roomTypeLabel": "Room Type",
+      "roomTypePlaceholder": "Select a room type",
+      "startNumberLabel": "Start Number",
+      "endNumberLabel": "End Number",
+      "floorLabel": "Floor",
+      "buildingLabel": "Building",
+      "prefixLabel": "Prefix (Optional)",
+      "prefixDescription": "e.g. \"A-\" produces A-101, A-102, ...",
+      "prefixPlaceholder": "e.g. A-",
+      "preview": "Preview: {count} rooms will be generated ({from} to {to}) on Floor {floor}.",
+      "submit": "Create {count} Room(s)"
+    },
+    "typeDialog": {
+      "createTitle": "Add Room Type",
+      "editTitle": "Edit Room Type",
+      "description": "Pricing, capacity, and amenities for this room type.",
+      "sections": {
+        "basics": "Basics",
+        "capacity": "Capacity",
+        "pricing": "Pricing",
+        "amenities": "Amenities"
+      },
+      "nameLabel": "Name",
+      "codeLabel": "Code",
+      "descriptionLabel": "Description",
+      "maxAdultsLabel": "Max Adults",
+      "maxChildrenLabel": "Max Children",
+      "bedCountLabel": "Bed Count",
+      "bedTypeLabel": "Bed Type",
+      "bedTypes": {
+        "SINGLE": "Single",
+        "DOUBLE": "Double",
+        "QUEEN": "Queen",
+        "KING": "King",
+        "TWIN": "Twin",
+        "BUNK": "Bunk"
+      },
+      "roomSizeLabel": "Room Size (m²)",
+      "basePriceLabel": "Base Price / Night",
+      "extraBedPriceLabel": "Extra Bed Price",
+      "extraPersonPriceLabel": "Extra Person Price",
+      "cleaningFeeLabel": "Cleaning Fee",
+      "defaultDepositLabel": "Default Deposit",
+      "activeLabel": "Active (bookable)",
+      "createSubmit": "Create Room Type"
+    }
+  },
+  "roomsBoard": {
+    "title": "Room Status Board",
+    "description": "Operational and housekeeping status grid grouped by floor. Refreshes automatically every 15 seconds.",
+    "loadError": "Couldn't load the room board.",
+    "actions": {
+      "blockRoom": "Block Room"
+    },
+    "summary": {
+      "totalRooms": "Total Rooms"
+    },
+    "filters": {
+      "floorLabel": "Filter Floor:",
+      "allFloors": "All Floors",
+      "floorNumber": "Floor {floor}"
+    },
+    "boardStatus": {
+      "occupiedDirty": "Occupied - Dirty"
+    },
+    "tile": {
+      "guestLabel": "Guest:",
+      "housekeepingLabel": "Housekeeping",
+      "blockAction": "Block This Room"
+    },
+    "toast": {
+      "housekeepingUpdated": "Housekeeping status updated!",
+      "roomBlocked": "Room blocked successfully!"
+    },
+    "blockDialog": {
+      "title": "Block a Room",
+      "titleWithRoom": "Block Room #{room}",
+      "description": "Remove this room from availability for a date range and record why.",
+      "roomLabel": "Room",
+      "roomPlaceholder": "Select a room",
+      "startDateLabel": "Start Date",
+      "endDateLabel": "End Date",
+      "reasonLabel": "Block Reason",
+      "reasons": {
+        "MAINTENANCE": "Maintenance",
+        "RENOVATION": "Renovation",
+        "OWNER_USE": "Owner Use",
+        "DEEP_CLEANING": "Deep Cleaning",
+        "INSPECTION": "Inspection",
+        "OTHER": "Other"
+      },
+      "noteLabel": "Note (Optional)",
+      "notePlaceholder": "Reason details...",
+      "confirm": "Confirm Room Block"
+    }
+  },
+  "roomDetail": {
+    "mobileTitle": "Room Details",
+    "loadError": "Couldn't load this room.",
+    "notFound": {
+      "message": "Room not found.",
+      "backLink": "Back to Rooms"
+    },
+    "roomNumberLabel": "Room {number}",
+    "maxOccupancyGuests": "{count} Guests",
+    "labels": {
+      "maxCapacity": "Max capacity",
+      "floor": "Floor {floor}"
+    },
+    "sections": {
+      "amenities": "Amenities",
+      "pricingCapacity": "Pricing & Capacity"
+    },
+    "actions": {
+      "editRoom": "Edit Room"
+    },
+    "toast": {
+      "notAvailable": "Editing an individual room isn't available in this build yet."
+    },
+    "title": "Room {number} — {type}",
+    "description": "Room details, pricing, capacity, and amenities.",
+    "perNight": "/ night",
+    "maxOccupancyMaximum": "{count} Guests maximum"
+  },
+  "guests": {
+    "mobileTitle": "Guests",
+    "addGuestAriaLabel": "Add guest",
+    "searchPlaceholder": "Search guests by name, email, phone or ID...",
+    "title": "Guest Directory",
+    "description": "Maintain guest profiles, contact information, passport details, and VIP statuses.",
+    "loadError": "Couldn't load guests.",
+    "actions": {
+      "newGuest": "New Guest",
+      "viewProfile": "View Profile"
+    },
+    "table": {
+      "guestName": "Guest Name",
+      "contact": "Contact",
+      "passportId": "Passport / ID",
+      "nationality": "Nationality",
+      "vipLevel": "VIP Level",
+      "stays": "Stays",
+      "actions": "Actions"
+    },
+    "staysCount": "{count} stays",
+    "toast": {
+      "guestCreated": "{name} added to the guest directory!"
+    },
+    "newDialog": {
+      "title": "New Guest",
+      "description": "Add a guest to the directory.",
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "idPassportLabel": "ID / Passport Number",
+      "nationalityLabel": "Nationality",
+      "nationalities": {
+        "cambodian": "Cambodian",
+        "american": "American",
+        "british": "British",
+        "other": "Other"
+      },
+      "notesLabel": "Notes",
+      "submit": "Add Guest"
+    }
+  },
+  "guestDetail": {
+    "mobileTitle": "Guest Details",
+    "loadError": "Couldn't load this guest.",
+    "notFound": {
+      "message": "Guest not found.",
+      "backLink": "Back to Guests"
+    },
+    "labels": {
+      "totalBookings": "Total Bookings",
+      "totalSpending": "Total Spending",
+      "latestCheckIn": "Latest Stay",
+      "room": "Room",
+      "bookingHistory": "Booking History"
+    },
+    "noBookings": "No bookings yet."
+  },
+  "housekeeping": {
+    "mobileTitle": "Housekeeping",
+    "title": "Housekeeping Management",
+    "description": "Daily room cleaning schedules, stay-over tasks, deep cleaning, and inspection tracking.",
+    "loadError": "Couldn't load housekeeping tasks.",
+    "tabs": {
+      "toClean": "To Clean",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "summary": {
+      "pendingCleaning": "Pending Cleaning",
+      "inProgress": "In Progress",
+      "completedToday": "Completed Today"
+    },
+    "table": {
+      "roomNumber": "Room #",
+      "taskType": "Task Type",
+      "priority": "Priority",
+      "scheduled": "Scheduled",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "roomLabel": "Room {number}",
+    "roomNumberHash": "Room #{number}",
+    "actions": {
+      "startCleaning": "Start Cleaning",
+      "markComplete": "Mark Complete",
+      "markClean": "Mark Clean"
+    },
+    "emptyState": {
+      "message": "Nothing here right now."
+    },
+    "toast": {
+      "statusUpdated": "Task status updated to {status}!"
+    }
+  },
+  "housekeepingDetail": {
+    "title": "Housekeeping Flow",
+    "description": "Room {room} — walk through the cleaning workflow step by step.",
+    "loadError": "Couldn't load this task.",
+    "notFound": {
+      "title": "Task not found",
+      "description": "This housekeeping task doesn't exist or may have already been completed.",
+      "backAction": "Back to Housekeeping"
+    },
+    "steps": {
+      "start": {
+        "title": "Start Cleaning",
+        "description": "Room is ready to clean"
+      },
+      "inProgress": {
+        "title": "In Progress",
+        "description": "Cleaning in progress"
+      },
+      "complete": {
+        "title": "Complete",
+        "description": "Room is clean"
+      }
+    },
+    "actions": {
+      "advanceTo": "Advance to {title}",
+      "markAsComplete": "Mark as Complete"
+    },
+    "toast": {
+      "roomMarked": "Room {room} marked {status}!"
+    }
+  },
+  "maintenance": {
+    "title": "Maintenance Management",
+    "description": "Report equipment repairs, track room maintenance issues, and manage room blocks.",
+    "loadError": "Couldn't load maintenance issues.",
+    "emptyState": "No maintenance issues reported.",
+    "actions": {
+      "reportIssue": "Report Issue",
+      "resolveIssue": "Resolve Issue"
+    },
+    "toast": {
+      "issueReported": "Maintenance issue reported for Room #{roomNumber}!",
+      "issueResolved": "Maintenance issue for Room #{roomNumber} resolved! Room status restored to {status}."
+    },
+    "sections": {
+      "reportedIssues": "Reported Maintenance Issues ({count})"
+    },
+    "table": {
+      "roomNumber": "Room #",
+      "titleDescription": "Title & Description",
+      "severity": "Severity",
+      "roomBlock": "Room Block",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "roomNumberHash": "Room #{number}",
+    "labels": {
+      "nonBlocking": "Non-blocking"
+    },
+    "reportDialog": {
+      "title": "Report Maintenance Issue",
+      "description": "Log a repair or upkeep issue for a room.",
+      "roomLabel": "Room",
+      "roomPlaceholder": "Select a room",
+      "titleLabel": "Issue Title",
+      "titlePlaceholder": "e.g. Air Conditioner Water Leak",
+      "descriptionLabel": "Description",
+      "severityLabel": "Severity",
+      "blockingLabel": "This issue blocks the room from being sold (sets it under maintenance)",
+      "submit": "Report Issue"
+    }
+  },
+  "payments": {
+    "title": "Payments & Receipts",
+    "description": "Record guest payments and view transaction history.",
+    "loadError": "Couldn't load payments.",
+    "actions": {
+      "recordPayment": "Record Payment"
+    },
+    "toasts": {
+      "recorded": "Payment {paymentNumber} recorded!",
+      "receiptNotAvailable": "Receipt download isn't available in this build yet."
+    },
+    "search": {
+      "placeholder": "Search by payment #, reservation # or guest name..."
+    },
+    "table": {
+      "paymentNumber": "Payment #",
+      "reservationNumber": "Reservation #",
+      "guest": "Guest",
+      "amount": "Amount",
+      "method": "Method",
+      "kind": "Kind",
+      "status": "Status",
+      "timestamp": "Timestamp",
+      "receipt": "Receipt"
+    },
+    "methods": {
+      "CASH": "Cash",
+      "CREDIT_CARD": "Card",
+      "KHQR": "KHQR",
+      "BANK_TRANSFER": "Bank Transfer"
+    },
+    "kinds": {
+      "PAYMENT": "Payment",
+      "DEPOSIT": "Deposit",
+      "REFUND": "Refund"
+    },
+    "recordDialog": {
+      "title": "Record Payment",
+      "description": "Apply a payment to a reservation's folio.",
+      "reservationLabel": "Reservation",
+      "reservationSearchPlaceholder": "Search reservation # or guest name...",
+      "noMatches": "No matching reservations.",
+      "amountLabel": "Amount",
+      "methodLabel": "Method",
+      "kindLabel": "Kind",
+      "transactionReferenceLabel": "Transaction Reference (optional)",
+      "submit": "Record Payment"
+    }
+  },
+  "expenses": {
+    "title": "Expense Management",
+    "description": "Record operational expenses and track property costs.",
+    "loadError": "Couldn't load expenses.",
+    "actions": {
+      "recordExpense": "Record Expense",
+      "approve": "Approve"
+    },
+    "toasts": {
+      "recorded": "Expense {expenseNumber} recorded!",
+      "approved": "Expense approved!"
+    },
+    "search": {
+      "placeholder": "Search expenses by number, description or vendor..."
+    },
+    "table": {
+      "expenseNumber": "Expense #",
+      "category": "Category",
+      "description": "Description",
+      "vendor": "Vendor",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "categories": {
+      "ELECTRICITY": "Electricity",
+      "WATER": "Water",
+      "INTERNET": "Internet",
+      "SUPPLIES": "Supplies",
+      "MAINTENANCE": "Maintenance",
+      "STAFF": "Staff",
+      "OTHER": "Other"
+    },
+    "newDialog": {
+      "title": "Record Expense",
+      "description": "Log an operational expense.",
+      "categoryLabel": "Category",
+      "descriptionLabel": "Description",
+      "amountLabel": "Amount",
+      "dateLabel": "Date",
+      "vendorLabel": "Vendor (optional)",
+      "paymentMethodLabel": "Payment Method",
+      "methods": {
+        "CASH": "Cash",
+        "BANK_TRANSFER": "Bank Transfer",
+        "CREDIT_CARD": "Card"
+      },
+      "notesLabel": "Notes",
+      "submit": "Record Expense"
+    }
+  },
+  "invoices": {
+    "title": "Invoices & Billing",
+    "mobileTitle": "Invoices",
+    "description": "View standard guest invoices, tax invoices, and billing records.",
+    "loadError": "Couldn't load invoices.",
+    "actions": {
+      "newInvoice": "New Invoice",
+      "preview": "Preview"
+    },
+    "toasts": {
+      "issuanceNotAvailable": "Issuing a new invoice isn't available in this build yet.",
+      "pdfNotAvailable": "Invoice PDF preview isn't available in this build yet."
+    },
+    "search": {
+      "placeholder": "Search invoices by number or guest...",
+      "placeholderShort": "Search invoices..."
+    },
+    "table": {
+      "invoiceNumber": "Invoice #",
+      "reservationNumber": "Reservation #",
+      "guestName": "Guest Name",
+      "type": "Type",
+      "subtotal": "Subtotal",
+      "vat": "VAT (10%)",
+      "grandTotal": "Grand Total",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "type": {
+      "STANDARD": "Standard",
+      "TAX_INVOICE": "Tax Invoice"
+    }
+  },
+  "reports": {
+    "title": "Reports & Analytics",
+    "description": "Comprehensive financial reporting, Profit & Loss overview, Occupancy Rate, ADR, and RevPAR metrics.",
+    "actions": {
+      "exportReport": "Export Report",
+      "exportCsv": "Export CSV Report"
+    },
+    "toasts": {
+      "reportExported": "Report exported",
+      "csvExported": "Financial report exported to CSV"
+    },
+    "stats": {
+      "revenue": "Revenue",
+      "bookings": "Bookings",
+      "checkIns": "Check-ins",
+      "checkOuts": "Check-outs",
+      "grossRevenue": "Gross Revenue",
+      "vsLastMonth": "{percent} vs last month",
+      "approvedExpenses": "Approved Expenses",
+      "approvedExpensesDescription": "Utilities, internet, supplies",
+      "netProfit": "Net Profit",
+      "profitMargin": "{percent}% Profit Margin",
+      "occupancyRate": "Occupancy Rate",
+      "adrRevPar": "ADR: {adr} • RevPAR: {revpar}"
+    },
+    "charts": {
+      "revenueChart": "Revenue Chart",
+      "revenueTrendToday": "Revenue Trend (Today)",
+      "plSummary": "P&L Summary ({month})"
+    },
+    "table": {
+      "roomRevenue": "Room Revenue",
+      "utilitiesSupplies": "Utilities & Supplies",
+      "netOperatingProfit": "Net Operating Profit"
+    }
+  },
+  "minibar": {
+    "title": "Mini Bar / Store",
+    "mobileTitle": "Mini Bar",
+    "description": "Sell mini-bar items and incidentals, charged directly to a guest's room folio.",
+    "categories": {
+      "all": "All",
+      "drinks": "Drinks",
+      "snacks": "Snacks",
+      "other": "Other"
+    },
+    "toasts": {
+      "addItemFirst": "Add at least one item first.",
+      "chargedToFolio": "{amount} charged to room folio."
+    },
+    "summary": {
+      "totalItems": "Total ({count} items)",
+      "orderSummary": "Order Summary",
+      "items": "Items",
+      "total": "Total"
+    },
+    "actions": {
+      "chargeToRoom": "Charge to Room"
+    }
+  },
+  "staff": {
+    "title": "Staff Directory & Roles",
+    "description": "Manage staff user accounts, role assignments, and permission profiles.",
+    "addMember": "Add Staff Member",
+    "toast": {
+      "addMemberOpened": "Add staff member modal opened"
+    },
+    "table": {
+      "name": "Staff Name",
+      "email": "Email",
+      "role": "Assigned Role",
+      "status": "Status"
+    },
+    "roles": {
+      "OWNER": "Owner",
+      "MANAGER": "Manager",
+      "RECEPTIONIST": "Receptionist"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "System alerts, arrival notices, payment reminders, and operational updates.",
+    "markAllAsRead": "Mark All as Read",
+    "empty": {
+      "title": "No notifications yet",
+      "description": "In-app notification feeds and browser push alerts arrive here once the notifications backend is connected."
+    }
+  },
+  "profile": {
+    "mobileTitle": "My Profile",
+    "title": "Profile & Settings",
+    "description": "Manage your account, security, and app preferences.",
+    "fallbackName": "Guest House Owner",
+    "fallbackRole": "Owner",
+    "menu": {
+      "editProfile": "Edit Profile",
+      "changePassword": "Change Password",
+      "appTheme": "App Theme",
+      "language": "Language"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "languageValue": "English",
+    "toast": {
+      "editProfileOpened": "Opening profile editor",
+      "changePasswordOpened": "Opening change password form",
+      "languageComingSoon": "Language switching coming soon"
+    }
+  },
+  "onboarding": {
+    "wizard": {
+      "headerTitle": "Guest House Setup Wizard",
+      "footer": "Guest House Manager • Local Setup Wizard"
+    },
+    "progress": {
+      "stepOf": "Step {step} of {total}",
+      "percentCompleted": "{percent}% Completed"
+    },
+    "nav": {
+      "previous": "Previous",
+      "continue": "Continue",
+      "finishSetup": "Finish Setup"
+    },
+    "toast": {
+      "complete": "Property onboarding complete!"
+    },
+    "steps": {
+      "ownerAccount": {
+        "title": "Owner Account",
+        "desc": "Verify property owner profile & credentials"
+      },
+      "propertyInfo": {
+        "title": "Property Info",
+        "desc": "Guest house name, code, description & contact"
+      },
+      "addressLocation": {
+        "title": "Address & Location",
+        "desc": "Physical address, city, country & coordinates"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "desc": "Set operational timezone (default Asia/Phnom_Penh)"
+      },
+      "currency": {
+        "title": "Currency",
+        "desc": "Select property accounting currency (USD)"
+      },
+      "checkInTime": {
+        "title": "Check-In Time",
+        "desc": "Standard check-in time of day (14:00)"
+      },
+      "checkOutTime": {
+        "title": "Check-Out Time",
+        "desc": "Standard check-out time of day (12:00)"
+      },
+      "roomTypes": {
+        "title": "Room Types",
+        "desc": "Choose room type templates (Single, Double, Family)"
+      },
+      "roomInventory": {
+        "title": "Room Inventory",
+        "desc": "Bulk room creation by floor and range"
+      },
+      "taxesFees": {
+        "title": "Taxes & Fees",
+        "desc": "Configure tax rates (VAT 10%)"
+      },
+      "paymentMethods": {
+        "title": "Payment Methods",
+        "desc": "Enable Cash, Credit Card, Bank Transfer, QR"
+      },
+      "staffSetup": {
+        "title": "Staff Setup",
+        "desc": "Add initial staff accounts and role assignments"
+      },
+      "reviewSetup": {
+        "title": "Review Setup",
+        "desc": "Configuration audit checklist and verification"
+      },
+      "finishSetup": {
+        "title": "Finish Setup",
+        "desc": "Complete onboarding and open dashboard"
+      }
+    },
+    "step1": {
+      "authenticatedOwnerLabel": "Authenticated Owner:",
+      "accountStatus": "Account status: Active • Role: OWNER"
+    },
+    "step2": {
+      "guestHouseName": "Guest House Name",
+      "propertyCode": "Property Code"
+    },
+    "genericStep": {
+      "configured": "Configured parameters for step {step}: {title}",
+      "defaults": "All defaults set to recommended Guest House Manager specifications."
+    },
+    "step14": {
+      "title": "Property Ready!",
+      "description": "All 14 onboarding steps have been verified. Click finish below to launch your operations dashboard."
+    }
+  },
+  "reservationNew": {
+    "mobileTitle": "New Booking",
+    "title": "New Reservation",
+    "description": "Create a reservation in a few guided steps.",
+    "steps": {
+      "guest": "Guest",
+      "room": "Room",
+      "stay": "Stay",
+      "confirm": "Confirm"
+    },
+    "guestInfo": {
+      "heading": "Find Guest",
+      "newHeading": "New Guest Details",
+      "searchTab": "Existing Guest",
+      "newTab": "New Guest",
+      "searchDescription": "Search by name or phone number.",
+      "searchPlaceholder": "Search guests...",
+      "noMatches": "No guests match this search.",
+      "showingRecent": "Showing recent guests — search to find more.",
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+855 ...",
+      "emailLabel": "Email",
+      "idPassportLabel": "ID / Passport Number",
+      "nationalityLabel": "Nationality",
+      "nationalityPlaceholder": "Select nationality",
+      "nationalities": {
+        "cambodian": "Cambodian",
+        "american": "American",
+        "british": "British",
+        "other": "Other"
+      }
+    },
+    "room": {
+      "typeHeading": "Select Room Type",
+      "noRoomTypes": "No room types are configured yet.",
+      "maxGuests": "Up to {count} guests",
+      "assignHeading": "Assign a Specific Room (optional)",
+      "availabilityDisclaimer": "Shows rooms currently marked available — dates aren't yet checked against other bookings.",
+      "assignLater": "Let staff assign a room later",
+      "noRoomsAvailable": "No rooms of this type are currently available."
+    },
+    "stay": {
+      "datesHeading": "Stay Dates & Occupancy",
+      "arrivalLabel": "Arrival Date",
+      "departureLabel": "Departure Date",
+      "adultsLabel": "Adults",
+      "childrenLabel": "Children",
+      "pricePreview": "Price Preview",
+      "nightsSummary": "{count} nights",
+      "selectRoomFirst": "Select a room type to see a price estimate.",
+      "estimateDisclaimer": "Estimated from nights × room rate + 10% VAT — the server confirms the final total when you submit."
+    },
+    "confirm": {
+      "heading": "Confirm Booking",
+      "guestLabel": "Guest",
+      "roomTypeLabel": "Room Type",
+      "roomLabel": "Room",
+      "datesLabel": "Dates",
+      "occupancyLabel": "Occupancy",
+      "occupancyValue": "{adults} adults, {children} children",
+      "totalLabel": "Estimated Total"
+    },
+    "nextLabel": "Next: {step}",
+    "confirmBooking": "Confirm Booking",
+    "toast": {
+      "confirmed": "Booking confirmed for {guestName}!",
+      "missingRequired": "Select a guest and room type before confirming."
+    },
+    "noPermission": {
+      "title": "You can't create reservations",
+      "description": "Your role doesn't have permission to create new reservations.",
+      "backAction": "Back to Reservations"
+    }
+  },
+  "reservationDetail": {
+    "title": "Reservation {id}",
+    "backToReservations": "Back to Reservations",
+    "guestStayHeading": "Guest & Stay",
+    "description": "Booking details, room assignment, folio summary, and stay history.",
+    "printVoucher": "Print Voucher",
+    "toast": {
+      "printDialogOpened": "Opening print dialog",
+      "checkedOut": "Guest checked out successfully!",
+      "cancelled": "Reservation cancelled."
+    },
+    "guestNameLabel": "Guest Name",
+    "assignedRoomLabel": "Assigned Room",
+    "unassigned": "Unassigned",
+    "stayDatesLabel": "Stay Dates",
+    "occupancyLabel": "Occupancy",
+    "nights": "{count} Nights",
+    "adults": "{count} Adults",
+    "checkOutGuest": "Check Out Guest",
+    "cancelBooking": "Cancel Booking",
+    "editBooking": "Edit",
+    "extendStay": "Extend Stay",
+    "notYetAvailable": {
+      "edit": "Editing a confirmed reservation isn't available yet — it needs a backend endpoint that doesn't exist.",
+      "extend": "Extending a stay isn't available yet — it needs a backend endpoint that doesn't exist."
+    },
+    "notesHeading": "Notes",
+    "specialRequestsLabel": "Special Requests",
+    "internalNotesLabel": "Internal Notes",
+    "notFound": {
+      "title": "Couldn't load this reservation",
+      "description": "It may no longer exist, or the link may be incorrect. Try again, or head back to the list.",
+      "backAction": "Back to Reservations"
+    },
+    "cancelDialog": {
+      "title": "Cancel this reservation?",
+      "description": "This cancels {number} immediately and can't be undone from here.",
+      "confirm": "Cancel Reservation",
+      "dismiss": "Keep Reservation"
+    },
+    "folio": {
+      "heading": "Folio Summary",
+      "roomRate": "Room Rate ({nights} nights @ {rate})",
+      "vatTax": "VAT Tax ({percent}%)",
+      "grandTotal": "Grand Total",
+      "paidAmount": "Paid Amount",
+      "balanceDue": "Balance Due"
+    }
+  }
+}

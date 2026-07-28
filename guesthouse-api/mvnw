@@ -1,0 +1,107 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+#  Maven bootstrapper for guesthouse-api  (POSIX sh: Linux, macOS, Git Bash)
+#
+#  Order of preference:
+#    1. A Maven already on PATH or pointed at by MAVEN_HOME  -> use it
+#    2. Otherwise download the distribution named in
+#       .mvn/wrapper/maven-wrapper.properties into ~/.m2/wrapper/dists
+#
+#  This is the "only-script" wrapper style, so there is no maven-wrapper.jar
+#  committed to the repository. Once you have Maven installed you can replace
+#  this file with the official upstream scripts:
+#      mvn wrapper:wrapper -Dmaven=3.9.9
+#
+#  Usage:  ./mvnw spring-boot:run
+# ----------------------------------------------------------------------------
+set -e
+
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+PROPS="$SCRIPT_DIR/.mvn/wrapper/maven-wrapper.properties"
+
+die() {
+    echo "" >&2
+    echo "[mvnw] ERROR: $1" >&2
+    echo "" >&2
+    exit 1
+}
+
+# ---------------------------------------------------------------- Java check
+if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+    JAVA_EXE="$JAVA_HOME/bin/java"
+elif command -v java >/dev/null 2>&1; then
+    JAVA_EXE="java"
+else
+    die "No Java found. Install JDK 21 and set JAVA_HOME.
+       See ../docs/local-setup.md for step-by-step instructions."
+fi
+
+# "java -version" writes to stderr; take the first numeric component.
+JAVA_VERSION_RAW=$("$JAVA_EXE" -version 2>&1 | head -n 1)
+JAVA_MAJOR=$(echo "$JAVA_VERSION_RAW" | sed -n 's/.*version "\([0-9][0-9]*\).*/\1/p')
+if [ -n "$JAVA_MAJOR" ] && [ "$JAVA_MAJOR" -lt 21 ] 2>/dev/null; then
+    die "Java 21 or later is required, but found: $JAVA_VERSION_RAW
+       Install Eclipse Temurin 21 and point JAVA_HOME at it.
+       See ../docs/local-setup.md."
+fi
+
+# ------------------------------------------------- 1. Use an installed Maven
+if [ -n "$MAVEN_HOME" ] && [ -x "$MAVEN_HOME/bin/mvn" ]; then
+    exec "$MAVEN_HOME/bin/mvn" "$@"
+fi
+if command -v mvn >/dev/null 2>&1; then
+    exec mvn "$@"
+fi
+
+# ------------------------------------------------- 2. Bootstrap a Maven copy
+[ -f "$PROPS" ] || die "Missing $PROPS"
+
+DIST_URL=$(sed -n 's/^distributionUrl=//p' "$PROPS" | tr -d '\r')
+[ -n "$DIST_URL" ] || die "distributionUrl is not set in $PROPS"
+
+DIST_ZIP=$(basename "$DIST_URL")                 # apache-maven-3.9.9-bin.zip
+DIST_NAME=$(echo "$DIST_ZIP" | sed 's/-bin\.zip$//')   # apache-maven-3.9.9
+WRAPPER_HOME="${MAVEN_USER_HOME:-$HOME/.m2}/wrapper/dists"
+MAVEN_DIR="$WRAPPER_HOME/$DIST_NAME"
+
+if [ ! -x "$MAVEN_DIR/bin/mvn" ]; then
+    echo "[mvnw] Maven is not installed on this machine."
+    echo "[mvnw] Downloading $DIST_ZIP"
+    echo "[mvnw]   from $DIST_URL"
+    echo "[mvnw]   into $MAVEN_DIR"
+    echo "[mvnw] (one-off, about 9 MB; or install Maven yourself to skip this)"
+
+    mkdir -p "$WRAPPER_HOME"
+    TMP_DIR=$(mktemp -d 2>/dev/null || mktemp -d -t mvnw)
+    trap 'rm -rf "$TMP_DIR"' EXIT
+
+    if command -v curl >/dev/null 2>&1; then
+        curl -fsSL -o "$TMP_DIR/$DIST_ZIP" "$DIST_URL" \
+            || die "Download failed. Check your internet connection, or install Maven manually."
+    elif command -v wget >/dev/null 2>&1; then
+        wget -q -O "$TMP_DIR/$DIST_ZIP" "$DIST_URL" \
+            || die "Download failed. Check your internet connection, or install Maven manually."
+    else
+        die "Neither curl nor wget is available. Install Maven 3.9+ manually instead:
+       macOS:  brew install maven
+       Linux:  sudo apt install maven
+       See ../docs/local-setup.md."
+    fi
+
+    if command -v unzip >/dev/null 2>&1; then
+        unzip -q "$TMP_DIR/$DIST_ZIP" -d "$TMP_DIR"
+    else
+        # Every JDK ships jar, which can extract a zip.
+        (cd "$TMP_DIR" && "$JAVA_EXE" -version >/dev/null 2>&1 && \
+            "${JAVA_HOME:-}/bin/jar" xf "$DIST_ZIP" 2>/dev/null) \
+            || die "No unzip available. Install unzip, or install Maven manually."
+    fi
+
+    [ -d "$TMP_DIR/$DIST_NAME" ] || die "Unexpected archive layout: $TMP_DIR/$DIST_NAME not found"
+    rm -rf "$MAVEN_DIR"
+    mv "$TMP_DIR/$DIST_NAME" "$MAVEN_DIR"
+    chmod +x "$MAVEN_DIR/bin/mvn"
+    echo "[mvnw] Maven ready at $MAVEN_DIR"
+fi
+
+exec "$MAVEN_DIR/bin/mvn" "$@"

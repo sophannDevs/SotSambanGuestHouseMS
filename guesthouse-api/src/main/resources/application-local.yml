@@ -1,0 +1,69 @@
+# =============================================================================
+#  Guest House Manager API — LOCAL development profile  (the default)
+#
+#  Everything here is a developer convenience and must never be carried into a
+#  future production profile:
+#    - verbose SQL and application logging
+#    - wide-open actuator endpoints
+#    - password-reset links printed to the console instead of emailed
+#    - a local email viewer that stores "sent" mail in memory
+#    - the /api/v1/dev/* endpoints, including seed-data reset
+# =============================================================================
+
+spring:
+  jpa:
+    show-sql: ${SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        # Warn loudly about N+1 queries while there is still time to fix them.
+        generate_statistics: false
+
+  flyway:
+    # Never true here either: dropping the dev database by accident is expensive.
+    # Use database/98-drop-schema.sql when a full rebuild is really wanted.
+    clean-disabled: true
+
+  devtools:
+    restart:
+      enabled: true
+      additional-exclude: static/**,public/**,uploads/**
+    livereload:
+      enabled: false
+
+app:
+  local:
+    # Master switch for every local-only feature. Read by DevProfileGuard.
+    enabled: true
+    # Password reset: write the link to the console instead of sending email.
+    log-password-reset-links: true
+    # Keep the last N simulated emails in memory for /api/v1/dev/emails.
+    email-viewer-capacity: 100
+    # /api/v1/dev/reset-data requires an explicit confirmation flag on top of
+    # the dev:reset_data permission.
+    allow-data-reset: true
+
+# Wide-open actuator: useful locally, unacceptable anywhere else.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,configprops,flyway,beans,mappings,loggers,caches
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  info:
+    env:
+      enabled: true
+
+logging:
+  level:
+    com.guesthouse: DEBUG
+    # Uncomment to see bound SQL parameters:
+    # org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.transaction: INFO
+    org.springframework.orm.jpa: INFO

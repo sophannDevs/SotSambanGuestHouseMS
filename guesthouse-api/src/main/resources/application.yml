@@ -1,0 +1,210 @@
+# =============================================================================
+#  Guest House Manager API — base configuration
+#
+#  Values come from environment variables with sensible local defaults. The
+#  guesthouse-api/.env file is loaded automatically by DotenvEnvironmentPostProcessor
+#  for local convenience; real environment variables always win over it.
+#
+#  Profiles:
+#    local  (default) -> application-local.yml
+#    test             -> application-test.yml, used by integration tests
+#  There is deliberately NO prod profile. See ../docs/future-deployment-roadmap.md
+# =============================================================================
+
+spring:
+  application:
+    name: guesthouse-api
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  # ---------------------------------------------------------------- Datasource
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:guesthouse_db}}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: guesthouse-pool
+      maximum-pool-size: ${DB_POOL_MAX:10}
+      minimum-idle: ${DB_POOL_MIN:2}
+      connection-timeout: 20000     # fail fast when PostgreSQL is not running
+      validation-timeout: 5000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      auto-commit: false
+      connection-init-sql: SET TIME ZONE 'UTC'
+
+  # ---------------------------------------------------------------------- JPA
+  jpa:
+    open-in-view: false             # never lazy-load inside a controller
+    hibernate:
+      # Flyway owns the schema. Hibernate only checks that entities match it.
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC            # every Instant is stored and read as UTC
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        query:
+          in_clause_parameter_padding: true
+        format_sql: false
+    show-sql: false
+
+  # ------------------------------------------------------------------- Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: ${FLYWAY_BASELINE_ON_MIGRATE:true}
+    validate-on-migrate: true
+    out-of-order: false
+    clean-disabled: true            # overridden only by the test profile
+    placeholder-replacement: false  # SQL may legitimately contain ${...}
+
+  # ------------------------------------------------------------------ Jackson
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false   # ISO-8601, e.g. 2026-07-27T09:00:00+07:00
+      write-durations-as-timestamps: false
+      indent-output: false
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+      accept-empty-string-as-null-object: true
+
+  # ------------------------------------------------------------------ Uploads
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 25MB
+      file-size-threshold: 1MB
+
+  # --------------------------------------------------------------- Messages
+  messages:
+    basename: messages/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+    use-code-as-default-message: true
+
+  mvc:
+    problemdetails:
+      # Off: this API has its own error envelope, documented in
+      # ../docs/conventions.md section 9.1.
+      enabled: false
+    throw-exception-if-no-handler-found: true
+
+  web:
+    resources:
+      add-mappings: true
+
+  threads:
+    virtual:
+      # Left off deliberately: virtual threads can pin on synchronized blocks in
+      # JDBC drivers. Revisit with a load test, not by assumption.
+      enabled: false
+
+# ================================================================== Server
+server:
+  port: ${SERVER_PORT:8080}
+  # Bind to loopback only. The local backend must not be reachable from the
+  # network. Override with SERVER_ADDRESS=0.0.0.0 only for deliberate on-device
+  # testing over a trusted LAN.
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  shutdown: graceful
+  error:
+    # Never leak internals. The global exception handler produces every response.
+    include-stacktrace: never
+    include-message: never
+    include-binding-errors: never
+    include-exception: false
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,text/plain,text/css,application/javascript
+    min-response-size: 2KB
+  tomcat:
+    max-http-form-post-size: 25MB
+    threads:
+      max: 50
+      min-spare: 5
+
+# ================================================== Application properties
+app:
+  name: Guest House Manager
+  version: @project.version@
+  # Single allowed browser origin for CORS. Nothing else is permitted.
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  api-base-path: /api/v1
+  # Fallback timezone used for API timestamps until a property timezone is known.
+  default-timezone: ${APP_TIMEZONE:Asia/Phnom_Penh}
+  default-currency: ${APP_CURRENCY:USD}
+  default-locale: ${APP_LOCALE:en}
+
+  file:
+    upload-dir: ${FILE_UPLOAD_DIR:uploads}
+    max-file-size-bytes: 10485760          # 10 MB, must match servlet.multipart
+    allowed-image-types: image/jpeg,image/png,image/webp
+    allowed-document-types: application/pdf,image/jpeg,image/png,image/webp
+
+  security:
+    jwt:
+      # Fallback to local default secret if not provided in environment
+      secret: ${JWT_SECRET:e4nov7dl4x62lpd9zd4iv9f0ywr6926aqca3n89s7dwm6fiopnc3288wbkrxctz83cwtn5m18m24decp}
+      issuer: guesthouse-api
+      access-expiration-minutes: ${JWT_ACCESS_EXPIRATION_MINUTES:30}
+      refresh-expiration-days: ${JWT_REFRESH_EXPIRATION_DAYS:7}
+    lockout:
+      max-failed-attempts: ${AUTH_MAX_FAILED_ATTEMPTS:5}
+      lockout-duration-minutes: ${AUTH_LOCKOUT_MINUTES:15}
+    password:
+      min-length: 10
+
+  seed:
+    # Demo data is only ever created under the local profile.
+    demo-data: ${SEED_DEMO_DATA:true}
+
+# ============================================================== OpenAPI / Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+    display-request-duration: true
+    doc-expansion: none
+    persist-authorization: true
+  default-produces-media-type: application/json
+
+# ================================================================== Actuator
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        # Minimal by default. The local profile widens this.
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: false
+
+# ================================================================== Logging
+logging:
+  level:
+    root: INFO
+    com.guesthouse: ${LOG_LEVEL_APP:INFO}
+    org.flywaydb: INFO
+  pattern:
+    # requestId and userId come from the MDC, populated by RequestIdFilter.
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %magenta([%X{requestId:-no-request}]) %cyan(%X{userId:-anonymous}) %logger{32} - %msg%n"

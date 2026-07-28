@@ -1,0 +1,10 @@
+# Local file storage root.
+#
+# Guest photos, identification documents, room images, expense receipts,
+# maintenance and housekeeping photos and the property logo are written here by
+# LocalFileStorage, under:
+#
+#     uploads/{propertyId}/{entityType}/{yyyy}/{MM}/{uuid}.{ext}
+#
+# Everything except this file is git-ignored. Cloud object storage is a future
+# roadmap item; see ../../docs/future-deployment-roadmap.md.

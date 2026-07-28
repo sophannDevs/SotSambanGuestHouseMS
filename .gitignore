@@ -1,0 +1,95 @@
+# ---------------------------------------------------------------------------
+# Guest House Manager — repository-wide ignores
+# ---------------------------------------------------------------------------
+
+# --- Secrets and local configuration --------------------------------------
+# Only *.example files are tracked. Never commit a real secret.
+.env
+.env.*
+!.env.example
+!.env.local.example
+*.local
+!*.local.example
+
+# --- Backend (Maven / Java) -----------------------------------------------
+target/
+!.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+!mvnw
+!mvnw.cmd
+hs_err_pid*
+replay_pid*
+
+# --- Local file storage ---------------------------------------------------
+# Uploaded guest photos, ID documents, receipts and room images stay local.
+guesthouse-api/uploads/*
+!guesthouse-api/uploads/.gitkeep
+
+# --- Generated documents --------------------------------------------------
+guesthouse-api/generated/
+*.pdf.tmp
+
+# --- Frontend (Node / Next.js) -------------------------------------------
+node_modules/
+.next/
+out/
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+
+# --- Test output ----------------------------------------------------------
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+.nyc_output/
+*.lcov
+
+# --- Database dumps and local backups ------------------------------------
+*.dump
+*.sql.gz
+*.backup
+
+# --- Logs -----------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- IDE and editor ------------------------------------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/*
+!.vscode/settings.json.example
+!.vscode/extensions.json
+.settings/
+.project
+.classpath
+.factorypath
+*.swp
+*~
+
+# --- OS -------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Scratch --------------------------------------------------------------
+tmp/
+temp/
+scratch/
