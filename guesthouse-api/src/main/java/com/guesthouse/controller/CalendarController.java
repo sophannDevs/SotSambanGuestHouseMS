@@ -1,9 +1,9 @@
 package com.guesthouse.controller;
 
 import com.guesthouse.common.dto.ApiResponse;
-import com.guesthouse.dto.reservation.CalendarTimelineDto;
+import com.guesthouse.dto.booking.CalendarTimelineDto;
 import com.guesthouse.security.UserPrincipal;
-import com.guesthouse.service.ReservationService;
+import com.guesthouse.service.BookingService;
 import com.guesthouse.service.RoomService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class CalendarController {
 
     private final RoomService roomService;
-    private final ReservationService reservationService;
+    private final BookingService bookingService;
 
-    public CalendarController(RoomService roomService, ReservationService reservationService) {
+    public CalendarController(RoomService roomService, BookingService bookingService) {
         this.roomService = roomService;
-        this.reservationService = reservationService;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/timeline")
-    @PreAuthorize("hasAuthority('reservation:view')")
+    @PreAuthorize("hasAuthority('booking:view')")
     public ResponseEntity<ApiResponse<CalendarTimelineDto>> getTimeline(@AuthenticationPrincipal UserPrincipal principal) {
         CalendarTimelineDto timeline = new CalendarTimelineDto(
                 roomService.getRooms(principal.getPropertyId(), null),
-                reservationService.getReservations(principal.getPropertyId())
+                bookingService.getBookings(principal.getPropertyId())
         );
         return ResponseEntity.ok(ApiResponse.ok(timeline));
     }

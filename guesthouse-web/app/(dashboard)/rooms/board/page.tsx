@@ -8,7 +8,7 @@ import { PageSkeleton } from "@/components/shared/page-skeleton";
 import { ErrorState } from "@/components/shared/error-state";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { RoomDto, RoomBlockDto, ReservationDto } from "@/lib/api-types";
+import type { RoomDto, RoomBlockDto, BookingDto } from "@/lib/api-types";
 import { Filter, Lock, Sparkles, CheckCircle2, AlertCircle, BedDouble } from "lucide-react";
 import { toast } from "sonner";
 import { RoomBlockDialog } from "@/components/rooms/room-block-dialog";
@@ -27,16 +27,13 @@ export default function RoomBoardPage() {
 
   const roomsQuery = useQuery({
     queryKey: ["rooms"],
-    // Polling, not a websocket — matches the "Room status board reflects a
-    // real status change made elsewhere within one refresh" acceptance
-    // criteria without inventing real-time infra the backend doesn't have.
     queryFn: () => apiFetch<RoomDto[]>("/rooms"),
     enabled: canView,
     refetchInterval: 15_000,
   });
   const inHouseQuery = useQuery({
     queryKey: ["front-desk", "in-house"],
-    queryFn: () => apiFetch<ReservationDto[]>("/front-desk/in-house"),
+    queryFn: () => apiFetch<BookingDto[]>("/front-desk/in-house"),
     enabled: canView,
   });
 

@@ -24,49 +24,49 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final InvoiceRepository invoiceRepository;
     private final ReceiptRepository receiptRepository;
-    private final ReservationRepository reservationRepository;
+    private final BookingRepository bookingRepository;
     private final DocumentSequenceRepository documentSequenceRepository;
 
     public PaymentService(
             PaymentRepository paymentRepository,
             InvoiceRepository invoiceRepository,
             ReceiptRepository receiptRepository,
-            ReservationRepository reservationRepository,
+            BookingRepository bookingRepository,
             DocumentSequenceRepository documentSequenceRepository
     ) {
         this.paymentRepository = paymentRepository;
         this.invoiceRepository = invoiceRepository;
         this.receiptRepository = receiptRepository;
-        this.reservationRepository = reservationRepository;
+        this.bookingRepository = bookingRepository;
         this.documentSequenceRepository = documentSequenceRepository;
     }
 
     @Transactional(readOnly = true)
     public List<PaymentDto> getPayments(UUID propertyId) {
         List<Payment> payments = paymentRepository.findByPropertyIdOrderByPaymentTimeDesc(propertyId);
-        Map<UUID, Reservation> reservationsById = loadReservationsFor(payments.stream().map(Payment::getReservationId));
+        Map<UUID, Booking> bookingsById = loadBookingsFor(payments.stream().map(Payment::getBookingId));
         return payments.stream()
-                .map(p -> mapToPaymentDto(p, reservationsById.get(p.getReservationId())))
+                .map(p -> mapToPaymentDto(p, bookingsById.get(p.getBookingId())))
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<InvoiceDto> getInvoices(UUID propertyId) {
         List<Invoice> invoices = invoiceRepository.findByPropertyIdOrderByIssuedAtDesc(propertyId);
-        Map<UUID, Reservation> reservationsById = loadReservationsFor(invoices.stream().map(Invoice::getReservationId));
+        Map<UUID, Booking> bookingsById = loadBookingsFor(invoices.stream().map(Invoice::getBookingId));
         return invoices.stream()
                 .map(i -> {
-                    Reservation reservation = reservationsById.get(i.getReservationId());
-                    String guestName = reservation != null ? guestDisplayName(reservation.getMainGuest()) : "Unknown Guest";
-                    return new InvoiceDto(i.getId(), i.getInvoiceNumber(), i.getReservationId(), guestName, i.getInvoiceType(), i.getSubtotal(), i.getTaxAmount(), i.getGrandTotal(), i.getStatus(), i.getIssuedAt());
+                    Booking booking = bookingsById.get(i.getBookingId());
+                    String guestName = booking != null ? guestDisplayName(booking.getMainGuest()) : "Unknown Guest";
+                    return new InvoiceDto(i.getId(), i.getInvoiceNumber(), i.getBookingId(), guestName, i.getInvoiceType(), i.getSubtotal(), i.getTaxAmount(), i.getGrandTotal(), i.getStatus(), i.getIssuedAt());
                 })
                 .collect(Collectors.toList());
     }
 
-    private Map<UUID, Reservation> loadReservationsFor(Stream<UUID> reservationIds) {
-        List<UUID> ids = reservationIds.distinct().collect(Collectors.toList());
-        return reservationRepository.findAllById(ids).stream()
-                .collect(Collectors.toMap(Reservation::getId, r -> r));
+    private Map<UUID, Booking> loadBookingsFor(Stream<UUID> bookingIds) {
+        List<UUID> ids = bookingIds.distinct().collect(Collectors.toList());
+        return bookingRepository.findAllById(ids).stream()
+                .collect(Collectors.toMap(Booking::getId, b -> b));
     }
 
     private String guestDisplayName(Guest guest) {
@@ -75,8 +75,8 @@ public class PaymentService {
 
     @Transactional
     public PaymentDto recordPayment(UUID propertyId, RecordPaymentRequest request, UUID userId) {
-        Reservation reservation = reservationRepository.findById(request.getReservationId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Reservation not found"));
+        Booking booking = bookingRepository.findById(request.getBookingId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.BOOKING_NOT_FOUND, "Booking not found"));
 
         int year = LocalDate.now().getYear();
         String payNumber = generateSequenceNumber(propertyId, "PAYMENT", "PAY", year);
@@ -85,8 +85,8 @@ public class PaymentService {
         Payment payment = new Payment();
         payment.setPropertyId(propertyId);
         payment.setPaymentNumber(payNumber);
-        payment.setReservationId(reservation.getId());
-        payment.setGuestId(reservation.getMainGuest().getId());
+        payment.setBookingId(booking.getId());
+        payment.setGuestId(booking.getMainGuest().getId());
         payment.setAmount(request.getAmount());
         payment.setPaymentMethod(request.getPaymentMethod() != null ? request.getPaymentMethod() : "CASH");
         payment.setPaymentKind(request.getPaymentKind() != null ? request.getPaymentKind() : "PAYMENT");
@@ -97,30 +97,30 @@ public class PaymentService {
 
         Payment savedPayment = paymentRepository.save(payment);
 
-        // Update reservation folio
-        BigDecimal newPaid = reservation.getPaidAmount().add(request.getAmount());
-        BigDecimal newBalance = reservation.getTotalAmount().subtract(newPaid);
-        reservation.setPaidAmount(newPaid);
-        reservation.setBalanceDue(newBalance);
+        // Update booking folio
+        BigDecimal newPaid = booking.getPaidAmount().add(request.getAmount());
+        BigDecimal newBalance = booking.getTotalAmount().subtract(newPaid);
+        booking.setPaidAmount(newPaid);
+        booking.setBalanceDue(newBalance);
         if (newBalance.compareTo(BigDecimal.ZERO) <= 0) {
-            reservation.setPaymentStatus("PAID");
+            booking.setPaymentStatus("PAID");
         } else {
-            reservation.setPaymentStatus("PARTIALLY_PAID");
+            booking.setPaymentStatus("PARTIALLY_PAID");
         }
-        reservationRepository.save(reservation);
+        bookingRepository.save(booking);
 
         // Issue Receipt
         Receipt receipt = new Receipt();
         receipt.setPropertyId(propertyId);
         receipt.setReceiptNumber(rctNumber);
         receipt.setPaymentId(savedPayment.getId());
-        receipt.setReservationId(reservation.getId());
-        receipt.setGuestId(reservation.getMainGuest().getId());
+        receipt.setBookingId(booking.getId());
+        receipt.setGuestId(booking.getMainGuest().getId());
         receipt.setAmount(request.getAmount());
         receipt.setCreatedBy(userId);
         receiptRepository.save(receipt);
 
-        return mapToPaymentDto(savedPayment, reservation);
+        return mapToPaymentDto(savedPayment, booking);
     }
 
     private String generateSequenceNumber(UUID propertyId, String sequenceType, String prefix, int year) {
@@ -142,13 +142,13 @@ public class PaymentService {
         return String.format("%s-%d-%06d", prefix, year, nextVal);
     }
 
-    private PaymentDto mapToPaymentDto(Payment p, Reservation reservation) {
+    private PaymentDto mapToPaymentDto(Payment p, Booking booking) {
         return new PaymentDto(
                 p.getId(),
                 p.getPaymentNumber(),
-                p.getReservationId(),
-                reservation != null ? reservation.getReservationNumber() : "Unknown",
-                reservation != null ? guestDisplayName(reservation.getMainGuest()) : "Unknown Guest",
+                p.getBookingId(),
+                booking != null ? booking.getBookingNumber() : "Unknown",
+                booking != null ? guestDisplayName(booking.getMainGuest()) : "Unknown Guest",
                 p.getAmount(),
                 p.getPaymentMethod(),
                 p.getPaymentKind(),

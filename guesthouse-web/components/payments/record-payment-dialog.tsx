@@ -10,31 +10,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { MoneyDisplay } from "@/components/shared/money-display";
 import { cn } from "@/lib/utils";
-import type { ReservationDto, RecordPaymentRequest } from "@/lib/api-types";
+import type { BookingDto, RecordPaymentRequest } from "@/lib/api-types";
 
 interface RecordPaymentDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  reservations: ReservationDto[];
+  bookings: BookingDto[];
   onSubmit: (values: RecordPaymentRequest) => void;
   isSubmitting?: boolean;
 }
 
 const METHODS = ["CASH", "CREDIT_CARD", "BANK_TRANSFER", "KHQR"] as const;
-// "REFUND" is deliberately excluded — recordPayment always adds the amount
-// to the reservation's paidAmount regardless of kind, so selecting REFUND
-// here would increase the balance instead of decreasing it. Real refunds
-// have no backend support yet (see NotAvailableNotice on this page).
 const KINDS = ["PAYMENT", "DEPOSIT"] as const;
 
-export function RecordPaymentDialog({ isOpen, onClose, reservations, onSubmit, isSubmitting }: RecordPaymentDialogProps) {
+export function RecordPaymentDialog({ isOpen, onClose, bookings, onSubmit, isSubmitting }: RecordPaymentDialogProps) {
   const t = useTranslations("payments.recordDialog");
-  // methods/kinds live at the parent "payments" level (shared with the
-  // payments table's own method/kind badges), not nested under recordDialog.
   const tPayments = useTranslations("payments");
   const tCommon = useTranslations("common");
   const [search, setSearch] = React.useState("");
-  const [reservationId, setReservationId] = React.useState<string | null>(null);
+  const [bookingId, setBookingId] = React.useState<string | null>(null);
   const [amount, setAmount] = React.useState("");
   const [method, setMethod] = React.useState<(typeof METHODS)[number]>("CASH");
   const [kind, setKind] = React.useState<(typeof KINDS)[number]>("PAYMENT");
@@ -43,7 +37,7 @@ export function RecordPaymentDialog({ isOpen, onClose, reservations, onSubmit, i
   React.useEffect(() => {
     if (isOpen) {
       setSearch("");
-      setReservationId(null);
+      setBookingId(null);
       setAmount("");
       setMethod("CASH");
       setKind("PAYMENT");
@@ -51,25 +45,25 @@ export function RecordPaymentDialog({ isOpen, onClose, reservations, onSubmit, i
     }
   }, [isOpen]);
 
-  const selectedReservation = reservations.find((r) => r.id === reservationId) ?? null;
+  const selectedBooking = bookings.find((b) => b.id === bookingId) ?? null;
 
   React.useEffect(() => {
-    if (selectedReservation) setAmount(selectedReservation.balanceDue > 0 ? String(selectedReservation.balanceDue) : "");
-  }, [selectedReservation]);
+    if (selectedBooking) setAmount(selectedBooking.balanceDue > 0 ? String(selectedBooking.balanceDue) : "");
+  }, [selectedBooking]);
 
   const q = search.trim().toLowerCase();
-  const matchingReservations = reservations
-    .filter((r) => !q || r.reservationNumber.toLowerCase().includes(q) || `${r.mainGuest.firstName} ${r.mainGuest.lastName}`.toLowerCase().includes(q))
+  const matchingBookings = bookings
+    .filter((b) => !q || b.bookingNumber.toLowerCase().includes(q) || `${b.mainGuest.firstName} ${b.mainGuest.lastName}`.toLowerCase().includes(q))
     .slice(0, 20);
 
   const numericAmount = Number(amount);
-  const canSubmit = !!reservationId && numericAmount > 0;
+  const canSubmit = !!bookingId && numericAmount > 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!canSubmit || !reservationId) return;
+    if (!canSubmit || !bookingId) return;
     onSubmit({
-      reservationId,
+      bookingId,
       amount: numericAmount,
       paymentMethod: method,
       paymentKind: kind,
@@ -85,32 +79,32 @@ export function RecordPaymentDialog({ isOpen, onClose, reservations, onSubmit, i
         </FormFieldGroup>
 
         <div className="max-h-48 space-y-1.5 overflow-y-auto">
-          {matchingReservations.map((r) => {
-            const isSelected = r.id === reservationId;
+          {matchingBookings.map((b) => {
+            const isSelected = b.id === bookingId;
             return (
               <button
                 type="button"
-                key={r.id}
-                onClick={() => setReservationId(r.id)}
+                key={b.id}
+                onClick={() => setBookingId(b.id)}
                 className={cn(
                   "flex w-full items-center justify-between gap-2 rounded-xl border p-2.5 text-left text-xs transition-all",
                   isSelected ? "border-primary bg-primary/10" : "border-border/60 bg-card"
                 )}
               >
                 <div>
-                  <p className="font-mono font-bold text-primary">{r.reservationNumber}</p>
+                  <p className="font-mono font-bold text-primary">{b.bookingNumber}</p>
                   <p className="text-muted-foreground">
-                    {r.mainGuest.firstName} {r.mainGuest.lastName}
+                    {b.mainGuest.firstName} {b.mainGuest.lastName}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  <MoneyDisplay amount={r.balanceDue} hideSecondary className={r.balanceDue > 0 ? "text-warning" : "text-success"} />
+                  <MoneyDisplay amount={b.balanceDue} hideSecondary className={b.balanceDue > 0 ? "text-warning" : "text-success"} />
                   {isSelected && <Check className="h-4 w-4 text-primary" />}
                 </div>
               </button>
             );
           })}
-          {matchingReservations.length === 0 && <p className="text-xs text-muted-foreground py-2">{t("noMatches")}</p>}
+          {matchingBookings.length === 0 && <p className="text-xs text-muted-foreground py-2">{t("noMatches")}</p>}
         </div>
 
         <FormFieldGroup label={t("amountLabel")} htmlFor="payment-amount" required>

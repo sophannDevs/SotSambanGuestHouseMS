@@ -4,11 +4,7 @@ A complete guest house management system for small property owners — reservati
 housekeeping, maintenance, payments, invoicing, expenses and reporting — built as a modern,
 responsive, installable (PWA-ready) web application.
 
-> **Development stage: local only.** The whole system runs on one development computer.
-> There is deliberately **no** Docker, cloud hosting, VPS, CI/CD, Nginx, Kubernetes or production
-> deployment configuration in this repository. The architecture keeps clean seams for those, and they
-> are specified in [docs/future-deployment-roadmap.md](docs/future-deployment-roadmap.md) — but they
-> are not implemented.
+> **Production Ready on AWS Free Tier.** Containerized with Docker & Docker Compose for zero-cost deployment on AWS EC2 `t2.micro`/`t3.micro`. See [docs/aws-free-tier-deployment.md](docs/aws-free-tier-deployment.md) for step-by-step instructions.
 
 ---
 
@@ -17,6 +13,7 @@ responsive, installable (PWA-ready) web application.
 - [What it does](#what-it-does)
 - [Technology](#technology)
 - [Repository layout](#repository-layout)
+- [AWS Free Tier Deployment](#aws-free-tier-deployment)
 - [Prerequisites](#prerequisites)
 - [Quick start](#quick-start)
 - [Local URLs](#local-urls)

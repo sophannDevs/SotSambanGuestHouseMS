@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageHeader } from "@/components/layout/header";
+import { MobileHeader } from "@/components/layout/mobile-header";
+import { ResponsiveDataList } from "@/components/shared/responsive-data-list";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { ResponsiveDialog } from "@/components/shared/responsive-dialog";
 import { StepIndicator } from "@/components/shared/step-indicator";
@@ -22,7 +24,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { ReservationDto, RoomDto, CheckInRequest } from "@/lib/api-types";
+import type { BookingDto, RoomDto, CheckInRequest } from "@/lib/api-types";
 import { UserPlus, UserCheck, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -37,12 +39,12 @@ export default function CheckInPage() {
   const hasPermission = useAuthStore((s) => s.hasPermission);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
 
-  const canView = hasHydrated && hasPermission("reservation:view");
-  const canEdit = hasHydrated && hasPermission("reservation:edit");
+  const canView = hasHydrated && hasPermission("booking:view");
+  const canEdit = hasHydrated && hasPermission("booking:edit");
 
   const arrivalsQuery = useQuery({
     queryKey: ["front-desk", "arrivals"],
-    queryFn: () => apiFetch<ReservationDto[]>("/front-desk/arrivals"),
+    queryFn: () => apiFetch<BookingDto[]>("/front-desk/arrivals"),
     enabled: canView,
   });
 
@@ -71,7 +73,7 @@ export default function CheckInPage() {
   const [vehiclePlate, setVehiclePlate] = React.useState("");
   const [notes, setNotes] = React.useState("");
 
-  const openWizard = (arrival: ReservationDto) => {
+  const openWizard = (arrival: BookingDto) => {
     setSelectedArrivalId(arrival.id);
     setStep(1);
     setRoomId(arrival.assignedRoomId);
@@ -84,16 +86,16 @@ export default function CheckInPage() {
   const closeWizard = () => setSelectedArrivalId(null);
 
   const checkInMutation = useMutation({
-    mutationFn: (body: CheckInRequest) => apiFetch<ReservationDto>("/front-desk/check-in", { method: "POST", body: JSON.stringify(body) }),
-    onSuccess: (reservation) => {
+    mutationFn: (body: CheckInRequest) => apiFetch<BookingDto>("/front-desk/check-in", { method: "POST", body: JSON.stringify(body) }),
+    onSuccess: (booking) => {
       queryClient.invalidateQueries({ queryKey: ["front-desk", "arrivals"] });
       queryClient.invalidateQueries({ queryKey: ["front-desk", "in-house"] });
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
       toast.success(
         t("toast.checkInCompleted", {
-          name: `${reservation.mainGuest.firstName} ${reservation.mainGuest.lastName}`,
-          room: reservation.assignedRoomNumber ?? "",
+          name: `${booking.mainGuest.firstName} ${booking.mainGuest.lastName}`,
+          room: booking.assignedRoomNumber ?? "",
         })
       );
       closeWizard();
@@ -104,7 +106,7 @@ export default function CheckInPage() {
   const handleSubmit = () => {
     if (!selectedArrival || !roomId) return;
     checkInMutation.mutate({
-      reservationId: selectedArrival.id,
+      bookingId: selectedArrival.id,
       roomId,
       keyNumber: keyNumber.trim() || null,
       houseRulesAccepted,
@@ -128,13 +130,78 @@ export default function CheckInPage() {
   const isError = arrivalsQuery.isError;
 
   return (
-    <div className="space-y-6">
+    <div>
+      {/* Mobile view */}
+      <div className="md:hidden">
+        <MobileHeader
+          title={t("title")}
+          rightSlot={
+            canEdit ? (
+              <button
+                onClick={() => router.push("/bookings/new")}
+                aria-label={t("actionLabel")}
+                className="flex h-9 w-9 items-center justify-center rounded-full text-foreground hover:bg-accent"
+              >
+                <UserPlus className="h-5 w-5" />
+              </button>
+            ) : undefined
+          }
+        />
+        <div className="space-y-4 p-4">
+          <h3 className="text-sm font-bold text-foreground">{t("arrivalsHeading", { count: arrivals.length })}</h3>
+
+          {isLoading ? (
+            <PageSkeleton />
+          ) : isError ? (
+            <ErrorState title={t("loadError")} onRetry={() => arrivalsQuery.refetch()} />
+          ) : (
+            <ResponsiveDataList
+              data={arrivals}
+              keyExtractor={(item) => item.id}
+              emptyMessage={t("emptyArrivals")}
+              renderCard={(item) => (
+                <div className="rounded-2xl border border-border/60 bg-card p-4 shadow-sm space-y-2.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-mono text-xs font-bold text-primary">{item.bookingNumber}</p>
+                      <p className="text-sm font-bold text-foreground">
+                        {item.mainGuest.firstName} {item.mainGuest.lastName}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <span className="font-semibold text-foreground">{item.assignedRoomNumber ? `#${item.assignedRoomNumber}` : t("unassigned")}</span>{" "}
+                        ({item.roomTypeName})
+                      </p>
+                    </div>
+                    <StatusBadge status={item.bookingStatus} />
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <DateDisplay date={item.arrivalDate} />
+                    <MoneyDisplay amount={item.balanceDue} hideSecondary className={item.balanceDue > 0 ? "text-warning" : "text-success"} />
+                  </div>
+                  {canEdit && (
+                    <button
+                      onClick={() => openWizard(item)}
+                      className="flex w-full items-center justify-center gap-1.5 rounded-xl border-t border-border/40 pt-2.5 text-xs font-semibold text-primary"
+                    >
+                      <UserCheck className="h-3.5 w-3.5" />
+                      <span>{t("startCheckIn")}</span>
+                    </button>
+                  )}
+                </div>
+              )}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Desktop / tablet view */}
+      <div className="hidden md:block space-y-6">
       <PageHeader
         title={t("title")}
         description={t("description")}
         actionLabel={canEdit ? t("actionLabel") : undefined}
         actionIcon={UserPlus}
-        onAction={() => router.push("/reservations/new")}
+        onAction={() => router.push("/bookings/new")}
       />
 
       <div className="bg-card border border-border/60 rounded-3xl p-6 shadow-xl space-y-4">
@@ -165,7 +232,7 @@ export default function CheckInPage() {
               <tbody className="divide-y divide-border/30">
                 {arrivals.map((item) => (
                   <tr key={item.id} className="hover:bg-muted/30 transition-all">
-                    <td className="py-3.5 px-4 font-mono font-bold text-primary">{item.reservationNumber}</td>
+                    <td className="py-3.5 px-4 font-mono font-bold text-primary">{item.bookingNumber}</td>
                     <td className="py-3.5 px-4 font-bold text-foreground">
                       {item.mainGuest.firstName} {item.mainGuest.lastName}
                     </td>
@@ -180,7 +247,7 @@ export default function CheckInPage() {
                       <MoneyDisplay amount={item.balanceDue} hideSecondary className={item.balanceDue > 0 ? "text-warning" : "text-success"} />
                     </td>
                     <td className="py-3.5 px-4">
-                      <StatusBadge status={item.reservationStatus} />
+                      <StatusBadge status={item.bookingStatus} />
                     </td>
                     <td className="py-3.5 px-4 text-right">
                       {canEdit && (
@@ -200,12 +267,31 @@ export default function CheckInPage() {
           </div>
         )}
       </div>
+      </div>
 
       <ResponsiveDialog
         open={!!selectedArrival}
         onOpenChange={(open) => !open && closeWizard()}
         title={t("wizard.title")}
-        description={selectedArrival ? `${selectedArrival.reservationNumber} • ${selectedArrival.mainGuest.firstName} ${selectedArrival.mainGuest.lastName}` : undefined}
+        description={selectedArrival ? `${selectedArrival.bookingNumber} • ${selectedArrival.mainGuest.firstName} ${selectedArrival.mainGuest.lastName}` : undefined}
+        footer={
+          selectedArrival && (
+            <FormActions>
+              {step > 1 && (
+                <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)} disabled={checkInMutation.isPending}>
+                  {tCommon("actions.back")}
+                </Button>
+              )}
+              <Button type="button" variant="outline" onClick={closeWizard} disabled={checkInMutation.isPending}>
+                {tCommon("actions.cancel")}
+              </Button>
+              <Button type="button" onClick={handleNext} disabled={!canProceed || checkInMutation.isPending}>
+                <CheckCircle2 />
+                <span>{isLastStep ? t("wizard.complete") : tCommon("actions.next")}</span>
+              </Button>
+            </FormActions>
+          )
+        }
       >
         {selectedArrival && (
           <div className="space-y-4">
@@ -305,21 +391,6 @@ export default function CheckInPage() {
                 <NotAvailableNotice title={t("wizard.notAvailable.signatureTitle")} description={t("wizard.notAvailable.signatureDescription")} />
               </div>
             )}
-
-            <FormActions>
-              {step > 1 && (
-                <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)} disabled={checkInMutation.isPending}>
-                  {tCommon("actions.back")}
-                </Button>
-              )}
-              <Button type="button" variant="outline" onClick={closeWizard} disabled={checkInMutation.isPending}>
-                {tCommon("actions.cancel")}
-              </Button>
-              <Button type="button" onClick={handleNext} disabled={!canProceed || checkInMutation.isPending}>
-                <CheckCircle2 />
-                <span>{isLastStep ? t("wizard.complete") : tCommon("actions.next")}</span>
-              </Button>
-            </FormActions>
           </div>
         )}
       </ResponsiveDialog>

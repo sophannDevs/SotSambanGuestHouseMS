@@ -17,7 +17,7 @@ import { DateDisplay } from "@/components/shared/date-display";
 import { MoneyDisplay } from "@/components/shared/money-display";
 import { PageSkeleton } from "@/components/shared/page-skeleton";
 import { ErrorState } from "@/components/shared/error-state";
-import type { RoomDto, ReservationDto, PaymentDto } from "@/lib/api-types";
+import type { RoomDto, BookingDto, PaymentDto } from "@/lib/api-types";
 import {
   BedDouble,
   CalendarCheck,
@@ -29,9 +29,6 @@ import {
   Home,
 } from "lucide-react";
 
-// Dot color derives from the same STATUS_TONE map status-badge.tsx uses
-// (design-system.md §2.4) instead of a second, independent color choice —
-// this list previously picked its own emerald/rose/amber/slate values.
 const TONE_DOT_CLASS: Record<string, string> = {
   success: "bg-success",
   warning: "bg-warning",
@@ -40,9 +37,6 @@ const TONE_DOT_CLASS: Record<string, string> = {
   neutral: "bg-muted-foreground",
 };
 
-// Folds the backend's finer-grained `derivedStatus` values (business-rules.md
-// §9.6/FR-075) back down into the four buckets this legend has always shown,
-// so every room lands in exactly one bucket and the counts sum to the total.
 type RoomBucket = "AVAILABLE" | "OCCUPIED" | "CLEANING" | "MAINTENANCE";
 
 function bucketForRoom(room: RoomDto): RoomBucket {
@@ -60,7 +54,7 @@ export default function DashboardPage() {
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
 
   const canViewRooms = hasHydrated && hasPermission("room:view");
-  const canViewReservations = hasHydrated && hasPermission("reservation:view");
+  const canViewBookings = hasHydrated && hasPermission("booking:view");
   const canViewPayments = hasHydrated && hasPermission("payment:view");
 
   const roomsQuery = useQuery({
@@ -70,13 +64,13 @@ export default function DashboardPage() {
   });
   const arrivalsQuery = useQuery({
     queryKey: ["front-desk", "arrivals"],
-    queryFn: () => apiFetch<ReservationDto[]>("/front-desk/arrivals"),
-    enabled: canViewReservations,
+    queryFn: () => apiFetch<BookingDto[]>("/front-desk/arrivals"),
+    enabled: canViewBookings,
   });
   const inHouseQuery = useQuery({
     queryKey: ["front-desk", "in-house"],
-    queryFn: () => apiFetch<ReservationDto[]>("/front-desk/in-house"),
-    enabled: canViewReservations,
+    queryFn: () => apiFetch<BookingDto[]>("/front-desk/in-house"),
+    enabled: canViewBookings,
   });
   const paymentsQuery = useQuery({
     queryKey: ["payments"],
@@ -86,8 +80,8 @@ export default function DashboardPage() {
 
   const enabledQueries = [
     canViewRooms ? roomsQuery : null,
-    canViewReservations ? arrivalsQuery : null,
-    canViewReservations ? inHouseQuery : null,
+    canViewBookings ? arrivalsQuery : null,
+    canViewBookings ? inHouseQuery : null,
     canViewPayments ? paymentsQuery : null,
   ].filter((q): q is NonNullable<typeof q> => q !== null);
 
@@ -127,25 +121,25 @@ export default function DashboardPage() {
   ];
 
   const QUICK_STATS = [
-    canViewReservations && {
+    canViewBookings && {
       icon: LogIn,
       label: t("quickStats.checkIns"),
       value: String(checkedInToday.length),
       tone: "text-blue-600 dark:text-blue-400 bg-blue-500/10",
     },
-    canViewReservations && {
+    canViewBookings && {
       icon: LogOut,
       label: t("quickStats.checkOuts"),
       value: String(checkOutsToday.length),
       tone: "text-indigo-600 dark:text-indigo-400 bg-indigo-500/10",
     },
-    canViewReservations && {
+    canViewBookings && {
       icon: CalendarDays,
       label: t("quickStats.bookings"),
       value: String(totalArrivalsToday),
       tone: "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10",
     },
-    canViewReservations && {
+    canViewBookings && {
       icon: Home,
       label: t("quickStats.inHouse"),
       value: String(inHouse.length),
@@ -157,7 +151,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      {/* Mobile view — matches the "Dashboard" mockup screen */}
+      {/* Mobile view */}
       <div className="md:hidden">
         <MobileHeader title={t("title")} variant="root" />
         <div className="p-4 space-y-5">
@@ -234,7 +228,7 @@ export default function DashboardPage() {
           title={t("title")}
           description={t("description")}
           actionLabel={t("newReservation")}
-          onAction={() => router.push("/reservations/new")}
+          onAction={() => router.push("/bookings/new")}
         />
 
         {isLoading ? (
@@ -252,7 +246,7 @@ export default function DashboardPage() {
                 href="/rooms"
               />
             )}
-            {canViewReservations && (
+            {canViewBookings && (
               <StatCard
                 label={t("stats.expectedArrival")}
                 value={t("stats.expectedArrivalValue", { count: totalArrivalsToday })}

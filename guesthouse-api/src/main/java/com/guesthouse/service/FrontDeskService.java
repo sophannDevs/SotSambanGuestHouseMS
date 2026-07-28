@@ -4,49 +4,47 @@ import com.guesthouse.common.exception.BusinessException;
 import com.guesthouse.common.exception.ErrorCode;
 import com.guesthouse.dto.frontdesk.CheckInRequest;
 import com.guesthouse.dto.frontdesk.CheckOutRequest;
-import com.guesthouse.dto.reservation.ReservationDto;
+import com.guesthouse.dto.booking.BookingDto;
+import com.guesthouse.entity.Booking;
 import com.guesthouse.entity.CheckIn;
 import com.guesthouse.entity.CheckOut;
-import com.guesthouse.entity.Reservation;
 import com.guesthouse.entity.Room;
+import com.guesthouse.repository.BookingRepository;
 import com.guesthouse.repository.CheckInRepository;
 import com.guesthouse.repository.CheckOutRepository;
-import com.guesthouse.repository.ReservationRepository;
 import com.guesthouse.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class FrontDeskService {
 
-    private final ReservationRepository reservationRepository;
+    private final BookingRepository bookingRepository;
     private final RoomRepository roomRepository;
     private final CheckInRepository checkInRepository;
     private final CheckOutRepository checkOutRepository;
-    private final ReservationService reservationService;
+    private final BookingService bookingService;
 
     public FrontDeskService(
-            ReservationRepository reservationRepository,
+            BookingRepository bookingRepository,
             RoomRepository roomRepository,
             CheckInRepository checkInRepository,
             CheckOutRepository checkOutRepository,
-            ReservationService reservationService
+            BookingService bookingService
     ) {
-        this.reservationRepository = reservationRepository;
+        this.bookingRepository = bookingRepository;
         this.roomRepository = roomRepository;
         this.checkInRepository = checkInRepository;
         this.checkOutRepository = checkOutRepository;
-        this.reservationService = reservationService;
+        this.bookingService = bookingService;
     }
 
     @Transactional
-    public ReservationDto executeCheckIn(UUID propertyId, CheckInRequest request, UUID userId) {
-        Reservation reservation = reservationRepository.findById(request.getReservationId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Reservation not found"));
+    public BookingDto executeCheckIn(UUID propertyId, CheckInRequest request, UUID userId) {
+        Booking booking = bookingRepository.findById(request.getBookingId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.BOOKING_NOT_FOUND, "Booking not found"));
 
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Room not found"));
@@ -55,8 +53,8 @@ public class FrontDeskService {
             throw new BusinessException(ErrorCode.ROOM_NOT_AVAILABLE, "Room is not available for check-in");
         }
 
-        // 1. Update reservation to CHECKED_IN
-        reservationService.updateStatus(propertyId, reservation.getId(), "CHECKED_IN", userId, "Front desk check-in");
+        // 1. Update booking to CHECKED_IN
+        bookingService.updateStatus(propertyId, booking.getId(), "CHECKED_IN", userId, "Front desk check-in");
 
         // 2. Update room operational status to OCCUPIED
         room.setOperationalStatus("OCCUPIED");
@@ -66,9 +64,9 @@ public class FrontDeskService {
         // 3. Save CheckIn record
         CheckIn checkIn = new CheckIn();
         checkIn.setPropertyId(propertyId);
-        checkIn.setReservationId(reservation.getId());
+        checkIn.setBookingId(booking.getId());
         checkIn.setRoomId(room.getId());
-        checkIn.setGuestId(reservation.getMainGuest().getId());
+        checkIn.setGuestId(booking.getMainGuest().getId());
         checkIn.setKeyNumber(request.getKeyNumber());
         checkIn.setHouseRulesAccepted(request.isHouseRulesAccepted());
         checkIn.setVehiclePlate(request.getVehiclePlate());
@@ -76,18 +74,18 @@ public class FrontDeskService {
         checkIn.setCreatedBy(userId);
         checkInRepository.save(checkIn);
 
-        return reservationService.getReservation(propertyId, reservation.getId());
+        return bookingService.getBooking(propertyId, booking.getId());
     }
 
     @Transactional
-    public ReservationDto executeCheckOut(UUID propertyId, CheckOutRequest request, UUID userId) {
-        Reservation reservation = reservationRepository.findById(request.getReservationId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Reservation not found"));
+    public BookingDto executeCheckOut(UUID propertyId, CheckOutRequest request, UUID userId) {
+        Booking booking = bookingRepository.findById(request.getBookingId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.BOOKING_NOT_FOUND, "Booking not found"));
 
-        Room room = reservation.getAssignedRoom();
+        Room room = booking.getAssignedRoom();
 
-        // 1. Update reservation status to CHECKED_OUT
-        reservationService.updateStatus(propertyId, reservation.getId(), "CHECKED_OUT", userId, "Front desk check-out");
+        // 1. Update booking status to CHECKED_OUT
+        bookingService.updateStatus(propertyId, booking.getId(), "CHECKED_OUT", userId, "Front desk check-out");
 
         // 2. Update room operational status to AVAILABLE & housekeeping to DIRTY
         if (room != null) {
@@ -100,14 +98,14 @@ public class FrontDeskService {
         // 3. Save CheckOut record
         CheckOut checkOut = new CheckOut();
         checkOut.setPropertyId(propertyId);
-        checkOut.setReservationId(reservation.getId());
+        checkOut.setBookingId(booking.getId());
         checkOut.setRoomId(room != null ? room.getId() : UUID.randomUUID());
-        checkOut.setGuestId(reservation.getMainGuest().getId());
+        checkOut.setGuestId(booking.getMainGuest().getId());
         checkOut.setKeyReturned(request.isKeyReturned());
         checkOut.setNotes(request.getNotes());
         checkOut.setCreatedBy(userId);
         checkOutRepository.save(checkOut);
 
-        return reservationService.getReservation(propertyId, reservation.getId());
+        return bookingService.getBooking(propertyId, booking.getId());
     }
 }

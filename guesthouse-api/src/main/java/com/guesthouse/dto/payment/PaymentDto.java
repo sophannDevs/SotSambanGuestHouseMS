@@ -16,8 +16,8 @@ import java.util.UUID;
 public class PaymentDto {
     private UUID id;
     private String paymentNumber;
-    private UUID reservationId;
-    private String reservationNumber;
+    private UUID bookingId;
+    private String bookingNumber;
     private String guestName;
     private BigDecimal amount;
     private String paymentMethod;

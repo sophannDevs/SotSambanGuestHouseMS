@@ -15,7 +15,7 @@ import { DateDisplay } from "@/components/shared/date-display";
 import { formatDualPrice } from "@/lib/currency";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { GuestDto, ReservationDto } from "@/lib/api-types";
+import type { GuestDto, BookingDto } from "@/lib/api-types";
 import { Phone, Sparkles, CalendarCheck, BedDouble, History } from "lucide-react";
 
 export default function GuestDetailsPage() {
@@ -25,21 +25,19 @@ export default function GuestDetailsPage() {
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const canView = hasHydrated && hasPermission("guest:view");
 
-  // No GET /guests/{id} endpoint exists — derive from the already-fetched
-  // list, same constraint Redesign Phases 7-8 hit for reservations/rooms.
   const guestsQuery = useQuery({
     queryKey: ["guests"],
     queryFn: () => apiFetch<GuestDto[]>("/guests"),
     enabled: canView,
   });
-  const reservationsQuery = useQuery({
-    queryKey: ["reservations"],
-    queryFn: () => apiFetch<ReservationDto[]>("/reservations"),
+  const bookingsQuery = useQuery({
+    queryKey: ["bookings"],
+    queryFn: () => apiFetch<BookingDto[]>("/bookings"),
     enabled: canView,
   });
 
-  const isLoading = !hasHydrated || guestsQuery.isLoading || reservationsQuery.isLoading;
-  const isError = guestsQuery.isError || reservationsQuery.isError;
+  const isLoading = !hasHydrated || guestsQuery.isLoading || bookingsQuery.isLoading;
+  const isError = guestsQuery.isError || bookingsQuery.isError;
 
   if (isLoading) {
     return (
@@ -52,7 +50,7 @@ export default function GuestDetailsPage() {
   if (isError) {
     return (
       <div className="p-4 md:p-0">
-        <ErrorState title={t("loadError")} onRetry={() => { guestsQuery.refetch(); reservationsQuery.refetch(); }} />
+        <ErrorState title={t("loadError")} onRetry={() => { guestsQuery.refetch(); bookingsQuery.refetch(); }} />
       </div>
     );
   }
@@ -67,15 +65,13 @@ export default function GuestDetailsPage() {
     );
   }
 
-  // No `guestId` filter on GET /reservations — filter the full list
-  // client-side, same as rooms/[id]'s "derive from list" precedent.
-  const guestReservations = (reservationsQuery.data ?? [])
-    .filter((r) => r.mainGuest.id === guest.id)
+  const guestBookings = (bookingsQuery.data ?? [])
+    .filter((b) => b.mainGuest.id === guest.id)
     .sort((a, b) => b.arrivalDate.localeCompare(a.arrivalDate));
 
-  const totalBookings = guestReservations.length;
-  const totalSpending = guestReservations.reduce((sum, r) => sum + r.paidAmount, 0);
-  const latestStay = guestReservations[0];
+  const totalBookings = guestBookings.length;
+  const totalSpending = guestBookings.reduce((sum, b) => sum + b.paidAmount, 0);
+  const latestStay = guestBookings[0];
   const spending = formatDualPrice(totalSpending);
   const guestName = `${guest.firstName} ${guest.lastName}`;
 
@@ -119,7 +115,7 @@ export default function GuestDetailsPage() {
             </div>
           </div>
 
-          <BookingHistory reservations={guestReservations} title={t("labels.bookingHistory")} emptyMessage={t("noBookings")} />
+          <BookingHistory bookings={guestBookings} title={t("labels.bookingHistory")} emptyMessage={t("noBookings")} />
         </div>
       </div>
 
@@ -147,37 +143,37 @@ export default function GuestDetailsPage() {
           </div>
         </div>
 
-        <BookingHistory reservations={guestReservations} title={t("labels.bookingHistory")} emptyMessage={t("noBookings")} />
+        <BookingHistory bookings={guestBookings} title={t("labels.bookingHistory")} emptyMessage={t("noBookings")} />
       </div>
     </div>
   );
 }
 
-function BookingHistory({ reservations, title, emptyMessage }: { reservations: ReservationDto[]; title: string; emptyMessage: string }) {
+function BookingHistory({ bookings, title, emptyMessage }: { bookings: BookingDto[]; title: string; emptyMessage: string }) {
   return (
     <div className="bg-card border border-border/60 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm md:shadow-xl space-y-3">
       <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
         <History className="h-4 w-4 text-muted-foreground" /> {title}
       </h3>
-      {reservations.length === 0 ? (
+      {bookings.length === 0 ? (
         <p className="text-xs text-muted-foreground py-4 text-center">{emptyMessage}</p>
       ) : (
         <div className="space-y-2">
-          {reservations.map((r) => (
+          {bookings.map((b) => (
             <Link
-              key={r.id}
-              href={`/reservations/${r.id}`}
+              key={b.id}
+              href={`/bookings/${b.id}`}
               className="flex items-center justify-between gap-3 rounded-xl border border-border/40 p-3 text-xs hover:bg-muted/30 transition-all"
             >
               <div>
-                <p className="font-mono font-bold text-primary">{r.reservationNumber}</p>
+                <p className="font-mono font-bold text-primary">{b.bookingNumber}</p>
                 <p className="text-muted-foreground mt-0.5">
-                  <DateDisplay date={r.arrivalDate} format="MMM d" /> – <DateDisplay date={r.departureDate} format="MMM d, yyyy" /> · {r.roomTypeName}
+                  <DateDisplay date={b.arrivalDate} format="MMM d" /> – <DateDisplay date={b.departureDate} format="MMM d, yyyy" /> · {b.roomTypeName}
                 </p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <MoneyDisplay amount={r.totalAmount} hideSecondary className="font-bold" />
-                <StatusBadge status={r.reservationStatus} />
+                <MoneyDisplay amount={b.totalAmount} hideSecondary className="font-bold" />
+                <StatusBadge status={b.bookingStatus} />
               </div>
             </Link>
           ))}

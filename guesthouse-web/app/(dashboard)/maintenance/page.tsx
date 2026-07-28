@@ -4,6 +4,8 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageHeader } from "@/components/layout/header";
+import { MobileHeader } from "@/components/layout/mobile-header";
+import { ResponsiveDataList } from "@/components/shared/responsive-data-list";
 import { PageSkeleton } from "@/components/shared/page-skeleton";
 import { ErrorState } from "@/components/shared/error-state";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -63,7 +65,75 @@ export default function MaintenancePage() {
   const isError = issuesQuery.isError;
 
   return (
-    <div className="space-y-6">
+    <div>
+      {/* Mobile view */}
+      <div className="md:hidden">
+        <MobileHeader
+          title={t("title")}
+          rightSlot={
+            canCreate ? (
+              <button
+                onClick={() => setReportOpen(true)}
+                aria-label={t("actions.reportIssue")}
+                className="flex h-9 w-9 items-center justify-center rounded-full text-foreground hover:bg-muted"
+              >
+                <Plus className="h-5 w-5" />
+              </button>
+            ) : undefined
+          }
+        />
+        <div className="space-y-4 p-4">
+          <h3 className="text-sm font-bold text-foreground">{t("sections.reportedIssues", { count: issues.length })}</h3>
+
+          {isLoading ? (
+            <PageSkeleton />
+          ) : isError ? (
+            <ErrorState title={t("loadError")} onRetry={() => issuesQuery.refetch()} />
+          ) : (
+            <ResponsiveDataList
+              data={issues}
+              keyExtractor={(issue) => issue.id}
+              emptyMessage={t("emptyState")}
+              renderCard={(issue) => (
+                <div className="rounded-2xl border border-border/60 bg-card p-4 shadow-sm space-y-2.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="text-xs font-black text-foreground">{t("roomNumberHash", { number: issue.roomNumber })}</p>
+                      <p className="text-sm font-bold text-foreground">{issue.title}</p>
+                      {issue.description && <p className="text-xs text-muted-foreground">{issue.description}</p>}
+                    </div>
+                    <StatusBadge status={issue.severity} />
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <StatusBadge status={issue.status} />
+                    {issue.blocking ? (
+                      <span className="flex w-fit items-center gap-1 rounded-full bg-slate-500/10 px-2.5 py-1 text-xs font-bold text-slate-400">
+                        <Lock className="h-3 w-3" />
+                        {tStatus("UNDER_MAINTENANCE")}
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">{t("labels.nonBlocking")}</span>
+                    )}
+                  </div>
+                  {canComplete && issue.status === "REPORTED" && (
+                    <button
+                      onClick={() => resolveMutation.mutate(issue.id)}
+                      disabled={resolveMutation.isPending}
+                      className="flex w-full items-center justify-center gap-1.5 rounded-xl border-t border-border/40 pt-2.5 text-xs font-semibold text-emerald-500 disabled:opacity-50"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      <span>{t("actions.resolveIssue")}</span>
+                    </button>
+                  )}
+                </div>
+              )}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Desktop / tablet view */}
+      <div className="hidden md:block space-y-6">
       <PageHeader
         title={t("title")}
         description={t("description")}
@@ -136,6 +206,7 @@ export default function MaintenancePage() {
             </table>
           </div>
         )}
+      </div>
       </div>
 
       <ReportIssueDialog

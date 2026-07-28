@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -26,6 +27,23 @@ public class GlobalExceptionHandler {
 
         ApiError error = new ApiError(errorCode.name(), ex.getMessage(), null, requestId);
         return new ResponseEntity<>(error, errorCode.getHttpStatus());
+    }
+
+    // Spring Security 6's method-security AuthorizationDeniedException (thrown by
+    // @PreAuthorize checks that fail) extends this. Without this handler it falls
+    // through to handleGenericException below and gets reported to the client as
+    // a fake 500 Internal Server Error instead of the real 403 — misdiagnosed as
+    // a crash instead of a permission problem (found while wiring the Reports
+    // page in Redesign Phase 10: ReportController's report:financial permission
+    // key had no seeded role, and every denial surfaced as "internal server
+    // error" with no indication it was actually a permission mismatch).
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
+        String requestId = getOrGenerateRequestId(request);
+        log.warn("Access denied (requestId: {}): {}", requestId, ex.getMessage());
+
+        ApiError error = new ApiError(ErrorCode.PERMISSION_DENIED.name(), ErrorCode.PERMISSION_DENIED.getDefaultMessage(), null, requestId);
+        return new ResponseEntity<>(error, ErrorCode.PERMISSION_DENIED.getHttpStatus());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

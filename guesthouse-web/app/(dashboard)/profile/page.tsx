@@ -48,7 +48,7 @@ export default function ProfilePage() {
         <div className="bg-card border border-border/60 rounded-2xl shadow-sm divide-y divide-border/40 overflow-hidden">
           <button
             onClick={() => toast.info(t("toast.editProfileOpened"))}
-            className="w-full flex items-center gap-3 px-4 py-3.5"
+            className="w-full min-h-11 flex items-center gap-3 px-4 py-3.5"
           >
             <UserCog className="h-4 w-4 text-primary flex-shrink-0" />
             <span className="flex-1 text-sm font-medium text-foreground text-left">{t("menu.editProfile")}</span>
@@ -57,7 +57,7 @@ export default function ProfilePage() {
 
           <button
             onClick={() => toast.info(t("toast.changePasswordOpened"))}
-            className="w-full flex items-center gap-3 px-4 py-3.5"
+            className="w-full min-h-11 flex items-center gap-3 px-4 py-3.5"
           >
             <KeyRound className="h-4 w-4 text-primary flex-shrink-0" />
             <span className="flex-1 text-sm font-medium text-foreground text-left">{t("menu.changePassword")}</span>
@@ -66,7 +66,7 @@ export default function ProfilePage() {
 
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-full flex items-center gap-3 px-4 py-3.5"
+            className="w-full min-h-11 flex items-center gap-3 px-4 py-3.5"
           >
             {theme === "dark" ? (
               <Moon className="h-4 w-4 text-primary flex-shrink-0" />
@@ -79,7 +79,7 @@ export default function ProfilePage() {
 
           <button
             onClick={() => toast.info(t("toast.languageComingSoon"))}
-            className="w-full flex items-center gap-3 px-4 py-3.5"
+            className="w-full min-h-11 flex items-center gap-3 px-4 py-3.5"
           >
             <Globe className="h-4 w-4 text-primary flex-shrink-0" />
             <span className="flex-1 text-sm font-medium text-foreground text-left">{t("menu.language")}</span>
@@ -89,7 +89,7 @@ export default function ProfilePage() {
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-semibold text-sm rounded-2xl py-3.5"
+          className="w-full min-h-11 flex items-center justify-center gap-2 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-semibold text-sm rounded-2xl py-3.5"
         >
           <LogOut className="h-4 w-4" />
           <span>{tCommon("logout")}</span>

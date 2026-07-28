@@ -20,6 +20,7 @@ export default function NotificationsPage() {
           description={t("description")}
           actionLabel={t("markAllAsRead")}
           actionIcon={CheckCheck}
+          actionDisabledReason={t("notAvailable")}
         />
       </div>
       <div className="p-4 md:p-0">

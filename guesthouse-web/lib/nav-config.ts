@@ -50,10 +50,10 @@ export const NAV_GROUPS: NavGroup[] = [
     titleKey: "groups.operations",
     items: [
       { id: "dashboard", titleKey: "items.dashboard", href: "/dashboard", icon: LayoutDashboard, permission: "dashboard:view" },
-      { id: "reservations", titleKey: "items.reservations", href: "/reservations", icon: CalendarCheck, permission: "reservation:view" },
+      { id: "bookings", titleKey: "items.bookings", href: "/bookings", icon: CalendarCheck, permission: "booking:view" },
       { id: "calendar", titleKey: "items.calendar", href: "/calendar", icon: CalendarDays, permission: "availability:view" },
       { id: "check-in", titleKey: "items.check-in", href: "/check-in", icon: LogIn, permission: "checkin:view" },
-      { id: "in-house", titleKey: "items.in-house", href: "/in-house", icon: Hotel, permission: "reservation:view" },
+      { id: "in-house", titleKey: "items.in-house", href: "/in-house", icon: Hotel, permission: "booking:view" },
       { id: "check-out", titleKey: "items.check-out", href: "/check-out", icon: LogOut, permission: "checkout:view" },
     ],
   },
@@ -127,7 +127,7 @@ function findNavItem(id: string): NavItem {
 // (current-ui-audit.md's responsive findings).
 export const BOTTOM_NAV_ITEMS: NavItem[] = [
   findNavItem("dashboard"),
-  findNavItem("reservations"),
+  findNavItem("bookings"),
   findNavItem("calendar"),
   findNavItem("guests"),
 ];

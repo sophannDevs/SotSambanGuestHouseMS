@@ -2,9 +2,9 @@ package com.guesthouse.service;
 
 import com.guesthouse.dto.report.FinancialReportDto;
 import com.guesthouse.entity.Expense;
-import com.guesthouse.entity.Reservation;
+import com.guesthouse.entity.Booking;
 import com.guesthouse.repository.ExpenseRepository;
-import com.guesthouse.repository.ReservationRepository;
+import com.guesthouse.repository.BookingRepository;
 import com.guesthouse.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,29 +17,29 @@ import java.util.UUID;
 @Service
 public class ReportService {
 
-    private final ReservationRepository reservationRepository;
+    private final BookingRepository bookingRepository;
     private final ExpenseRepository expenseRepository;
     private final RoomRepository roomRepository;
 
     public ReportService(
-            ReservationRepository reservationRepository,
+            BookingRepository bookingRepository,
             ExpenseRepository expenseRepository,
             RoomRepository roomRepository
     ) {
-        this.reservationRepository = reservationRepository;
+        this.bookingRepository = bookingRepository;
         this.expenseRepository = expenseRepository;
         this.roomRepository = roomRepository;
     }
 
     @Transactional(readOnly = true)
     public FinancialReportDto getFinancialReport(UUID propertyId) {
-        List<Reservation> reservations = reservationRepository.findByPropertyIdOrderByCreatedAtDesc(propertyId);
+        List<Booking> bookings = bookingRepository.findByPropertyIdOrderByCreatedAtDesc(propertyId);
         List<Expense> expenses = expenseRepository.findByPropertyIdAndApprovalStatus(propertyId, "APPROVED");
         long totalRooms = Math.max(1, roomRepository.count());
 
-        BigDecimal grossRevenue = reservations.stream()
-                .filter(r -> !"CANCELLED".equalsIgnoreCase(r.getReservationStatus()))
-                .map(Reservation::getTotalAmount)
+        BigDecimal grossRevenue = bookings.stream()
+                .filter(b -> !"CANCELLED".equalsIgnoreCase(b.getBookingStatus()))
+                .map(Booking::getTotalAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal totalExpenses = expenses.stream()
@@ -48,9 +48,9 @@ public class ReportService {
 
         BigDecimal netProfitLoss = grossRevenue.subtract(totalExpenses);
 
-        long totalNightsOccupied = reservations.stream()
-                .filter(r -> "CHECKED_IN".equalsIgnoreCase(r.getReservationStatus()) || "CHECKED_OUT".equalsIgnoreCase(r.getReservationStatus()))
-                .mapToLong(Reservation::getTotalNights)
+        long totalNightsOccupied = bookings.stream()
+                .filter(b -> "CHECKED_IN".equalsIgnoreCase(b.getBookingStatus()) || "CHECKED_OUT".equalsIgnoreCase(b.getBookingStatus()))
+                .mapToLong(Booking::getTotalNights)
                 .sum();
 
         BigDecimal occupancyRate = BigDecimal.valueOf(totalNightsOccupied * 100)

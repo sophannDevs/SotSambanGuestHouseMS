@@ -1,0 +1,7 @@
+.git
+.agents
+.claude
+docs
+database
+*.md
+.DS_Store

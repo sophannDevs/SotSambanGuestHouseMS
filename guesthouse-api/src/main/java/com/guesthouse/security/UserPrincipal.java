@@ -35,7 +35,7 @@ public class UserPrincipal implements UserDetails {
         // Role authorities (ROLE_OWNER, etc.)
         for (Role role : user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-            // Permission authorities (reservation:cancel, etc.)
+            // Permission authorities (booking:cancel, etc.)
             for (Permission permission : role.getPermissions()) {
                 authorities.add(new SimpleGrantedAuthority(permission.getPermissionKey()));
             }

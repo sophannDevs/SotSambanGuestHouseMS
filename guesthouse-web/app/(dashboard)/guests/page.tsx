@@ -15,7 +15,7 @@ import { ErrorState } from "@/components/shared/error-state";
 import { PermissionGuard } from "@/components/auth/permission-guard";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { GuestDto, ReservationDto, CreateGuestRequest } from "@/lib/api-types";
+import type { GuestDto, BookingDto, CreateGuestRequest } from "@/lib/api-types";
 import { Plus, Mail, Phone, Sparkles, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { NewGuestDialog } from "@/components/guests/new-guest-dialog";
@@ -28,9 +28,6 @@ export default function GuestsPage() {
   const hasPermission = useAuthStore((s) => s.hasPermission);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const canView = hasHydrated && hasPermission("guest:view");
-  // The backend checks guest:edit on POST /guests, not the catalogue's
-  // separate (unused) guest:create — gating "New Guest" on the key it
-  // actually enforces, same pattern as reservation:edit in Redesign Phase 6.
   const canCreate = hasHydrated && hasPermission("guest:edit");
 
   const guestsQuery = useQuery({
@@ -38,17 +35,17 @@ export default function GuestsPage() {
     queryFn: () => apiFetch<GuestDto[]>("/guests"),
     enabled: canView,
   });
-  const reservationsQuery = useQuery({
-    queryKey: ["reservations"],
-    queryFn: () => apiFetch<ReservationDto[]>("/reservations"),
+  const bookingsQuery = useQuery({
+    queryKey: ["bookings"],
+    queryFn: () => apiFetch<BookingDto[]>("/bookings"),
     enabled: canView,
   });
 
   const guests = guestsQuery.data;
-  const reservations = reservationsQuery.data ?? [];
+  const bookings = bookingsQuery.data ?? [];
   const staysByGuestId = new Map<string, number>();
-  for (const r of reservations) {
-    staysByGuestId.set(r.mainGuest.id, (staysByGuestId.get(r.mainGuest.id) ?? 0) + 1);
+  for (const b of bookings) {
+    staysByGuestId.set(b.mainGuest.id, (staysByGuestId.get(b.mainGuest.id) ?? 0) + 1);
   }
 
   const [search, setSearch] = React.useState("");

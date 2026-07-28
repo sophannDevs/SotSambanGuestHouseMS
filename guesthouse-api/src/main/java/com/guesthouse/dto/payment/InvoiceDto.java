@@ -16,7 +16,7 @@ import java.util.UUID;
 public class InvoiceDto {
     private UUID id;
     private String invoiceNumber;
-    private UUID reservationId;
+    private UUID bookingId;
     private String guestName;
     private String invoiceType;
     private BigDecimal subtotal;

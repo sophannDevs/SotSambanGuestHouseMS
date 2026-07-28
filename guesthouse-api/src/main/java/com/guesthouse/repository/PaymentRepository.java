@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, UUID> {
     List<Payment> findByPropertyIdOrderByPaymentTimeDesc(UUID propertyId);
-    List<Payment> findByReservationId(UUID reservationId);
+    List<Payment> findByBookingId(UUID bookingId);
 }

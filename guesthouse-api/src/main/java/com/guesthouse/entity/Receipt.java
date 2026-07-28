@@ -27,8 +27,8 @@ public class Receipt {
     @Column(name = "payment_id", nullable = false)
     private UUID paymentId;
 
-    @Column(name = "reservation_id", nullable = false)
-    private UUID reservationId;
+    @Column(name = "booking_id", nullable = false)
+    private UUID bookingId;
 
     @Column(name = "guest_id", nullable = false)
     private UUID guestId;

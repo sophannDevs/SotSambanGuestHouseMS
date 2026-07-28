@@ -71,7 +71,7 @@ ORDER BY relname;
 
 \echo ''
 \echo '-- 6. Exclusion constraints (double-booking guarantee) --------'
-\echo '   Expect ex_reservation_rooms__no_overlap and ex_room_blocks__no_overlap'
+\echo '   Expect ex_booking_rooms__no_overlap and ex_room_blocks__no_overlap'
 SELECT con.conname            AS constraint_name,
        rel.relname            AS table_name,
        pg_get_constraintdef(con.oid) AS definition

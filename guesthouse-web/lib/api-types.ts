@@ -48,9 +48,9 @@ export interface CreateGuestRequest {
   notes?: string | null;
 }
 
-export interface ReservationDto {
+export interface BookingDto {
   id: string;
-  reservationNumber: string;
+  bookingNumber: string;
   mainGuest: GuestDto;
   roomTypeId: string;
   roomTypeName: string;
@@ -67,7 +67,7 @@ export interface ReservationDto {
   totalAmount: number;
   paidAmount: number;
   balanceDue: number;
-  reservationStatus: string;
+  bookingStatus: string;
   paymentStatus: string;
   source: string;
   externalReference: string | null;
@@ -76,11 +76,14 @@ export interface ReservationDto {
   version: number;
 }
 
-// Body for POST /reservations — mirrors CreateReservationRequest.java.
+// Alias for backwards compatibility if needed, but primary is BookingDto
+export type ReservationDto = BookingDto;
+
+// Body for POST /bookings — mirrors CreateBookingRequest.java.
 // `baseRate` is deliberately omitted by callers so the server always derives
 // the rate from the room type rather than trusting a client-submitted one
 // (conventions.md §6, redesign-roadmap.md Phase 6).
-export interface CreateReservationRequest {
+export interface CreateBookingRequest {
   mainGuestId: string;
   roomTypeId: string;
   assignedRoomId?: string | null;
@@ -93,9 +96,11 @@ export interface CreateReservationRequest {
   internalNotes?: string | null;
 }
 
+export type CreateReservationRequest = CreateBookingRequest;
+
 // Body for POST /front-desk/check-in — mirrors CheckInRequest.java.
 export interface CheckInRequest {
-  reservationId: string;
+  bookingId: string;
   roomId: string;
   keyNumber?: string | null;
   houseRulesAccepted?: boolean;
@@ -104,9 +109,9 @@ export interface CheckInRequest {
 }
 
 // Body for POST /front-desk/check-out — mirrors CheckOutRequest.java. No
-// roomId: the backend resolves the room from the reservation's assigned room.
+// roomId: the backend resolves the room from the booking's assigned room.
 export interface CheckOutRequest {
-  reservationId: string;
+  bookingId: string;
   keyReturned?: boolean;
   notes?: string | null;
 }
@@ -228,8 +233,8 @@ export interface ReportIssueRequest {
 export interface PaymentDto {
   id: string;
   paymentNumber: string;
-  reservationId: string;
-  reservationNumber: string;
+  bookingId: string;
+  bookingNumber: string;
   guestName: string;
   amount: number;
   paymentMethod: string;
@@ -241,7 +246,7 @@ export interface PaymentDto {
 
 // Body for POST /payments — mirrors RecordPaymentRequest.java.
 export interface RecordPaymentRequest {
-  reservationId: string;
+  bookingId: string;
   amount: number;
   paymentMethod?: string;
   paymentKind?: string;
@@ -254,7 +259,7 @@ export interface RecordPaymentRequest {
 export interface InvoiceDto {
   id: string;
   invoiceNumber: string;
-  reservationId: string;
+  bookingId: string;
   guestName: string;
   invoiceType: string;
   subtotal: number;
@@ -288,4 +293,91 @@ export interface CreateExpenseRequest {
   vendor?: string | null;
   paymentMethod?: string;
   notes?: string | null;
+}
+
+// Mirrors PropertyResponse.java / GET/PUT /properties/current. Fields beyond
+// name/description/timezone/currency/address/check-times/wifi/house-rules
+// (legalName, billingAddress, bankDetails, invoiceFooterNote, logoUrl,
+// coverImageUrl, businessRegistrationNumber) exist in the backend but had no
+// UI consumer anywhere in the app before Redesign Phase 10.
+export interface PropertyResponse {
+  id: string;
+  name: string;
+  code: string;
+  description: string | null;
+  timezone: string;
+  currency: string;
+  addressLine: string | null;
+  city: string | null;
+  province: string | null;
+  country: string | null;
+  postalCode: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  defaultCheckInTime: string;
+  defaultCheckOutTime: string;
+  taxIdNumber: string | null;
+  businessRegistrationNumber: string | null;
+  logoUrl: string | null;
+  coverImageUrl: string | null;
+  legalName: string | null;
+  billingAddress: string | null;
+  bankDetails: string | null;
+  invoiceFooterNote: string | null;
+  termsAndConditions: string | null;
+  cancellationPolicy: string | null;
+  houseRules: string | null;
+  wifiName: string | null;
+  wifiPassword: string | null;
+  emergencyContact: string | null;
+  onboardingCompleted: boolean;
+  onboardingCurrentStep: number;
+}
+
+// Body for PUT /properties/current — mirrors UpdatePropertyRequest.java.
+// Every field is applied only if non-null server-side (PropertyService's
+// per-field `if (request.getX() != null)` pattern), so partial-section saves
+// (e.g. saving just the Documents sub-page) don't clobber other sections.
+export type UpdatePropertyRequest = Partial<Omit<PropertyResponse, "id" | "code" | "onboardingCompleted" | "onboardingCurrentStep">> & {
+  name: string;
+};
+
+// Mirrors StaffDto.java / GET /staff. StaffController is read-only today —
+// no create/edit/deactivate/reset-password endpoint exists despite those
+// permission keys (staff:create/edit/deactivate/reset_password) already
+// being seeded in the permission catalogue (current-ui-audit.md Appendix A).
+export interface StaffDto {
+  id: string;
+  email: string;
+  displayName: string;
+  status: string;
+  roles: string[];
+}
+
+// Mirrors FinancialReportDto.java / GET /reports/financial — the one report
+// the backend implements out of the brief's full B29 report catalogue. The
+// endpoint takes no date-range parameter, so these are all-time-to-date
+// totals, not "this month"/"today" figures.
+export interface FinancialReportDto {
+  grossRevenue: number;
+  totalExpenses: number;
+  netProfitLoss: number;
+  occupancyRate: number;
+  averageDailyRate: number;
+  revPar: number;
+}
+
+// Mirrors TaxDto.java / GET+POST /properties/taxes. The Java field is
+// `isActive`, but Lombok generates `setActive`/`isActive` for a
+// boolean field already `is`-prefixed, so Jackson serializes AND
+// deserializes it over the wire as `active`, not `isActive` — confirmed
+// live (same bug class as RoomDto/RoomTypeDto's `isActive`→`active` finding
+// in Redesign Phase 6). Using `isActive` here would silently no-op every
+// active/inactive toggle.
+export interface TaxDto {
+  id: string | null;
+  name: string;
+  ratePercentage: number;
+  appliesToServiceCharge: boolean;
+  active: boolean;
 }

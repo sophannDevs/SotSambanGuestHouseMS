@@ -18,7 +18,7 @@ import { MoneyDisplay } from "@/components/shared/money-display";
 import { DateDisplay } from "@/components/shared/date-display";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { InvoiceDto, ReservationDto } from "@/lib/api-types";
+import type { InvoiceDto, BookingDto } from "@/lib/api-types";
 import { FileText, Plus, Eye } from "lucide-react";
 
 export default function InvoicesPage() {
@@ -33,17 +33,14 @@ export default function InvoicesPage() {
     queryFn: () => apiFetch<InvoiceDto[]>("/invoices"),
     enabled: canView,
   });
-  // InvoiceDto only carries reservationId, not the human-readable number —
-  // cross-referenced against the reservations list rather than shown as a
-  // raw UUID, same pattern as the room board's guest-name cross-reference.
-  const reservationsQuery = useQuery({
-    queryKey: ["reservations"],
-    queryFn: () => apiFetch<ReservationDto[]>("/reservations"),
+  const bookingsQuery = useQuery({
+    queryKey: ["bookings"],
+    queryFn: () => apiFetch<BookingDto[]>("/bookings"),
     enabled: canView,
   });
 
   const invoices = invoicesQuery.data;
-  const reservationNumberById = new Map((reservationsQuery.data ?? []).map((r) => [r.id, r.reservationNumber]));
+  const bookingNumberById = new Map((bookingsQuery.data ?? []).map((b) => [b.id, b.bookingNumber]));
 
   const [search, setSearch] = React.useState("");
   const filtered = React.useMemo(() => {
@@ -58,9 +55,9 @@ export default function InvoicesPage() {
   const columns: ColumnDef<InvoiceDto, unknown>[] = [
     { accessorKey: "invoiceNumber", header: t("table.invoiceNumber"), cell: ({ row }) => <span className="font-mono font-bold text-primary">{row.original.invoiceNumber}</span> },
     {
-      id: "reservationNumber",
+      id: "bookingNumber",
       header: t("table.reservationNumber"),
-      cell: ({ row }) => <span className="font-mono text-xs">{reservationNumberById.get(row.original.reservationId) ?? "—"}</span>,
+      cell: ({ row }) => <span className="font-mono text-xs">{bookingNumberById.get(row.original.bookingId) ?? "—"}</span>,
     },
     { accessorKey: "guestName", header: t("table.guestName"), cell: ({ row }) => <span className="font-bold text-foreground">{row.original.guestName}</span> },
     { accessorKey: "invoiceType", header: t("table.type"), cell: ({ row }) => <Badge variant="info">{getTypeLabel(row.original.invoiceType)}</Badge> },

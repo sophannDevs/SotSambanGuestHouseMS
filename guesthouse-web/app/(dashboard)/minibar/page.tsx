@@ -117,14 +117,16 @@ export default function MinibarPage() {
                   <button
                     onClick={() => adjustQty(item.id, -1)}
                     disabled={qty === 0}
-                    className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-foreground disabled:opacity-40"
+                    aria-label={t("actions.decreaseQuantity", { item: item.name })}
+                    className="h-11 w-11 rounded-full bg-muted flex items-center justify-center text-foreground disabled:opacity-40"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
                   <span className="w-5 text-center text-sm font-bold text-foreground">{qty}</span>
                   <button
                     onClick={() => adjustQty(item.id, 1)}
-                    className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
+                    aria-label={t("actions.increaseQuantity", { item: item.name })}
+                    className="h-11 w-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -172,11 +174,20 @@ export default function MinibarPage() {
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <button onClick={() => adjustQty(item.id, -1)} disabled={qty === 0} className="h-8 w-8 rounded-full bg-muted flex items-center justify-center disabled:opacity-40">
+                    <button
+                      onClick={() => adjustQty(item.id, -1)}
+                      disabled={qty === 0}
+                      aria-label={t("actions.decreaseQuantity", { item: item.name })}
+                      className="h-11 w-11 rounded-full bg-muted flex items-center justify-center disabled:opacity-40"
+                    >
                       <Minus className="h-4 w-4" />
                     </button>
                     <span className="w-5 text-center text-sm font-bold">{qty}</span>
-                    <button onClick={() => adjustQty(item.id, 1)} className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
+                    <button
+                      onClick={() => adjustQty(item.id, 1)}
+                      aria-label={t("actions.increaseQuantity", { item: item.name })}
+                      className="h-11 w-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
+                    >
                       <Plus className="h-4 w-4" />
                     </button>
                   </div>

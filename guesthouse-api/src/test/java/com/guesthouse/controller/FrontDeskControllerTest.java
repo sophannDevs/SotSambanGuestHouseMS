@@ -1,13 +1,13 @@
 package com.guesthouse.controller;
 
+import com.guesthouse.dto.booking.BookingDto;
 import com.guesthouse.dto.guest.GuestDto;
-import com.guesthouse.dto.reservation.ReservationDto;
 import com.guesthouse.repository.UserRepository;
 import com.guesthouse.security.JwtAuthenticationFilter;
 import com.guesthouse.security.JwtTokenProvider;
 import com.guesthouse.security.UserPrincipal;
+import com.guesthouse.service.BookingService;
 import com.guesthouse.service.FrontDeskService;
-import com.guesthouse.service.ReservationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,7 +41,7 @@ class FrontDeskControllerTest {
     private FrontDeskService frontDeskService;
 
     @MockBean
-    private ReservationService reservationService;
+    private BookingService bookingService;
 
     @MockBean
     private JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -62,7 +62,7 @@ class FrontDeskControllerTest {
                 "hashed",
                 "Reception Staff",
                 "ACTIVE",
-                List.of(new SimpleGrantedAuthority("reservation:view"))
+                List.of(new SimpleGrantedAuthority("booking:view"))
         );
 
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
@@ -70,9 +70,9 @@ class FrontDeskControllerTest {
 
         GuestDto guest = new GuestDto(UUID.randomUUID(), "Emma", "Watson", "emma@example.com", "+44123", "UK99", "British", "STANDARD", null);
 
-        ReservationDto rsv = new ReservationDto(
+        BookingDto bkg = new BookingDto(
                 UUID.randomUUID(),
-                "RSV-2026-000002",
+                "BKG-2026-000002",
                 guest,
                 UUID.randomUUID(),
                 "Standard Twin",
@@ -93,12 +93,12 @@ class FrontDeskControllerTest {
                 null, null, null, 0L
         );
 
-        given(reservationService.getReservations(any())).willReturn(List.of(rsv));
+        given(bookingService.getBookings(any())).willReturn(List.of(bkg));
 
         mockMvc.perform(get("/api/v1/front-desk/arrivals")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data[0].reservationNumber").value("RSV-2026-000002"));
+                .andExpect(jsonPath("$.data[0].bookingNumber").value("BKG-2026-000002"));
     }
 }

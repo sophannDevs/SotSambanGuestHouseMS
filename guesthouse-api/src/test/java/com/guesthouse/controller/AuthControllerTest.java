@@ -62,7 +62,7 @@ class AuthControllerTest {
                 "owner@sotsamban.local",
                 "Owner Admin",
                 Set.of("OWNER"),
-                Set.of("dashboard:view", "reservation:view")
+                Set.of("dashboard:view", "booking:view")
         );
 
         given(authService.login(any(LoginRequest.class), any())).willReturn(response);

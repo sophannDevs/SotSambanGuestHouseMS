@@ -4,6 +4,8 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageHeader } from "@/components/layout/header";
+import { MobileHeader } from "@/components/layout/mobile-header";
+import { ResponsiveDataList } from "@/components/shared/responsive-data-list";
 import { ResponsiveDialog } from "@/components/shared/responsive-dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { StepIndicator } from "@/components/shared/step-indicator";
@@ -20,7 +22,7 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { ReservationDto, CheckOutRequest } from "@/lib/api-types";
+import type { BookingDto, CheckOutRequest } from "@/lib/api-types";
 import { LogOut, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 
@@ -33,12 +35,12 @@ export default function CheckOutPage() {
   const hasPermission = useAuthStore((s) => s.hasPermission);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
 
-  const canView = hasHydrated && hasPermission("reservation:view");
-  const canEdit = hasHydrated && hasPermission("reservation:edit");
+  const canView = hasHydrated && hasPermission("booking:view");
+  const canEdit = hasHydrated && hasPermission("booking:edit");
 
   const departuresQuery = useQuery({
     queryKey: ["front-desk", "departures"],
-    queryFn: () => apiFetch<ReservationDto[]>("/front-desk/departures"),
+    queryFn: () => apiFetch<BookingDto[]>("/front-desk/departures"),
     enabled: canView,
   });
   const departures = departuresQuery.data ?? [];
@@ -53,7 +55,7 @@ export default function CheckOutPage() {
   const [notes, setNotes] = React.useState("");
   const [confirmOpen, setConfirmOpen] = React.useState(false);
 
-  const openWizard = (item: ReservationDto) => {
+  const openWizard = (item: BookingDto) => {
     setSelectedDepartureId(item.id);
     setStep(1);
     setKeyReturned(true);
@@ -62,26 +64,23 @@ export default function CheckOutPage() {
 
   const closeWizard = () => setSelectedDepartureId(null);
 
-  // Deep-link from /reservations/[id] and /in-house: preselect once the
-  // departure it points to has actually loaded, rather than assuming it's
-  // there immediately (avoids a useSearchParams Suspense boundary for a
-  // one-off convenience link).
   React.useEffect(() => {
     if (typeof window === "undefined" || selectedDepartureId) return;
-    const id = new URLSearchParams(window.location.search).get("reservationId");
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("bookingId") ?? urlParams.get("reservationId");
     const match = id ? departures.find((d) => d.id === id) : undefined;
     if (match) openWizard(match);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [departures]);
 
   const checkOutMutation = useMutation({
-    mutationFn: (body: CheckOutRequest) => apiFetch<ReservationDto>("/front-desk/check-out", { method: "POST", body: JSON.stringify(body) }),
-    onSuccess: (reservation) => {
+    mutationFn: (body: CheckOutRequest) => apiFetch<BookingDto>("/front-desk/check-out", { method: "POST", body: JSON.stringify(body) }),
+    onSuccess: (booking) => {
       queryClient.invalidateQueries({ queryKey: ["front-desk", "departures"] });
       queryClient.invalidateQueries({ queryKey: ["front-desk", "in-house"] });
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
-      toast.success(t("toast.completed", { name: `${reservation.mainGuest.firstName} ${reservation.mainGuest.lastName}`, room: reservation.assignedRoomNumber ?? "" }));
+      toast.success(t("toast.completed", { name: `${booking.mainGuest.firstName} ${booking.mainGuest.lastName}`, room: booking.assignedRoomNumber ?? "" }));
       setConfirmOpen(false);
       closeWizard();
     },
@@ -103,7 +102,7 @@ export default function CheckOutPage() {
   const handleConfirmCheckOut = () => {
     if (!selectedDeparture) return;
     checkOutMutation.mutate({
-      reservationId: selectedDeparture.id,
+      bookingId: selectedDeparture.id,
       keyReturned,
       notes: notes.trim() || null,
     });
@@ -113,7 +112,54 @@ export default function CheckOutPage() {
   const isError = departuresQuery.isError;
 
   return (
-    <div className="space-y-6">
+    <div>
+      {/* Mobile view */}
+      <div className="md:hidden">
+        <MobileHeader title={t("title")} />
+        <div className="space-y-4 p-4">
+          <h3 className="text-sm font-bold text-foreground">{t("departuresHeading", { count: departures.length })}</h3>
+
+          {isLoading ? (
+            <PageSkeleton />
+          ) : isError ? (
+            <ErrorState title={t("loadError")} onRetry={() => departuresQuery.refetch()} />
+          ) : (
+            <ResponsiveDataList
+              data={departures}
+              keyExtractor={(item) => item.id}
+              emptyMessage={t("emptyDepartures")}
+              renderCard={(item) => (
+                <div className="rounded-2xl border border-border/60 bg-card p-4 shadow-sm space-y-2.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-mono text-xs font-bold text-primary">{item.bookingNumber}</p>
+                      <p className="text-sm font-bold text-foreground">
+                        {item.mainGuest.firstName} {item.mainGuest.lastName}
+                      </p>
+                      <p className="text-xs font-semibold text-muted-foreground">
+                        {item.assignedRoomNumber ? t("table.roomPrefix", { room: item.assignedRoomNumber }) : t("unassigned")}
+                      </p>
+                    </div>
+                    <DateDisplay date={item.departureDate} />
+                  </div>
+                  <div className="flex items-center justify-between border-t border-border/40 pt-2.5">
+                    <MoneyDisplay amount={item.balanceDue} hideSecondary className={item.balanceDue > 0 ? "text-warning" : "text-success"} />
+                    {canEdit && (
+                      <Button size="sm" onClick={() => openWizard(item)}>
+                        <LogOut />
+                        <span>{t("processCheckOut")}</span>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Desktop / tablet view */}
+      <div className="hidden md:block space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
 
       <div className="bg-card border border-border/60 rounded-3xl p-6 shadow-xl space-y-4">
@@ -143,7 +189,7 @@ export default function CheckOutPage() {
               <tbody className="divide-y divide-border/30">
                 {departures.map((item) => (
                   <tr key={item.id} className="hover:bg-muted/30 transition-all">
-                    <td className="py-3.5 px-4 font-mono font-bold text-primary">{item.reservationNumber}</td>
+                    <td className="py-3.5 px-4 font-mono font-bold text-primary">{item.bookingNumber}</td>
                     <td className="py-3.5 px-4 font-bold text-foreground">
                       {item.mainGuest.firstName} {item.mainGuest.lastName}
                     </td>
@@ -169,12 +215,31 @@ export default function CheckOutPage() {
           </div>
         )}
       </div>
+      </div>
 
       <ResponsiveDialog
         open={!!selectedDeparture}
         onOpenChange={(open) => !open && closeWizard()}
         title={t("wizard.title")}
         description={selectedDeparture ? t("wizard.roomGuest", { room: selectedDeparture.assignedRoomNumber ?? "—", guestName: `${selectedDeparture.mainGuest.firstName} ${selectedDeparture.mainGuest.lastName}` }) : undefined}
+        footer={
+          selectedDeparture && (
+            <FormActions>
+              {step > 1 && (
+                <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)} disabled={checkOutMutation.isPending}>
+                  {tCommon("actions.back")}
+                </Button>
+              )}
+              <Button type="button" variant="outline" onClick={closeWizard} disabled={checkOutMutation.isPending}>
+                {tCommon("actions.cancel")}
+              </Button>
+              <Button type="button" onClick={handleNext} disabled={checkOutMutation.isPending}>
+                <LogOut />
+                <span>{isLastStep ? t("wizard.reviewAndComplete") : tCommon("actions.next")}</span>
+              </Button>
+            </FormActions>
+          )
+        }
       >
         {selectedDeparture && (
           <div className="space-y-4">
@@ -229,21 +294,6 @@ export default function CheckOutPage() {
                 <NotAvailableNotice title={t("wizard.notAvailable.invoiceTitle")} description={t("wizard.notAvailable.invoiceDescription")} />
               </div>
             )}
-
-            <FormActions>
-              {step > 1 && (
-                <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)} disabled={checkOutMutation.isPending}>
-                  {tCommon("actions.back")}
-                </Button>
-              )}
-              <Button type="button" variant="outline" onClick={closeWizard} disabled={checkOutMutation.isPending}>
-                {tCommon("actions.cancel")}
-              </Button>
-              <Button type="button" onClick={handleNext} disabled={checkOutMutation.isPending}>
-                <LogOut />
-                <span>{isLastStep ? t("wizard.reviewAndComplete") : tCommon("actions.next")}</span>
-              </Button>
-            </FormActions>
           </div>
         )}
       </ResponsiveDialog>

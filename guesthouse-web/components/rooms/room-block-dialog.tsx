@@ -9,16 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { formatDate } from "@/lib/dates";
+import { formatDate, addDaysIso } from "@/lib/dates";
 import type { RoomDto, RoomBlockDto } from "@/lib/api-types";
-
-// Calendar-date-only arithmetic anchored to the property's timezone, same
-// approach reservations/new uses for its arrival/departure pickers.
-function addDaysIso(iso: string, days: number): string {
-  const d = new Date(`${iso}T00:00:00Z`);
-  d.setUTCDate(d.getUTCDate() + days);
-  return d.toISOString().slice(0, 10);
-}
 
 function todayIso(): string {
   return formatDate(new Date(), "yyyy-MM-dd");

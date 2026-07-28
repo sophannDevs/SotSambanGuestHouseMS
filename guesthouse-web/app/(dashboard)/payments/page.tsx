@@ -5,8 +5,10 @@ import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { PageHeader } from "@/components/layout/header";
+import { MobileHeader } from "@/components/layout/mobile-header";
 import { DataTable } from "@/components/shared/data-table";
 import { DataTableToolbar } from "@/components/shared/data-table-toolbar";
+import { ResponsiveDataList } from "@/components/shared/responsive-data-list";
 import { PageSkeleton } from "@/components/shared/page-skeleton";
 import { ErrorState } from "@/components/shared/error-state";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -15,7 +17,7 @@ import { MoneyDisplay } from "@/components/shared/money-display";
 import { DateTimeDisplay } from "@/components/shared/date-display";
 import { apiFetch } from "@/lib/api-client";
 import { useAuthStore } from "@/lib/auth-store";
-import type { PaymentDto, ReservationDto, RecordPaymentRequest } from "@/lib/api-types";
+import type { PaymentDto, BookingDto, RecordPaymentRequest } from "@/lib/api-types";
 import { CreditCard, Plus, DollarSign, Banknote, QrCode, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { RecordPaymentDialog } from "@/components/payments/record-payment-dialog";
@@ -34,9 +36,9 @@ export default function PaymentsPage() {
     queryFn: () => apiFetch<PaymentDto[]>("/payments"),
     enabled: canView,
   });
-  const reservationsQuery = useQuery({
-    queryKey: ["reservations"],
-    queryFn: () => apiFetch<ReservationDto[]>("/reservations"),
+  const bookingsQuery = useQuery({
+    queryKey: ["bookings"],
+    queryFn: () => apiFetch<BookingDto[]>("/bookings"),
     enabled: canView,
   });
 
@@ -48,14 +50,14 @@ export default function PaymentsPage() {
     const list = payments ?? [];
     const q = search.trim().toLowerCase();
     if (!q) return list;
-    return list.filter((p) => p.paymentNumber.toLowerCase().includes(q) || p.guestName.toLowerCase().includes(q) || p.reservationNumber.toLowerCase().includes(q));
+    return list.filter((p) => p.paymentNumber.toLowerCase().includes(q) || p.guestName.toLowerCase().includes(q) || (p.bookingNumber ?? "").toLowerCase().includes(q));
   }, [payments, search]);
 
   const recordMutation = useMutation({
     mutationFn: (values: RecordPaymentRequest) => apiFetch<PaymentDto>("/payments", { method: "POST", body: JSON.stringify(values) }),
     onSuccess: (created) => {
       queryClient.invalidateQueries({ queryKey: ["payments"] });
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
       toast.success(t("toasts.recorded", { paymentNumber: created.paymentNumber }));
       setRecordOpen(false);
     },
@@ -77,7 +79,7 @@ export default function PaymentsPage() {
 
   const columns: ColumnDef<PaymentDto, unknown>[] = [
     { accessorKey: "paymentNumber", header: t("table.paymentNumber"), cell: ({ row }) => <span className="font-mono font-bold text-primary">{row.original.paymentNumber}</span> },
-    { accessorKey: "reservationNumber", header: t("table.reservationNumber"), cell: ({ row }) => <span className="font-mono text-xs">{row.original.reservationNumber}</span> },
+    { accessorKey: "bookingNumber", header: t("table.reservationNumber"), cell: ({ row }) => <span className="font-mono text-xs">{row.original.bookingNumber}</span> },
     { accessorKey: "guestName", header: t("table.guest"), cell: ({ row }) => <span className="font-bold text-foreground">{row.original.guestName}</span> },
     { accessorKey: "amount", header: t("table.amount"), cell: ({ row }) => <MoneyDisplay amount={row.original.amount} hideSecondary className="text-emerald-500" /> },
     { id: "method", header: t("table.method"), cell: ({ row }) => <span className="text-xs">{getMethodBadge(row.original.paymentMethod)}</span> },
@@ -111,7 +113,61 @@ export default function PaymentsPage() {
   const isError = paymentsQuery.isError;
 
   return (
-    <div className="space-y-6">
+    <div>
+      {/* Mobile view */}
+      <div className="md:hidden">
+        <MobileHeader
+          title={t("title")}
+          rightSlot={
+            canCreate ? (
+              <button
+                onClick={() => setRecordOpen(true)}
+                aria-label={t("actions.recordPayment")}
+                className="flex h-9 w-9 items-center justify-center rounded-full text-foreground hover:bg-muted"
+              >
+                <Plus className="h-5 w-5" />
+              </button>
+            ) : undefined
+          }
+        />
+        <div className="space-y-4 p-4">
+          <DataTableToolbar searchValue={search} onSearchChange={setSearch} searchPlaceholder={t("search.placeholder")} />
+          {isLoading ? (
+            <PageSkeleton />
+          ) : isError ? (
+            <ErrorState title={t("loadError")} onRetry={() => paymentsQuery.refetch()} />
+          ) : (
+            <ResponsiveDataList
+              data={filtered}
+              keyExtractor={(p) => p.id}
+              emptyMessage={tCommon("status.noResults")}
+              renderCard={(p) => (
+                <div className="rounded-2xl border border-border/60 bg-card p-4 shadow-sm space-y-2.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-mono text-xs font-bold text-primary">{p.paymentNumber}</p>
+                      <p className="text-sm font-bold text-foreground">{p.guestName}</p>
+                      <p className="font-mono text-[11px] text-muted-foreground">{p.bookingNumber}</p>
+                    </div>
+                    <StatusBadge status={p.status} />
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    {getMethodBadge(p.paymentMethod)}
+                    <MoneyDisplay amount={p.amount} hideSecondary className="text-emerald-500" />
+                  </div>
+                  <div className="flex items-center justify-between border-t border-border/40 pt-2.5 text-[11px] text-muted-foreground">
+                    <DateTimeDisplay date={p.paymentTime} />
+                    <span>{t.has(`kinds.${p.paymentKind}`) ? t(`kinds.${p.paymentKind}`) : p.paymentKind}</span>
+                  </div>
+                </div>
+              )}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Desktop / tablet view */}
+      <div className="hidden md:block space-y-6">
       <PageHeader
         title={t("title")}
         description={t("description")}
@@ -129,11 +185,12 @@ export default function PaymentsPage() {
       ) : (
         <DataTable columns={columns} data={filtered} emptyMessage={tCommon("status.noResults")} />
       )}
+      </div>
 
       <RecordPaymentDialog
         isOpen={recordOpen}
         onClose={() => setRecordOpen(false)}
-        reservations={reservationsQuery.data ?? []}
+        bookings={bookingsQuery.data ?? []}
         onSubmit={(values) => recordMutation.mutate(values)}
         isSubmitting={recordMutation.isPending}
       />

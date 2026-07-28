@@ -20,8 +20,8 @@ public class CheckOut {
     @Column(name = "property_id", nullable = false)
     private UUID propertyId;
 
-    @Column(name = "reservation_id", nullable = false)
-    private UUID reservationId;
+    @Column(name = "booking_id", nullable = false)
+    private UUID bookingId;
 
     @Column(name = "room_id", nullable = false)
     private UUID roomId;

@@ -21,7 +21,7 @@ export function formatTime(date: Date | string | number, pattern = "h:mm a"): st
   return formatInTimeZone(date, DEFAULT_TIMEZONE, pattern);
 }
 
-// Backend `LocalDate` fields (e.g. Reservation.arrivalDate) already serialize
+// Backend `LocalDate` fields (e.g. Booking.arrivalDate) already serialize
 // as a bare "yyyy-MM-dd" string with no time component, so they compare
 // directly against "today" in the property zone without re-parsing as an
 // instant; `Instant` fields (e.g. Payment.paymentTime) need the timezone
@@ -32,4 +32,18 @@ export function isTodayInPropertyZone(date: Date | string): boolean {
   const today = formatInTimeZone(new Date(), DEFAULT_TIMEZONE, "yyyy-MM-dd");
   const target = typeof date === "string" && PLAIN_DATE.test(date) ? date : formatInTimeZone(date, DEFAULT_TIMEZONE, "yyyy-MM-dd");
   return target === today;
+}
+
+// Calendar-date-only arithmetic — parsed and re-serialized in UTC so the
+// result never drifts with the browser's local offset. Only the anchor date
+// passed in needs to already be timezone-aware (e.g. via `formatDate`);
+// once anchored, day-adding/diffing is timezone-agnostic.
+export function addDaysIso(iso: string, days: number): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+export function diffDaysIso(a: string, b: string): number {
+  return Math.round((new Date(`${a}T00:00:00Z`).getTime() - new Date(`${b}T00:00:00Z`).getTime()) / 86_400_000);
 }

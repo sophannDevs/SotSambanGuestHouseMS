@@ -10,8 +10,8 @@ import java.util.UUID;
 @Setter
 public class CheckOutRequest {
 
-    @NotNull(message = "Reservation ID is required")
-    private UUID reservationId;
+    @NotNull(message = "Booking ID is required")
+    private UUID bookingId;
 
     private boolean keyReturned = true;
     private String notes;

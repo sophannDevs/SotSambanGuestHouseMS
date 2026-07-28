@@ -23,7 +23,7 @@ export interface StayEstimate {
   total: number;
 }
 
-// Mirrors ReservationService.createReservation's own arithmetic (rate * nights,
+// Mirrors BookingService.createBooking's own arithmetic (rate * nights,
 // flat 10% VAT) exactly, so the wizard's preview matches what the server will
 // actually charge in the common case — but it stays a preview: the server
 // recomputes and is the value of record (redesign-roadmap.md Phase 6,

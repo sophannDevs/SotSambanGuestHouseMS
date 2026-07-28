@@ -15,7 +15,8 @@
       "submit": "Submit",
       "view": "View",
       "logout": "Log Out",
-      "loggedOutSuccess": "Logged out successfully"
+      "loggedOutSuccess": "Logged out successfully",
+      "backToSettings": "Back to Settings"
     },
     "status": {
       "loading": "Loading...",
@@ -35,7 +36,8 @@
     },
     "items": {
       "dashboard": "Dashboard",
-      "reservations": "Reservations",
+      "bookings": "Bookings",
+      "reservations": "Bookings",
       "calendar": "Calendar",
       "check-in": "Check-In",
       "in-house": "In-House Guests",
@@ -119,32 +121,36 @@
   },
   "settings": {
     "pageTitle": "Settings",
-    "pageDescription": "Property information, currency, timezone, tax rates, deposit rules, and system configuration.",
-    "saveButton": "Save Settings",
-    "savedSuccess": "Settings saved successfully!",
+    "pageDescription": "Property profile, documents, taxes, staff, notifications, and localization.",
     "profile": {
       "roleCountry": "{role} · Cambodia",
       "ownerFallback": "Guest House Owner",
       "roleFallback": "Owner"
     },
     "rows": {
-      "businessProfile": "Business Profile",
-      "currency": "Currency",
-      "exchangeRate": "Exchange Rate",
-      "users": "Users",
-      "notification": "Notification",
-      "backupRestore": "Backup & Restore",
-      "language": "Language",
-      "aboutApp": "About App"
-    },
-    "tabs": {
-      "property": "Property Details",
+      "property": "Property Profile",
+      "propertyDescription": "Name, address, check-in/out times, Wi-Fi, house rules",
+      "documents": "Documents & Billing",
+      "documentsDescription": "Legal name, tax ID, bank details, invoice footer",
       "taxes": "Taxes & Pricing",
-      "policies": "Policies & Wi-Fi",
-      "language": "Language",
-      "dev": "Local Development"
+      "taxesDescription": "VAT and other tax rates",
+      "rooms": "Rooms & Rates",
+      "roomsDescription": "Room types, rooms, amenities",
+      "staffSecurity": "Staff & Security",
+      "staffSecurityDescription": "Staff directory, roles, permissions",
+      "notification": "Notifications",
+      "notificationDescription": "Alerts and in-app notification preferences",
+      "language": "Localization",
+      "languageDescription": "Interface language, currency, timezone",
+      "localDev": "Local Development",
+      "localDevDescription": "Seed data, email viewer, developer tools"
     },
     "property": {
+      "title": "Property Profile",
+      "mobileTitle": "Property Profile",
+      "description": "Business profile, address, check-in/out times, Wi-Fi credentials, and guest policies.",
+      "loadError": "Couldn't load property details.",
+      "savedSuccess": "Property details saved successfully!",
       "generalInfo": "General Information",
       "nameLabel": "Guest House Name",
       "codeLabel": "Property Code (Immutable)",
@@ -158,32 +164,103 @@
       "addressLineLabel": "Address Line",
       "cityLabel": "City",
       "provinceLabel": "Province",
+      "countryLabel": "Country",
+      "emergencyContactLabel": "Emergency Contact",
       "checkTimes": "Check-In & Check-Out Times",
       "checkInLabel": "Standard Check-In Time",
-      "checkOutLabel": "Standard Check-Out Time"
-    },
-    "taxes": {
-      "heading": "Tax Rates & Invoicing",
-      "vatLabel": "VAT / Sales Tax Percentage (%)",
-      "tinLabel": "Tax Identification Number (TIN)"
-    },
-    "policies": {
+      "checkOutLabel": "Standard Check-Out Time",
       "wifiHeading": "Wi-Fi & Guest Credentials",
+      "wifiDescription": "The password is masked by default — use the eye icon to reveal it before sharing with a guest.",
       "wifiNameLabel": "Wi-Fi Network Name (SSID)",
       "wifiPasswordLabel": "Wi-Fi Password",
+      "showWifiPassword": "Show Wi-Fi password",
+      "hideWifiPassword": "Hide Wi-Fi password",
       "rulesHeading": "House Rules & Cancellation Policy",
       "houseRulesLabel": "House Rules",
-      "cancellationPolicyLabel": "Cancellation Policy"
+      "cancellationPolicyLabel": "Cancellation Policy",
+      "noPermission": {
+        "title": "You don't have access to the property profile",
+        "description": "Viewing and editing property details requires the property:view permission, which your role doesn't have.",
+        "backAction": "Back to Settings"
+      }
     },
-    "dev": {
-      "heading": "Local Development Outbox",
-      "description": "Under the `local` profile, all password reset links and system notifications are logged here for instant preview without sending real emails.",
-      "simulatorTitle": "[Console Mail Simulator]",
-      "simulatedMailCount": "1 Simulated Mail",
-      "toLabel": "To",
-      "subjectLabel": "Subject",
-      "subjectValue": "Password Reset Request",
-      "linkLabel": "Link"
+    "documents": {
+      "title": "Documents & Billing",
+      "mobileTitle": "Documents & Billing",
+      "description": "Legal identity, billing details, and the text printed on invoices and receipts.",
+      "loadError": "Couldn't load document settings.",
+      "savedSuccess": "Document settings saved successfully!",
+      "legalHeading": "Legal & Billing",
+      "legalNameLabel": "Legal Business Name",
+      "businessRegistrationLabel": "Business Registration Number",
+      "taxIdLabel": "Tax Identification Number (TIN)",
+      "billingAddressLabel": "Billing Address",
+      "bankDetailsLabel": "Bank Details",
+      "invoiceHeading": "Invoice & Receipt Text",
+      "invoiceDescription": "Printed on generated invoices once invoice issuance is implemented.",
+      "invoiceFooterLabel": "Invoice Footer Note",
+      "termsLabel": "Terms & Conditions",
+      "notAvailable": {
+        "title": "Invoice numbering and templates aren't configurable yet",
+        "description": "Document numbering formats and a dedicated invoice/receipt template are a future build — invoice issuance itself has no backend yet."
+      },
+      "noPermission": {
+        "title": "You don't have access to documents & billing",
+        "description": "Viewing and editing these details requires the property:view permission, which your role doesn't have.",
+        "backAction": "Back to Settings"
+      }
+    },
+    "taxes": {
+      "title": "Taxes & Pricing",
+      "mobileTitle": "Taxes & Pricing",
+      "description": "Tax rates applied to reservations and folios.",
+      "loadError": "Couldn't load tax rates.",
+      "savedSuccess": "Tax saved successfully!",
+      "addTax": "Add Tax",
+      "appliesToServiceCharge": "Applies to service charge",
+      "excludesServiceCharge": "Excludes service charge",
+      "empty": {
+        "title": "No tax rates yet",
+        "description": "Add a tax rate — such as VAT — to apply it to reservations and folios."
+      },
+      "notAvailable": {
+        "title": "Service charges, discounts, and seasonal pricing aren't available yet",
+        "description": "Only fixed tax rates are configurable in this build — rate plans, seasonal prices, and promotions have no backend yet."
+      },
+      "dialog": {
+        "createTitle": "Add Tax",
+        "editTitle": "Edit Tax",
+        "description": "Set the tax name and rate applied to reservations.",
+        "nameLabel": "Tax Name",
+        "rateLabel": "Rate Percentage (%)",
+        "appliesToServiceChargeLabel": "Applies to service charge",
+        "activeLabel": "Active"
+      }
+    },
+    "localization": {
+      "title": "Localization",
+      "mobileTitle": "Localization",
+      "description": "Interface language, currency, and timezone.",
+      "preferenceHeading": "Interface Language",
+      "preferenceDescription": "Switches instantly for everyone using this device — no reload needed.",
+      "regionalHeading": "Currency & Timezone",
+      "regionalDescription": "Used across the app for money and date formatting.",
+      "currencyLabel": "Currency",
+      "timezoneLabel": "Operational Timezone",
+      "regionalEditHint": "Edit these on the Property Profile page.",
+      "notAvailable": {
+        "title": "Date, time, and number formats aren't independently configurable",
+        "description": "This build uses one fixed date/time/number format app-wide rather than a per-property setting."
+      }
+    },
+    "localDev": {
+      "title": "Local Development",
+      "mobileTitle": "Local Development",
+      "description": "Developer tools for the local profile.",
+      "empty": {
+        "title": "No local developer tools are wired up yet",
+        "description": "application-local.yml documents a planned local email viewer and a seed-data reset endpoint, but neither has been implemented — password reset itself has no backend controller yet, and demo data is seeded unconditionally by Flyway migrations rather than through a resettable dev endpoint."
+      }
     },
     "language": {
       "preferenceHeading": "Interface Language",
@@ -290,11 +367,11 @@
     "loadError": "Couldn't load live dashboard data"
   },
   "reservations": {
-    "title": "Reservations",
+    "title": "Bookings",
     "description": "View, filter, and manage guest house bookings, stays, and folios.",
     "newBooking": "New Booking",
-    "newReservationAria": "New reservation",
-    "searchPlaceholder": "Search by reservation # or guest name...",
+    "newReservationAria": "New booking",
+    "searchPlaceholder": "Search by booking # or guest name...",
     "tabs": {
       "all": "All",
       "today": "Today",
@@ -303,9 +380,9 @@
     },
     "emptyView": "No bookings in this view.",
     "unassigned": "Unassigned",
-    "loadError": "Couldn't load reservations",
+    "loadError": "Couldn't load bookings",
     "table": {
-      "reservationNumber": "Reservation #",
+      "reservationNumber": "Booking #",
       "guest": "Guest",
       "roomAndType": "Room & Type",
       "stayDates": "Stay Dates",
@@ -318,11 +395,22 @@
   },
   "calendar": {
     "title": "Reservation Calendar",
-    "description": "Multi-room timeline view of room occupancy, reservations, and maintenance blocks.",
+    "description": "Weekly timeline of confirmed and in-house reservations across every room.",
     "newBooking": "New Booking",
-    "toastNewBooking": "New booking modal opened",
     "today": "Today",
-    "roomColumn": "Room"
+    "roomColumn": "Room",
+    "loadError": "Couldn't load the calendar.",
+    "prevWeek": "Previous week",
+    "nextWeek": "Next week",
+    "noRooms": "No rooms configured yet.",
+    "unassignedNote": "{count} unassigned reservations this week aren't shown on the timeline — view them in Reservations.",
+    "agenda": {
+      "arriving": "Arriving",
+      "departing": "Departing",
+      "inHouse": "In-House",
+      "noActivity": "No arrivals, departures, or stays.",
+      "todayLabel": "Today"
+    }
   },
   "checkIn": {
     "title": "Check-In Desk",
@@ -920,38 +1008,40 @@
   },
   "reports": {
     "title": "Reports & Analytics",
-    "description": "Comprehensive financial reporting, Profit & Loss overview, Occupancy Rate, ADR, and RevPAR metrics.",
+    "description": "Financial summary, occupancy rate, ADR, and RevPAR — the one report this build implements out of the full reports catalogue.",
+    "loadError": "Couldn't load the report.",
+    "allTimeCaption": "All-time to date",
     "actions": {
       "exportReport": "Export Report",
       "exportCsv": "Export CSV Report"
     },
     "toasts": {
-      "reportExported": "Report exported",
-      "csvExported": "Financial report exported to CSV"
+      "exportNotAvailable": "Report export isn't available in this build yet."
     },
     "stats": {
-      "revenue": "Revenue",
-      "bookings": "Bookings",
-      "checkIns": "Check-ins",
-      "checkOuts": "Check-outs",
+      "bookings": "Bookings Today",
+      "checkIns": "Check-ins Today",
+      "checkOuts": "Check-outs Today",
       "grossRevenue": "Gross Revenue",
-      "vsLastMonth": "{percent} vs last month",
       "approvedExpenses": "Approved Expenses",
-      "approvedExpensesDescription": "Utilities, internet, supplies",
       "netProfit": "Net Profit",
-      "profitMargin": "{percent}% Profit Margin",
+      "netLoss": "Net Loss",
       "occupancyRate": "Occupancy Rate",
-      "adrRevPar": "ADR: {adr} • RevPAR: {revpar}"
+      "adr": "Average Daily Rate",
+      "revpar": "RevPAR"
     },
     "charts": {
-      "revenueChart": "Revenue Chart",
-      "revenueTrendToday": "Revenue Trend (Today)",
-      "plSummary": "P&L Summary ({month})"
+      "todayActivity": "Today's Front Desk Activity",
+      "plSummary": "All-Time P&L Summary"
     },
     "table": {
       "roomRevenue": "Room Revenue",
-      "utilitiesSupplies": "Utilities & Supplies",
+      "approvedExpenses": "Approved Expenses",
       "netOperatingProfit": "Net Operating Profit"
+    },
+    "notAvailable": {
+      "title": "More reports are coming",
+      "description": "Daily/monthly breakdowns, revenue by room type or source, cancellation/no-show/repeat-guest rates, average length of stay, booking lead time, guest reports, date-range and category filters, and CSV/Excel/PDF export aren't available in this build yet — only the all-time financial summary above is real."
     }
   },
   "minibar": {
@@ -975,16 +1065,19 @@
       "total": "Total"
     },
     "actions": {
-      "chargeToRoom": "Charge to Room"
+      "chargeToRoom": "Charge to Room",
+      "decreaseQuantity": "Decrease quantity of {item}",
+      "increaseQuantity": "Increase quantity of {item}"
     }
   },
   "staff": {
     "title": "Staff Directory & Roles",
     "description": "Manage staff user accounts, role assignments, and permission profiles.",
     "addMember": "Add Staff Member",
-    "toast": {
-      "addMemberOpened": "Add staff member modal opened"
+    "search": {
+      "placeholder": "Search by name or email..."
     },
+    "loadError": "Couldn't load the staff directory.",
     "table": {
       "name": "Staff Name",
       "email": "Email",
@@ -994,7 +1087,18 @@
     "roles": {
       "OWNER": "Owner",
       "MANAGER": "Manager",
-      "RECEPTIONIST": "Receptionist"
+      "RECEPTIONIST": "Receptionist",
+      "ACCOUNTANT": "Accountant",
+      "HOUSEKEEPING": "Housekeeping",
+      "MAINTENANCE": "Maintenance",
+      "READONLY": "Read Only"
+    },
+    "toast": {
+      "notAvailable": "Adding staff accounts isn't available in this build yet."
+    },
+    "notAvailable": {
+      "title": "Staff management is view-only for now",
+      "description": "Creating accounts, editing roles, deactivating staff, and resetting passwords aren't available yet — this build only reads the staff directory. Role and permission management also has no dedicated screen yet."
     }
   },
   "notifications": {
@@ -1004,7 +1108,8 @@
     "empty": {
       "title": "No notifications yet",
       "description": "In-app notification feeds and browser push alerts arrive here once the notifications backend is connected."
-    }
+    },
+    "notAvailable": "Notification preferences and read/unread tracking aren't available in this build yet."
   },
   "profile": {
     "mobileTitle": "My Profile",
@@ -1126,6 +1231,9 @@
     "mobileTitle": "New Booking",
     "title": "New Reservation",
     "description": "Create a reservation in a few guided steps.",
+    "summary": {
+      "heading": "Booking Summary"
+    },
     "steps": {
       "guest": "Guest",
       "room": "Room",

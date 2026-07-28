@@ -25,6 +25,15 @@ interface ResponsiveDialogProps {
   description?: string;
   children: React.ReactNode;
   className?: string;
+  /** Pins this content to the bottom of the dialog/sheet, outside the
+   * scrollable body — for a guided flow's Next/Back/Cancel bar (`FormActions`
+   * without its own `sticky` prop, which pins to the viewport and only makes
+   * sense for a full page, not a dialog), so it stays reachable while a long
+   * step's content scrolls (responsive-strategy.md §5's sticky-action-bar
+   * ask for the check-in/check-out wizards). Omit for dialogs whose action
+   * buttons should simply scroll with the content — every other
+   * ResponsiveDialog caller today. */
+  footer?: React.ReactNode;
 }
 
 // Dialog on desktop, a bottom Sheet on mobile — the one pattern the brief's
@@ -42,18 +51,29 @@ export function ResponsiveDialog({
   description,
   children,
   className,
+  footer,
 }: ResponsiveDialogProps) {
   const isMobile = useIsMobile();
 
   if (isMobile) {
     return (
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent side="bottom" className={cn("max-h-[90vh] overflow-y-auto rounded-t-2xl", className)}>
-          <SheetHeader>
+        <SheetContent
+          side="bottom"
+          className={cn("max-h-[90vh] rounded-t-2xl", footer ? "flex flex-col p-0" : "overflow-y-auto", className)}
+        >
+          <SheetHeader className={footer ? "p-4 pb-0" : undefined}>
             <SheetTitle>{title}</SheetTitle>
             {description && <SheetDescription>{description}</SheetDescription>}
           </SheetHeader>
-          <div className="px-4 pb-4">{children}</div>
+          {footer ? (
+            <>
+              <div className="flex-1 overflow-y-auto px-4 py-3">{children}</div>
+              <div className="px-4 pb-4">{footer}</div>
+            </>
+          ) : (
+            <div className="px-4 pb-4">{children}</div>
+          )}
         </SheetContent>
       </Sheet>
     );
@@ -61,12 +81,19 @@ export function ResponsiveDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={cn("sm:max-w-lg max-h-[85vh] overflow-y-auto", className)}>
-        <DialogHeader>
+      <DialogContent className={cn("sm:max-w-lg max-h-[85vh]", footer ? "flex flex-col p-0" : "overflow-y-auto", className)}>
+        <DialogHeader className={footer ? "p-4 pb-0" : undefined}>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        {children}
+        {footer ? (
+          <>
+            <div className="flex-1 overflow-y-auto px-4 py-3">{children}</div>
+            <div className="px-4 pb-4">{footer}</div>
+          </>
+        ) : (
+          children
+        )}
       </DialogContent>
     </Dialog>
   );

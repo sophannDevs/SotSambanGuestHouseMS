@@ -22,7 +22,7 @@ public class ReportController {
     }
 
     @GetMapping("/financial")
-    @PreAuthorize("hasAuthority('report:financial')")
+    @PreAuthorize("hasAuthority('report:view')")
     public ResponseEntity<ApiResponse<FinancialReportDto>> getFinancialReport(@AuthenticationPrincipal UserPrincipal principal) {
         FinancialReportDto report = reportService.getFinancialReport(principal.getPropertyId());
         return ResponseEntity.ok(ApiResponse.ok(report));

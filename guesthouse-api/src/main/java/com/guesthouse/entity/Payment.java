@@ -24,8 +24,8 @@ public class Payment {
     @Column(name = "payment_number", nullable = false)
     private String paymentNumber;
 
-    @Column(name = "reservation_id", nullable = false)
-    private UUID reservationId;
+    @Column(name = "booking_id", nullable = false)
+    private UUID bookingId;
 
     @Column(name = "guest_id", nullable = false)
     private UUID guestId;

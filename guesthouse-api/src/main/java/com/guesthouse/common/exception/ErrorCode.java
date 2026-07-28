@@ -36,8 +36,8 @@ public enum ErrorCode {
     ROOM_NOT_CLEAN(HttpStatus.CONFLICT, "Room is dirty and requires cleaning"),
     ROOM_CAPACITY_EXCEEDED(HttpStatus.UNPROCESSABLE_ENTITY, "Guest count exceeds room capacity"),
 
-    // Reservations & Stays
-    RESERVATION_NOT_FOUND(HttpStatus.NOT_FOUND, "Reservation not found"),
+    // Bookings & Stays
+    BOOKING_NOT_FOUND(HttpStatus.NOT_FOUND, "Booking not found"),
     INVALID_DATE_RANGE(HttpStatus.BAD_REQUEST, "Invalid date range specified"),
     DEPOSIT_REQUIRED(HttpStatus.UNPROCESSABLE_ENTITY, "Deposit payment is required before action"),
     STAY_NOT_IN_PROGRESS(HttpStatus.BAD_REQUEST, "Stay is not currently active"),
