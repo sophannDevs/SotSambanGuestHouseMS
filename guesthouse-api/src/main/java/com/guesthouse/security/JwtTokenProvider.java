@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
@@ -47,13 +48,15 @@ public class JwtTokenProvider {
     }
 
     public UUID getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        return UUID.fromString(parseClaims(token).getSubject());
+    }
 
-        return UUID.fromString(claims.getSubject());
+    public Instant getExpirationFromToken(String token) {
+        return parseClaims(token).getExpiration().toInstant();
+    }
+
+    public Instant getIssuedAtFromToken(String token) {
+        return parseClaims(token).getIssuedAt().toInstant();
     }
 
     public boolean validateToken(String authToken) {
@@ -68,5 +71,13 @@ public class JwtTokenProvider {
 
     public long getRefreshExpirationMs() {
         return refreshExpirationMs;
+    }
+
+    private Claims parseClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }

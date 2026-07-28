@@ -26,15 +26,18 @@ public class OperationsService {
     private final HousekeepingTaskRepository housekeepingTaskRepository;
     private final MaintenanceIssueRepository maintenanceIssueRepository;
     private final RoomRepository roomRepository;
+    private final RoomService roomService;
 
     public OperationsService(
             HousekeepingTaskRepository housekeepingTaskRepository,
             MaintenanceIssueRepository maintenanceIssueRepository,
-            RoomRepository roomRepository
+            RoomRepository roomRepository,
+            RoomService roomService
     ) {
         this.housekeepingTaskRepository = housekeepingTaskRepository;
         this.maintenanceIssueRepository = maintenanceIssueRepository;
         this.roomRepository = roomRepository;
+        this.roomService = roomService;
     }
 
     @Transactional(readOnly = true)
@@ -57,6 +60,7 @@ public class OperationsService {
             room.setHousekeepingStatus("CLEAN".equalsIgnoreCase(newStatus) ? "CLEAN" : "INSPECTED");
             room.setUpdatedBy(userId);
             roomRepository.save(room);
+            roomService.evictRoomAvailabilityCache();
         }
 
         HousekeepingTask saved = housekeepingTaskRepository.save(task);
@@ -89,6 +93,7 @@ public class OperationsService {
             room.setOperationalStatus("UNDER_MAINTENANCE");
             room.setUpdatedBy(userId);
             roomRepository.save(room);
+            roomService.evictRoomAvailabilityCache();
         }
 
         MaintenanceIssue saved = maintenanceIssueRepository.save(issue);
@@ -108,6 +113,7 @@ public class OperationsService {
             room.setOperationalStatus("AVAILABLE");
             room.setUpdatedBy(userId);
             roomRepository.save(room);
+            roomService.evictRoomAvailabilityCache();
         }
 
         MaintenanceIssue saved = maintenanceIssueRepository.save(issue);

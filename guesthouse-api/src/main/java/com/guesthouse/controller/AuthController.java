@@ -40,18 +40,31 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody(required = false) RefreshTokenRequest request) {
-        if (request != null && request.getRefreshToken() != null) {
-            authService.logout(request.getRefreshToken());
-        }
+    public ResponseEntity<ApiResponse<Void>> logout(
+            @RequestBody(required = false) RefreshTokenRequest request,
+            HttpServletRequest httpRequest
+    ) {
+        String rawRefreshToken = (request != null) ? request.getRefreshToken() : null;
+        authService.logout(rawRefreshToken, extractBearerToken(httpRequest));
         return ResponseEntity.ok(ApiResponse.ok("Logged out successfully", null));
     }
 
     @PostMapping("/logout-all")
-    public ResponseEntity<ApiResponse<Void>> logoutAll(@AuthenticationPrincipal UserPrincipal principal) {
+    public ResponseEntity<ApiResponse<Void>> logoutAll(
+            @AuthenticationPrincipal UserPrincipal principal,
+            HttpServletRequest httpRequest
+    ) {
         if (principal != null) {
-            authService.logoutAll(principal.getId());
+            authService.logoutAll(principal.getId(), extractBearerToken(httpRequest));
         }
         return ResponseEntity.ok(ApiResponse.ok("Logged out from all sessions", null));
+    }
+
+    private String extractBearerToken(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7);
+        }
+        return null;
     }
 }

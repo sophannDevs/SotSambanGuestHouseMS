@@ -1,5 +1,6 @@
 package com.guesthouse.service;
 
+import com.guesthouse.audit.AuditAction;
 import com.guesthouse.common.exception.BusinessException;
 import com.guesthouse.common.exception.ErrorCode;
 import com.guesthouse.dto.room.AmenityDto;
@@ -12,6 +13,7 @@ import com.guesthouse.repository.RoomTypeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,11 +24,13 @@ public class RoomTypeService {
     private final RoomTypeRepository roomTypeRepository;
     private final AmenityRepository amenityRepository;
     private final RoomRepository roomRepository;
+    private final AuditService auditService;
 
-    public RoomTypeService(RoomTypeRepository roomTypeRepository, AmenityRepository amenityRepository, RoomRepository roomRepository) {
+    public RoomTypeService(RoomTypeRepository roomTypeRepository, AmenityRepository amenityRepository, RoomRepository roomRepository, AuditService auditService) {
         this.roomTypeRepository = roomTypeRepository;
         this.amenityRepository = amenityRepository;
         this.roomRepository = roomRepository;
+        this.auditService = auditService;
     }
 
     @Transactional(readOnly = true)
@@ -65,6 +69,8 @@ public class RoomTypeService {
             throw new BusinessException(ErrorCode.INVALID_PARAMETER, "Room type code already exists: " + dto.getCode());
         }
 
+        BigDecimal oldBasePrice = roomType.getBasePrice();
+
         roomType.setUpdatedBy(userId);
         copyProperties(dto, roomType);
 
@@ -74,6 +80,12 @@ public class RoomTypeService {
         }
 
         RoomType saved = roomTypeRepository.save(roomType);
+
+        if (oldBasePrice != null && saved.getBasePrice() != null && oldBasePrice.compareTo(saved.getBasePrice()) != 0) {
+            auditService.record(propertyId, userId, AuditAction.PRICE_MODIFIED, "ROOM_TYPE", saved.getId(),
+                    oldBasePrice.toPlainString(), saved.getBasePrice().toPlainString(), "Base price changed for room type " + saved.getCode());
+        }
+
         return mapToDto(saved);
     }
 

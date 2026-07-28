@@ -13,6 +13,8 @@ import com.guesthouse.repository.RoomBlockRepository;
 import com.guesthouse.repository.RoomRepository;
 import com.guesthouse.repository.RoomStatusHistoryRepository;
 import com.guesthouse.repository.RoomTypeRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,7 @@ public class RoomService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "roomAvailability", key = "#propertyId + '-' + #floor")
     public List<RoomDto> getRooms(UUID propertyId, Integer floor) {
         List<Room> rooms = (floor != null)
                 ? roomRepository.findByPropertyIdAndFloorAndDeletedAtIsNullOrderByRoomNumberAsc(propertyId, floor)
@@ -52,6 +55,7 @@ public class RoomService {
     }
 
     @Transactional
+    @CacheEvict(value = "roomAvailability", allEntries = true)
     public RoomDto createRoom(UUID propertyId, RoomDto dto, UUID userId) {
         if (roomRepository.existsByPropertyIdAndRoomNumberAndDeletedAtIsNull(propertyId, dto.getRoomNumber())) {
             throw new BusinessException(ErrorCode.INVALID_PARAMETER, "Room number already exists: " + dto.getRoomNumber());
@@ -76,6 +80,7 @@ public class RoomService {
     }
 
     @Transactional
+    @CacheEvict(value = "roomAvailability", allEntries = true)
     public List<RoomDto> bulkCreateRooms(UUID propertyId, BulkCreateRoomsRequest request, UUID userId) {
         RoomType roomType = roomTypeRepository.findById(request.getRoomTypeId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Room type not found"));
@@ -106,6 +111,7 @@ public class RoomService {
     }
 
     @Transactional
+    @CacheEvict(value = "roomAvailability", allEntries = true)
     public RoomDto updateHousekeepingStatus(UUID propertyId, UUID roomId, String housekeepingStatus, UUID userId, String reason) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Room not found"));
@@ -131,6 +137,7 @@ public class RoomService {
     }
 
     @Transactional
+    @CacheEvict(value = "roomAvailability", allEntries = true)
     public RoomBlockDto blockRoom(UUID propertyId, RoomBlockDto dto, UUID userId) {
         Room room = roomRepository.findById(dto.getRoomId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Room not found"));
@@ -151,6 +158,16 @@ public class RoomService {
         roomRepository.save(room);
 
         return new RoomBlockDto(savedBlock.getId(), room.getId(), room.getRoomNumber(), savedBlock.getStartDate(), savedBlock.getEndDate(), savedBlock.getReason(), savedBlock.getNote());
+    }
+
+    /**
+     * FrontDeskService and OperationsService mutate Room's operational/
+     * housekeeping status directly (check-in/out, maintenance, inspections)
+     * without going through this service, so they call this to invalidate
+     * the cache populated by getRooms().
+     */
+    @CacheEvict(value = "roomAvailability", allEntries = true)
+    public void evictRoomAvailabilityCache() {
     }
 
     private RoomDto mapToDto(Room room) {

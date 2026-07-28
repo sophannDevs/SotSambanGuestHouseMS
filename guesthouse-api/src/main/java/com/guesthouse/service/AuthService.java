@@ -12,17 +12,15 @@ import com.guesthouse.repository.LoginHistoryRepository;
 import com.guesthouse.repository.RefreshTokenRepository;
 import com.guesthouse.repository.UserRepository;
 import com.guesthouse.security.JwtTokenProvider;
+import com.guesthouse.security.TokenBlacklistService;
+import com.guesthouse.security.TokenHashUtil;
 import com.guesthouse.security.UserPrincipal;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-import java.util.HexFormat;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -36,19 +34,22 @@ public class AuthService {
     private final LoginHistoryRepository loginHistoryRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
+    private final TokenBlacklistService tokenBlacklistService;
 
     public AuthService(
             UserRepository userRepository,
             RefreshTokenRepository refreshTokenRepository,
             LoginHistoryRepository loginHistoryRepository,
             PasswordEncoder passwordEncoder,
-            JwtTokenProvider tokenProvider
+            JwtTokenProvider tokenProvider,
+            TokenBlacklistService tokenBlacklistService
     ) {
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
         this.loginHistoryRepository = loginHistoryRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Transactional
@@ -93,7 +94,7 @@ public class AuthService {
 
         // Generate Refresh Token
         String rawRefreshToken = UUID.randomUUID().toString();
-        String tokenHash = hashToken(rawRefreshToken);
+        String tokenHash = TokenHashUtil.sha256Hex(rawRefreshToken);
 
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(user);
@@ -127,7 +128,7 @@ public class AuthService {
 
     @Transactional
     public LoginResponse refreshToken(RefreshTokenRequest request) {
-        String tokenHash = hashToken(request.getRefreshToken());
+        String tokenHash = TokenHashUtil.sha256Hex(request.getRefreshToken());
         Optional<RefreshToken> tokenOpt = refreshTokenRepository.findByTokenHash(tokenHash);
 
         if (tokenOpt.isEmpty()) {
@@ -155,7 +156,7 @@ public class AuthService {
         oldToken.setRevokedAt(Instant.now());
 
         String newRawRefreshToken = UUID.randomUUID().toString();
-        String newTokenHash = hashToken(newRawRefreshToken);
+        String newTokenHash = TokenHashUtil.sha256Hex(newRawRefreshToken);
 
         RefreshToken newToken = new RefreshToken();
         newToken.setUser(user);
@@ -192,19 +193,31 @@ public class AuthService {
     }
 
     @Transactional
-    public void logout(String rawRefreshToken) {
+    public void logout(String rawRefreshToken, String rawAccessToken) {
         if (rawRefreshToken != null && !rawRefreshToken.isBlank()) {
-            String tokenHash = hashToken(rawRefreshToken);
+            String tokenHash = TokenHashUtil.sha256Hex(rawRefreshToken);
             refreshTokenRepository.findByTokenHash(tokenHash).ifPresent(t -> {
                 t.setRevokedAt(Instant.now());
                 refreshTokenRepository.save(t);
             });
         }
+        blacklistAccessToken(rawAccessToken);
     }
 
     @Transactional
-    public void logoutAll(UUID userId) {
+    public void logoutAll(UUID userId, String rawAccessToken) {
         refreshTokenRepository.revokeAllForUser(userId, Instant.now());
+        // Revokes every access token issued to this user up to now, not just
+        // the one used for this request — the point of "log out everywhere".
+        tokenBlacklistService.revokeAllForUser(userId, Instant.now());
+        blacklistAccessToken(rawAccessToken);
+    }
+
+    private void blacklistAccessToken(String rawAccessToken) {
+        if (rawAccessToken == null || rawAccessToken.isBlank() || !tokenProvider.validateToken(rawAccessToken)) {
+            return;
+        }
+        tokenBlacklistService.blacklistToken(rawAccessToken, tokenProvider.getExpirationFromToken(rawAccessToken));
     }
 
     private void recordLoginAttempt(UUID userId, String email, String action, String status, String reason, String ip, String userAgent) {
@@ -217,16 +230,6 @@ public class AuthService {
         history.setIpAddress(ip);
         history.setUserAgent(userAgent != null && userAgent.length() > 450 ? userAgent.substring(0, 450) : userAgent);
         loginHistoryRepository.save(history);
-    }
-
-    private String hashToken(String rawToken) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(rawToken.getBytes(StandardCharsets.UTF_8));
-            return HexFormat.of().formatHex(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 algorithm missing", e);
-        }
     }
 
     private String getClientIp(HttpServletRequest request) {

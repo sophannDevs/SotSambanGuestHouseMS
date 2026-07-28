@@ -1,5 +1,6 @@
 package com.guesthouse.service;
 
+import com.guesthouse.audit.AuditAction;
 import com.guesthouse.common.exception.BusinessException;
 import com.guesthouse.common.exception.ErrorCode;
 import com.guesthouse.dto.booking.CreateBookingRequest;
@@ -26,6 +27,7 @@ public class BookingService {
     private final RoomRepository roomRepository;
     private final DocumentSequenceRepository documentSequenceRepository;
     private final BookingStatusHistoryRepository bookingStatusHistoryRepository;
+    private final AuditService auditService;
 
     public BookingService(
             BookingRepository bookingRepository,
@@ -33,7 +35,8 @@ public class BookingService {
             RoomTypeRepository roomTypeRepository,
             RoomRepository roomRepository,
             DocumentSequenceRepository documentSequenceRepository,
-            BookingStatusHistoryRepository bookingStatusHistoryRepository
+            BookingStatusHistoryRepository bookingStatusHistoryRepository,
+            AuditService auditService
     ) {
         this.bookingRepository = bookingRepository;
         this.guestRepository = guestRepository;
@@ -41,6 +44,7 @@ public class BookingService {
         this.roomRepository = roomRepository;
         this.documentSequenceRepository = documentSequenceRepository;
         this.bookingStatusHistoryRepository = bookingStatusHistoryRepository;
+        this.auditService = auditService;
     }
 
     @Transactional(readOnly = true)
@@ -130,6 +134,11 @@ public class BookingService {
         history.setChangedBy(userId);
         history.setReason(reason != null ? reason : "Status updated to " + newStatus);
         bookingStatusHistoryRepository.save(history);
+
+        if ("CANCELLED".equalsIgnoreCase(newStatus)) {
+            auditService.record(propertyId, userId, AuditAction.BOOKING_CANCELLED, "BOOKING", id,
+                    oldStatus, newStatus, reason);
+        }
 
         return mapToDto(saved);
     }

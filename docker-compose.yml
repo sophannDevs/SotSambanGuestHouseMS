@@ -24,6 +24,27 @@ services:
         max-file: "3"
 
   # ---------------------------------------------------------------------------
+  # Cache / Token Revocation Store (Redis 7)
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: guesthouse-redis
+    restart: always
+    command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru", "--save", ""]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ---------------------------------------------------------------------------
   # Backend API Service (Spring Boot 3.4 / Java 21)
   # ---------------------------------------------------------------------------
   api:
@@ -34,6 +55,8 @@ services:
     restart: always
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     environment:
       SERVER_PORT: 8080
@@ -48,6 +71,11 @@ services:
       JWT_ACCESS_EXPIRATION_MINUTES: ${JWT_ACCESS_EXPIRATION_MINUTES:-60}
       JWT_REFRESH_EXPIRATION_DAYS: ${JWT_REFRESH_EXPIRATION_DAYS:-30}
       FILE_UPLOAD_DIR: /app/uploads
+      REDIS_ENABLED: "true"
+      CACHE_TYPE: redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
     volumes:
       - uploads_data:/app/uploads
     logging:
@@ -107,4 +135,6 @@ volumes:
   postgres_data:
     driver: local
   uploads_data:
+    driver: local
+  redis_data:
     driver: local

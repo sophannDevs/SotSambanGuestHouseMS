@@ -26,19 +26,22 @@ public class FrontDeskService {
     private final CheckInRepository checkInRepository;
     private final CheckOutRepository checkOutRepository;
     private final BookingService bookingService;
+    private final RoomService roomService;
 
     public FrontDeskService(
             BookingRepository bookingRepository,
             RoomRepository roomRepository,
             CheckInRepository checkInRepository,
             CheckOutRepository checkOutRepository,
-            BookingService bookingService
+            BookingService bookingService,
+            RoomService roomService
     ) {
         this.bookingRepository = bookingRepository;
         this.roomRepository = roomRepository;
         this.checkInRepository = checkInRepository;
         this.checkOutRepository = checkOutRepository;
         this.bookingService = bookingService;
+        this.roomService = roomService;
     }
 
     @Transactional
@@ -60,6 +63,7 @@ public class FrontDeskService {
         room.setOperationalStatus("OCCUPIED");
         room.setUpdatedBy(userId);
         roomRepository.save(room);
+        roomService.evictRoomAvailabilityCache();
 
         // 3. Save CheckIn record
         CheckIn checkIn = new CheckIn();
@@ -93,6 +97,7 @@ public class FrontDeskService {
             room.setHousekeepingStatus("DIRTY");
             room.setUpdatedBy(userId);
             roomRepository.save(room);
+            roomService.evictRoomAvailabilityCache();
         }
 
         // 3. Save CheckOut record

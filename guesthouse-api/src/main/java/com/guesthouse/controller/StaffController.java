@@ -1,10 +1,12 @@
 package com.guesthouse.controller;
 
+import com.guesthouse.audit.AuditAction;
 import com.guesthouse.common.dto.ApiResponse;
 import com.guesthouse.dto.staff.StaffDto;
 import com.guesthouse.entity.User;
 import com.guesthouse.repository.UserRepository;
 import com.guesthouse.security.UserPrincipal;
+import com.guesthouse.service.AuditService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,9 +22,11 @@ import java.util.stream.Collectors;
 public class StaffController {
 
     private final UserRepository userRepository;
+    private final AuditService auditService;
 
-    public StaffController(UserRepository userRepository) {
+    public StaffController(UserRepository userRepository, AuditService auditService) {
         this.userRepository = userRepository;
+        this.auditService = auditService;
     }
 
     @GetMapping
@@ -38,6 +42,9 @@ public class StaffController {
                         u.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
+
+        auditService.record(principal.getPropertyId(), principal.getId(), AuditAction.STAFF_ACCESSED,
+                "STAFF_DIRECTORY", null, null, null, "Viewed staff directory (" + staffList.size() + " records)");
 
         return ResponseEntity.ok(ApiResponse.ok(staffList));
     }

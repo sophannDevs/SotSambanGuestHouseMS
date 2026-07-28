@@ -26,10 +26,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider tokenProvider;
     private final UserRepository userRepository;
+    private final TokenBlacklistService tokenBlacklistService;
 
-    public JwtAuthenticationFilter(JwtTokenProvider tokenProvider, UserRepository userRepository) {
+    public JwtAuthenticationFilter(JwtTokenProvider tokenProvider, UserRepository userRepository, TokenBlacklistService tokenBlacklistService) {
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Override
@@ -38,8 +40,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String jwt = getJwtFromRequest(request);
 
-            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt) && !tokenBlacklistService.isTokenBlacklisted(jwt)) {
                 UUID userId = tokenProvider.getUserIdFromToken(jwt);
+
+                if (tokenBlacklistService.isRevokedForUser(userId, tokenProvider.getIssuedAtFromToken(jwt))) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+
                 Optional<User> userOptional = userRepository.findById(userId);
 
                 if (userOptional.isPresent() && userOptional.get().getDeletedAt() == null) {

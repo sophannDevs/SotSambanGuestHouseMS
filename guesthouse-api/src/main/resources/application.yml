@@ -53,6 +53,21 @@ spring:
         format_sql: false
     show-sql: false
 
+  # ----------------------------------------------------------------- Caching
+  # simple = in-process ConcurrentHashMap, no Redis needed (local/test default).
+  # Docker Compose sets CACHE_TYPE=redis so caching and token revocation share
+  # the same Redis instance in every deployed environment.
+  cache:
+    type: ${CACHE_TYPE:simple}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      connect-timeout: 2000ms
+      timeout: 2000ms
+
   # ------------------------------------------------------------------- Flyway
   flyway:
     enabled: true
@@ -163,6 +178,14 @@ app:
       lockout-duration-minutes: ${AUTH_LOCKOUT_MINUTES:15}
     password:
       min-length: 10
+
+  # Redis-backed JWT revocation (logout / logout-all) and response caching.
+  # Off by default so local dev and integration tests never need a Redis
+  # instance; Docker Compose sets REDIS_ENABLED=true. When false, an
+  # in-memory fallback is used instead (single-instance only, cleared on
+  # restart) so logout/logout-all still work locally without Redis.
+  redis:
+    enabled: ${REDIS_ENABLED:false}
 
   seed:
     # Demo data is only ever created under the local profile.
