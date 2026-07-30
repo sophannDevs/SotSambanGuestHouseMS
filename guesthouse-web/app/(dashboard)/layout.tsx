@@ -51,7 +51,7 @@ export default function DashboardLayout({
         <div className="hidden md:flex">
           <TopBar />
         </div>
-        <main className="flex-1 overflow-y-auto pb-24 md:p-6 md:pb-8 lg:p-8">
+        <main className="flex-1 overflow-y-auto pb-[calc(6rem+env(safe-area-inset-bottom))] md:p-6 md:pb-8 lg:p-8">
           <div className="mx-auto max-w-7xl">{children}</div>
         </main>
       </SidebarInset>

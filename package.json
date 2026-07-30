@@ -1,0 +1,12 @@
+{
+  "name": "guest-house-management",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace root for the Guest House Manager monorepo (guesthouse-api + guesthouse-web). Exists only to give Agent Control Center a single lint/typecheck/test/build entrypoint — this package has no source of its own.",
+  "scripts": {
+    "lint": "npm run lint --prefix guesthouse-web",
+    "typecheck": "npm run type-check --prefix guesthouse-web && cd guesthouse-api && mvnw.cmd compile",
+    "test": "cd guesthouse-api && mvnw.cmd test",
+    "build": "npm run build --prefix guesthouse-web && cd guesthouse-api && mvnw.cmd clean package -DskipTests"
+  }
+}

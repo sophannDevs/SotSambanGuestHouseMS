@@ -61,10 +61,10 @@ export default function LoginPage() {
 
       const demoRoles = isOwner ? ["OWNER"] : isManager ? ["MANAGER"] : ["RECEPTIONIST"];
       const demoPermissions = isOwner
-        ? ["dashboard:view", "reservation:view", "staff:view", "settings:view"]
+        ? ["dashboard:view", "booking:view", "staff:view", "settings:view"]
         : isManager
-        ? ["dashboard:view", "reservation:view", "settings:view"]
-        : ["dashboard:view", "reservation:view"];
+        ? ["dashboard:view", "booking:view", "settings:view"]
+        : ["dashboard:view", "booking:view"];
 
       setSession(
         {

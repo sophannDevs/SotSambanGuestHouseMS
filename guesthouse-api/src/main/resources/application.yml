@@ -15,6 +15,10 @@ spring:
   application:
     name: guesthouse-api
 
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:local}
 

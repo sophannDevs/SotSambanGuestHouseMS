@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BOTTOM_NAV_ITEMS } from "@/lib/nav-config";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Exactly the 5 tabs documented in conventions.md §11 / source-brief B5:
 // Dashboard · Reservations · Calendar · Guests · More. Kept as a fixed,
@@ -16,13 +17,22 @@ import { BOTTOM_NAV_ITEMS } from "@/lib/nav-config";
 export function BottomNav() {
   const pathname = usePathname();
   const t = useTranslations("nav");
+  const isMobile = useIsMobile();
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
   const moreActive = BOTTOM_NAV_ITEMS.every((item) => !isActive(item.href)) && pathname !== "/dashboard";
+
+  // Driven by the same useIsMobile() signal as Sidebar/ResponsiveDialog
+  // (rather than a static `md:hidden` breakpoint) so large phones in
+  // landscape (e.g. iPhone 14 Pro Max, 932px) keep the bottom bar instead
+  // of flipping into the desktop sidebar layout. See REQ-020.
+  if (!isMobile) {
+    return null;
+  }
 
   return (
     <nav
       aria-label="Primary"
-      className="fixed bottom-0 left-0 right-0 z-40 h-16 border-t border-border/50 bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-40 h-[calc(4rem+env(safe-area-inset-bottom))] border-t border-border/50 bg-card/95 backdrop-blur-md"
     >
       <div className="mx-auto grid h-16 max-w-md grid-cols-5">
         {BOTTOM_NAV_ITEMS.map((item) => (
